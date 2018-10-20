@@ -16,5 +16,8 @@ add_executable(bisection "Root Finders/bisection.c" "Root Finders/bisection.h" l
 add_executable(falsePosition "Root Finders/falsePosition.c" "Root Finders/falsePosition.h" lib/functions.c
                lib/functions.h lib/parser.c lib/parser.h)
 
-add_executable(newtonRaphson "Root Finders/newtonRaphson.c" "Root Finders/newtonRaphson.c" lib/functions.c
+add_executable(newtonRaphson "Root Finders/newtonRaphson.c" "Root Finders/newtonRaphson.h" lib/functions.c
+               lib/functions.h lib/parser.c lib/parser.h)
+
+add_executable(secant "Root Finders/secant.c" "Root Finders/secant.h" lib/functions.c
                lib/functions.h lib/parser.c lib/parser.h)

@@ -91,9 +91,12 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             xNew = x - fx / dfx;
             fxNew = function(xNew, expression);
 
-            printf("Iteration number: %d, f(x(%d)) = %lf, f'(x(%d)) = %lf,\ndelta(x) = f(x(%d)) / f'(x(%d)) = %lf,"
-                   " x(%d) = x(%d) - delta(x) = %.10e\n\n", iter, iter-1, fx, iter-1, dfx, iter-1, iter-1, fx/dfx, iter,
-                   iter-1, xNew);
+            if (mode) {
+                printf("Iteration number: %d, f(x(%d)) = %lf, f'(x(%d)) = %lf,\ndelta(x) = f(x(%d)) / f'(x(%d)) = %lf,"
+                       " x(%d) = x(%d) - delta(x) = %.10e\n\n", iter, iter - 1, fx, iter - 1, dfx, iter - 1, iter - 1,
+                       fx / dfx, iter,
+                       iter - 1, xNew);
+            } // end of if mode
 
             ete_err = fabs(fx / dfx);
             ere_err = fabs(fx / dfx * x);

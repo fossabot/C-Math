@@ -93,7 +93,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
 
         while (iter <= maxiter) {
 
-            c = (a*fb - b*fa) / (fb - fa);
+            c = (a * fb - b * fa) / (fb - fa);
             double fc = function(c, expression);
 
             if (mode) {
