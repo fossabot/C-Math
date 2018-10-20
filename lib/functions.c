@@ -24,8 +24,8 @@ double function(double value, const char *expression) {
 }// end of function
 
 
-double firstDerivative(int x, double delta, const char *expression) {
-    return (function(x + delta, expression) - function(x - delta, expression)) / 2 * delta;
+double firstDerivative(double x, double delta, const char *expression) {
+    return (function(x + delta, expression) - function(x - delta, expression)) / (2 * delta);
 }
 
 void Exit(void) {

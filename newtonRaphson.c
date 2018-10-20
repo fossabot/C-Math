@@ -1,1 +1,0 @@
-#include "newtonRaphson.h"

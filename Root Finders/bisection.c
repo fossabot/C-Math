@@ -1,6 +1,5 @@
-#include "falsePosition.h"
-#include "functions.h"
-#include "parser.h"
+#include "bisection.h"
+#include "../lib/functions.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -15,12 +14,13 @@ int main() {
     int flag = 1;
     double a0, b0, ete, ere, tol;
 
-    printf("\t\t\t      Root Finder\n\t\t\t False Position Method\n\t\tIRIBU Numerical"
+    printf("\t\t\t      Root Finder\n\t\t\t   Bisection Method\n\t\tIRIBU Numerical"
            " Analysis Course Project\n\t\t   Student: Mohammad Mahdi Baghbani\n\n");
+
     printf("\nEnter the function you want to solve (example: x^2-3):\n");
     fgets(expression, sizeof(expression), stdin);
 
-    printf("Enter the the range of function domain rang [a, b]\n");
+    printf("Enter the range of function domain rang [a, b]\n");
     printf("Enter a:\n");
     fgets(a, sizeof(a), stdin);
     a0 = strtod(a, &ptr);
@@ -60,7 +60,7 @@ int main() {
         exit(EXIT_FAILURE);
     } // end of if mode
 
-    double x = falsePosition(expression, a0, b0, ete, ere, tol, maxiter, mode, &flag);
+    double x = bisection(expression, a0, b0, ete, ere, tol, maxiter, mode, &flag);
 
     if (flag) {
         printf("\nThis method solved the equation for x= %lf in domain range of [%6.3lf, %6.3lf].\n\n", x, a0, b0);
@@ -77,9 +77,8 @@ int main() {
 } // end of main
 
 
-double
-falsePosition(const char *expression, double a, double b, double ete, double ere, double tol, int maxiter, int mode,
-              int *state) {
+double bisection(const char *expression, double a, double b, double ete, double ere, double tol, int maxiter, int mode,
+                 int *state) {
 
     double fa = function(a, expression);
     double fb = function(b, expression);
@@ -93,7 +92,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
 
         while (iter <= maxiter) {
 
-            c = (a*fb - b*fa) / (fb - fa);
+            c = (a + b) / 2;
             double fc = function(c, expression);
 
             if (mode) {
@@ -124,6 +123,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
                 if (mode) {
                     printf("In this iteration, f(c) = 0, so c is the root of function\n\n");
                 } // end if(mode)
+
                 return c;
             } // end of if .. else if chained decisions
 
@@ -132,6 +132,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
                     printf("\nIn this iteration, |c(%d) - c(%d)| < estimated true error [%.5e < %.5e],\n"
                            "so c is close enough to the root of function\n\n", iter, iter - 1, ete_err, ete);
                 } // end if(mode)
+
                 return c;
             } // end of estimated true error check
 
@@ -140,6 +141,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
                     printf("\nIn this iteration, |(c(%d) - c(%d) / c(%d))| < estimated relative error [%.5e < %.5e"
                            "],\nso c is close enough to the root of function\n\n", iter, iter - 1, iter, ere_err, ere);
                 } // end if(mode)
+
                 return c;
             } // end of estimated relative error check
 
@@ -148,6 +150,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
                     printf("\nIn this iteration, |f(c)| < tolerance [%.5e < %.5e],\n"
                            "so c is close enough to the root of function\n\n", fabs(fc), tol);
                 } // end if(mode)
+
                 return c;
             } // end of tolerance check
 

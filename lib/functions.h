@@ -3,7 +3,7 @@
 
 double function(double value, const char *expression);
 
-double firstDerivative(int x, double delta, const char *expression);
+double firstDerivative(double x, double delta, const char *expression);
 
 void Exit(void);
 
