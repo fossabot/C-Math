@@ -1,6 +1,6 @@
 #include "bisection.h"
 #include "functions.h"
-#include "tinyexpr.h"
+#include "parser.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -17,7 +17,7 @@ int main() {
 
     printf("\t\t\t      Root Finder\n\t\t\t   Bisection Method\n\t\tIRIBU Numerical"
            " Analysis Course Project\n\t\t   Student: Mohammad Mahdi Baghbani\n\n");
-    printf("\nEnter the function you want to solve [example]: x^2-3):\n");
+    printf("\nEnter the function you want to solve (example: x^2-3):\n");
     fgets(expression, sizeof(expression), stdin);
 
     printf("Enter the the range of function domain rang [a, b]\n");
@@ -128,7 +128,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
 
             if (ete != 0 && ete_err < ete) {
                 if (mode) {
-                    printf("\nIn this iteration, |c(%d) - c(%d)| < estimated true error [%.5e < %.5e],"
+                    printf("\nIn this iteration, |c(%d) - c(%d)| < estimated true error [%.5e < %.5e],\n"
                            "so c is close enough to the root of function\n\n", iter, iter - 1, ete_err, ete);
                 } // end if(mode)
                 return c;
@@ -137,15 +137,15 @@ double bisection(const char *expression, double a, double b, double ete, double 
             if (ere != 0 && ere_err < ere) {
                 if (mode) {
                     printf("\nIn this iteration, |(c(%d) - c(%d) / c(%d))| < estimated relative error [%.5e < %.5e"
-                           "], so c is close enough to the root of function\n\n", iter, iter - 1, iter, ere_err, ere);
+                           "],\nso c is close enough to the root of function\n\n", iter, iter - 1, iter, ere_err, ere);
                 } // end if(mode)
                 return c;
             } // end of estimated relative error check
 
             if (tol != 0 && fabs(fc) < tol) {
                 if (mode) {
-                    printf("\nIn this iteration, |f(c)| < tolerance [%.5e < %.5e],"
-                           " so c is close enough to the root of function\n\n", fabs(fc), tol);
+                    printf("\nIn this iteration, |f(c)| < tolerance [%.5e < %.5e],\n"
+                           "so c is close enough to the root of function\n\n", fabs(fc), tol);
                 } // end if(mode)
                 return c;
             } // end of tolerance check
