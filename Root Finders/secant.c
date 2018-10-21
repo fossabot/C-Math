@@ -89,7 +89,7 @@ double secant(const char *expression, double x1, double x2, double ete, double e
     double ere_err;
 
     while (iter <= maxiter) {
-        xNew = (x2 - fx2 * (x2 - x1)) / (fx2 - fx1);
+        xNew = x2 - fx2 * (x2 - x1) / (fx2 - fx1);
         fxNew = function(xNew, expression);
 
         if (mode) {

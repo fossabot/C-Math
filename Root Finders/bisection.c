@@ -166,8 +166,8 @@ double bisection(const char *expression, double a, double b, double ete, double 
         *state = 0;
         return -1;
     } else {
-        printf("Incorrect bracketing of function domain!\n keep in mind that"
-               " the equation f(a) * f(b) < 0 must be correct\n in order to use Bisection method\n");
+        printf("Incorrect bracketing of function domain!\nkeep in mind that"
+               " the equation f(a) * f(b) < 0 must be correct\nin order to use Bisection method\n");
         *state = 0;
         return -1;
     } // end of if ... else
