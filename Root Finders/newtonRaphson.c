@@ -99,7 +99,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             } // end of if mode
 
             ete_err = fabs(fx / dfx);
-            ere_err = fabs(fx / dfx * x);
+            ere_err = fabs(ete_err/x);
 
             if (ete != 0 && ete_err < ete) {
                 if (mode) {

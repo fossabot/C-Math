@@ -100,7 +100,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
             } // end if(mode)
 
             if (fc * fa > 0) {
-                ete_err = fabs(b - c);
+                ete_err = fabs(a - c);
                 ere_err = fabs(ete_err / c);
                 a = c;
                 fa = fc;
