@@ -149,4 +149,4 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
     *state = 0;
     return -1;
 
-} // end of bisection function
+} // end of newton Raphson function

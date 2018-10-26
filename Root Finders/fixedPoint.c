@@ -1,4 +1,4 @@
-#include "secant.h"
+#include "fixedPoint.h"
 #include "../lib/functions.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,26 +7,22 @@
 int main() {
 
     char expression[INPUT_SIZE];
-    char x1_c[INPUT_SIZE], x2_c[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
+    char x0_c[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
             tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], mode_c[INPUT_SIZE];
     char *ptr;
     int maxiter = 0, mode = 0;
     int flag = 1;
-    double x1, x2, ete, ere, tol;
+    double x0, ete, ere, tol;
 
-    printf("\t\t\t      Root Finder\n\t\t\t     Secant Method\n\t\tIRIBU Numerical"
+    printf("\t\t\t      Root Finder\n\t\t\t  Fixed point Method\n\t\tIRIBU Numerical"
            " Analysis Course Project\n\t\t   Student: Mohammad Mahdi Baghbani\n\n");
 
     printf("\nEnter the function you want to solve (example: x^2-3):\n");
     fgets(expression, sizeof(expression), stdin);
 
-    printf("Enter the two starting points x1 and x2:\n");
-    printf("Enter x1:\n");
-    fgets(x1_c, sizeof(x1_c), stdin);
-    x1 = strtod(x1_c, &ptr);
-    printf("Enter x2:\n");
-    fgets(x2_c, sizeof(x2_c), stdin);
-    x2 = strtod(x2_c, &ptr);
+    printf("Enter the starting point (x0):\n");
+    fgets(x0_c, sizeof(x0_c), stdin);
+    x0 = strtod(x0_c, &ptr);
 
     printf("Enter the estimated true error limit: (enter 0 if you don't want to set an ETE limit):\n");
     fgets(ete_c, sizeof(ete_c), stdin);
@@ -60,7 +56,7 @@ int main() {
         exit(EXIT_FAILURE);
     } // end of if mode
 
-    double x = secant(expression, x1, x2, ete, ere, tol, maxiter, mode, &flag);
+    double x = fixedPoint(expression, x0, ete, ere, tol, maxiter, mode, &flag);
 
     if (flag) {
         printf("\nThis method solved the equation for x= %lf .\n\n", x);
@@ -77,27 +73,28 @@ int main() {
 } // end of main
 
 
-double secant(const char *expression, double x1, double x2, double ete, double ere, double tol, int maxiter, int mode,
-              int *state) {
+double fixedPoint(const char *expression, double x0, double ete, double ere, double tol, int maxiter, int mode,
+                  int *state) {
 
     int iter = 1;
-    double fx1 = function(x1, expression);
-    double fx2 = function(x2, expression);
-    double xNew = 0;
-    double fxNew;
+    double x = x0;
+    double fx = function(x, expression);
+    double xNew;
+    double gx;
     double ete_err;
     double ere_err;
 
     while (iter <= maxiter) {
-        xNew = x2 - fx2 * (x2 - x1) / (fx2 - fx1);
-        fxNew = function(xNew, expression);
+
+        gx = fx + x;
+        xNew = gx;
 
         if (mode) {
-            printf("Iteration number: %d, x(%d) = %lf, f(x(%d)) = %lf\n\n", iter, iter, xNew, iter, fxNew);
-        } // end of if mode
+            printf("Iteration number: %d, x = %lf, f(x) = %lf, g(x) = %lf\n", iter, x, fx, gx);
+        }
 
-        ete_err = fabs(xNew - x2);
-        ere_err = fabs((xNew - x2) / x2);
+        ete_err = fabs(xNew - x);
+        ere_err = fabs(ete_err / x);
 
         if (ete != 0 && ete_err < ete) {
             if (mode) {
@@ -117,21 +114,18 @@ double secant(const char *expression, double x1, double x2, double ete, double e
             return xNew;
         } // end of estimated relative error check
 
-        if (tol != 0 && fabs(fxNew) < tol) {
+        if (tol != 0 && fabs(fx) < tol) {
             if (mode) {
                 printf("\nIn this iteration, |f(x(%d))| < tolerance [%.5e < %.5e],\n"
-                       "so x is close enough to the root of function\n\n", iter, fabs(fxNew), tol);
+                       "so x is close enough to the root of function\n\n", iter, fabs(fx), tol);
             } // end if(mode)
 
-            return xNew;
+            return x;
         } // end of tolerance check
 
-        x1 = x2;
-        fx1 = fx2;
-        x2 = xNew;
-        fx2 = fxNew;
+        x = xNew;
+        fx = function(x, expression);
         iter++;
-
     } // end of while loop
 
     if (ete == 0 && ere == 0 && tol == 0) {
@@ -139,8 +133,8 @@ double secant(const char *expression, double x1, double x2, double ete, double e
     } else {
         printf("\nThe solution does not converge or iterations are not sufficient\n");
     }
-    printf("the last calculated x is %lf\n", xNew);
+    printf("the last calculated x is %lf\n", x);
     *state = 0;
     return -1;
 
-} // end of secant function
+} // end of fixed point function

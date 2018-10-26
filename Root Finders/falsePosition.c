@@ -173,4 +173,4 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
         return -1;
     } // end of if ... else
 
-} // end of bisection function
+} // end of false position function
