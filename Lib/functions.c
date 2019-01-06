@@ -29,6 +29,6 @@ double firstDerivative(double x, double delta, const char *expression) {
 }
 
 void Exit(void) {
-    printf("\nPress any key to exit\n");
+    printf("\nPress any key to exit ...\n");
     getc(stdin);
 } // end of exit
