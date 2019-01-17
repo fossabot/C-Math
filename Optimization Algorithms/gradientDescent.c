@@ -6,7 +6,11 @@
 #include <math.h>
 
 int main() {
+    /*
+     * Interface of program, this interface will get necessary information from user.
+     */
 
+    // initializing variables
     char expression[INPUT_SIZE];
     char x0_c[INPUT_SIZE], gamma_c[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE], maxiter_c[INPUT_SIZE],
             mode_c[INPUT_SIZE];
@@ -18,6 +22,7 @@ int main() {
     printf("\t\t\t\tOptimization Algorithm\n"
            "\t\t\t\t   Gradient Descent\n");
 
+    // getting required data from user
     printf("\nEnter the function you want to solve (example: x^4-3*x^3+2):\n");
     fgets(expression, sizeof(expression), stdin);
 
@@ -33,6 +38,7 @@ int main() {
     fgets(ete_c, sizeof(ete_c), stdin);
     ete = strtod(ete_c, &ptr);
 
+    // check ete to be positive
     if (ete < 0) {
         printf("Estimated true error limit must be a \"POSITIVE\" number!\n");
         Exit();
@@ -43,6 +49,7 @@ int main() {
     fgets(ere_c, sizeof(ere_c), stdin);
     ere = strtod(ere_c, &ptr);
 
+    // check ere to be positive
     if (ere < 0) {
         printf("Estimated relative error limit must be a \"POSITIVE\" number!\n");
         Exit();
@@ -53,6 +60,7 @@ int main() {
     fgets(maxiter_c, sizeof(maxiter_c), stdin);
     maxiter = strtol(maxiter_c, &ptr, 10);
 
+    // check maximum iteration to be more than 0
     if (maxiter <= 0) {
         printf("Invalid value for maximum iteration limit!\n");
         Exit();
@@ -63,18 +71,22 @@ int main() {
     fgets(mode_c, sizeof(mode_c), stdin);
     mode = strtol(mode_c, &ptr, 10);
 
+    // check mode value
     if (mode != 0 && mode != 1) {
         printf("Invalid value for mode!\n");
         Exit();
         return EXIT_FAILURE;
     } // end of if mode
 
+    // calculation
     double x = gradientDescent(expression, x0, ete, ere, gamma, maxiter, mode, &flag);
 
+    // if there was an answer
     if (flag) {
         printf("\nThis method has found the minimum of the function at point X = %lf.\n\n", x);
         Exit();
         return EXIT_SUCCESS;
+    // if no answer
     } else {
         printf("\nThis method didn't find the minimum of the function,"
                " the last calculated value for X is: %lf.\n\n", x);
