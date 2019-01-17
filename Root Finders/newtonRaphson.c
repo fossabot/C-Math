@@ -1,5 +1,6 @@
 #include "newtonRaphson.h"
 #include "../lib/functions.h"
+#include "../Lib/_configurations.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -86,7 +87,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
     double ere_err;
 
     while (iter <= maxiter) {
-        dfx = firstDerivative(x, DELTA, expression);
+        dfx = firstDerivative(x, DX, expression);
         if (dfx) {
             xNew = x - fx / dfx;
             fxNew = function(xNew, expression);

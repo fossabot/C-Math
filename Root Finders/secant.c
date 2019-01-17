@@ -1,5 +1,6 @@
 #include "secant.h"
 #include "../lib/functions.h"
+#include "../Lib/_configurations.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
