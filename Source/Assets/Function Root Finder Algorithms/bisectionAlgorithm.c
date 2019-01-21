@@ -1,112 +1,8 @@
-#include "bisection.h"
-#include "../lib/functions.h"
-#include "../Lib/_configurations.h"
+#include "bisectionAlgorithm.h"
+#include "../Util/functions.h"
+
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
-
-int main() {
-    /*
-     * Interface of program, this interface will get necessary information from user.
-     */
-
-    // initializing variables
-    char expression[INPUT_SIZE];
-    char a[INPUT_SIZE], b[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
-            tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], mode_c[INPUT_SIZE];
-    char *ptr;
-    int maxiter = 0, mode = 0;
-    int flag = 1;
-    double a0, b0, ete, ere, tol;
-
-    printf("\t\t\t      Root Finder\n"
-           "\t\t\t   Bisection Method\n");
-
-    // getting required data from user
-    printf("\nEnter the function you want to solve (example: x^2-3):\n");
-    fgets(expression, sizeof(expression), stdin);
-
-    printf("Enter the range of function domain rang [a, b]\n");
-    printf("Enter a:\n");
-    fgets(a, sizeof(a), stdin);
-    a0 = strtod(a, &ptr);
-    printf("Enter b:\n");
-    fgets(b, sizeof(b), stdin);
-    b0 = strtod(b, &ptr);
-
-    printf("Enter the estimated true error limit: (enter 0 if you don't want to set an ETE limit):\n");
-    fgets(ete_c, sizeof(ete_c), stdin);
-    ete = strtod(ete_c, &ptr);
-
-    // check ete to be positive
-    if (ete < 0) {
-        printf("Estimated true error limit must be a \"POSITIVE\" number!\n");
-        Exit();
-        return EXIT_FAILURE;
-    } // end of ete check
-
-    printf("Enter the estimated relative error limit (enter 0 if you don't want to set an ERE limit):\n");
-    fgets(ere_c, sizeof(ere_c), stdin);
-    ere = strtod(ere_c, &ptr);
-
-    // check ere to be positive
-    if (ere < 0) {
-        printf("Estimated relative error limit must be a \"POSITIVE\" number!\n");
-        Exit();
-        return EXIT_FAILURE;
-    } // end of ere check
-
-    printf("Enter the tolerance limit (enter 0 if you don't want to set a tolerance limit):\n");
-    fgets(tol_c, sizeof(tol_c), stdin);
-    tol = strtod(tol_c, &ptr);
-
-    // check tol to be positive
-    if (tol < 0) {
-        printf("Estimated tolerance limit must be a \"POSITIVE\" number!\n");
-        Exit();
-        return EXIT_FAILURE;
-    } // end of ere check
-
-    printf("Enter the maximum iteration limit (must be positive number):\n");
-    fgets(maxiter_c, sizeof(maxiter_c), stdin);
-    maxiter = strtol(maxiter_c, &ptr, 10);
-
-    // check maximum iteration to be more than 0
-    if (maxiter <= 0) {
-        printf("Invalid value for maximum iteration limit!\n");
-        Exit();
-        exit(EXIT_FAILURE);
-    }// end of if maxiter
-
-    printf("Do you want to see steps? enter 1 for yes and 0 for no:\n");
-    fgets(mode_c, sizeof(mode_c), stdin);
-    mode = strtol(mode_c, &ptr, 10);
-
-    // check mode value
-    if (mode != 0 && mode != 1) {
-        printf("Invalid value for mode!\n");
-        Exit();
-        exit(EXIT_FAILURE);
-    } // end of if mode
-
-    // calculation
-    double x = bisection(expression, a0, b0, ete, ere, tol, maxiter, mode, &flag);
-
-    // if there was an answer
-    if (flag) {
-        printf("\nThis method solved the equation for x= %lf in domain range of [%6.3lf, %6.3lf].\n\n", x, a0, b0);
-        Exit();
-        return EXIT_SUCCESS;
-    // if no answer
-    }else {
-        printf("\nThis method couldn't find the root of function in given interval,"
-               " the last calculated value for X is: %lf.\n\n", x);
-        Exit();
-        return EXIT_FAILURE;
-    } // end of if flag
-
-} // end of main
-
 
 double bisection(const char *expression, double a, double b, double ete, double ere, double tol, int maxiter, int mode,
                  int *state) {
@@ -120,7 +16,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
      * ARGUMENTS:
      * expressions  a string array that contains the function which to be evaluated by the parser
      * a            starting point of interval [a, b]
-     * b            starting point of interval [a, b]
+     * b            ending point of interval [a, b]
      * ete          estimated true error
      * ere          estimated relative error
      * tol          tolerance error
@@ -131,8 +27,8 @@ double bisection(const char *expression, double a, double b, double ete, double 
      */
 
     // calculates y1 = f(a) and y2 =f(b)
-    double fa = function(a, expression);
-    double fb = function(b, expression);
+    double fa = function_1_arg(expression, a);
+    double fb = function_1_arg(expression, b);
 
     // if y1 and y2 have different signs, then we can use bisection method
     if (fa * fb < 0) {
@@ -147,10 +43,10 @@ double bisection(const char *expression, double a, double b, double ete, double 
             // find the average of a and b
             c = (a + b) / 2;
             // evaluate the function at point c, y3 =f(c)
-            double fc = function(c, expression);
+            double fc = function_1_arg(expression, c);
 
             if (mode) {
-                printf("\nIteration number: %3d, c = %10.7lf, f(c) = %.10e  .\n", iter, c, fc);
+                printf("\nIteration number: [#%d]: c = %10.7lf, f(c) = %.10e  .\n", iter, c, fc);
             } // end if(mode)
 
             // if y3 and y1 have same signs, then substitute a by c and y1 by y3
@@ -167,7 +63,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
                     printf("In this iteration, a replaced by c, new range is [%lf, %lf].\n", a, b);
                 } // end if(mode)
 
-            // if y3 and y2 have same signs, then substitute b by c and y2 by y3
+                // if y3 and y2 have same signs, then substitute b by c and y2 by y3
             } else if (fc * fb > 0) {
 
                 //calculate true error
@@ -196,7 +92,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
             // if calculated error is less than estimated true error threshold
             if (ete != 0 && ete_err < ete) {
                 if (mode) {
-                    printf("\nIn this iteration, |c(%d) - c(%d)| < estimated true error [%.5e < %.5e],\n"
+                    printf("\nIn this iteration, |c%d - c%d| < estimated true error [%.5e < %.5e],\n"
                            "so c is close enough to the root of function\n\n", iter, iter - 1, ete_err, ete);
                 } // end if(mode)
 
@@ -206,7 +102,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
             // if calculated error is less than estimated relative error threshold
             if (ere != 0 && ere_err < ere) {
                 if (mode) {
-                    printf("\nIn this iteration, |(c(%d) - c(%d) / c(%d))| < estimated relative error [%.5e < %.5e"
+                    printf("\nIn this iteration, |(c%d - c%d / c%d)| < estimated relative error [%.5e < %.5e"
                            "],\nso c is close enough to the root of function\n\n", iter, iter - 1, iter, ere_err, ere);
                 } // end if(mode)
 
@@ -241,15 +137,15 @@ double bisection(const char *expression, double a, double b, double ete, double 
         *state = 0;
         return c;
 
-    // if y1 and y2 have same signs, then we can't use bisection method
+        // if y1 and y2 have same signs, then we can't use bisection method
     } else {
-        if (mode){
-            printf("Incorrect bracketing of function domain!\nkeep in mind that"
-                   " the equation f(a) * f(b) < 0 must be correct\nin order to use Bisection method\n");
+        if (mode) {
+            printf("Incorrect bracketing of function domain!\n"
+                   "keep in mind that the inequality f(a) * f(b) < 0 must be correct\n"
+                   "in order to use Bisection method\n");
         }// end if(mode)
 
         *state = 0;
         return -1;
     } // end of if ... else
-
 } // end of bisection function

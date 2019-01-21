@@ -3,7 +3,6 @@
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
-#include <limits.h>
 
 #ifndef NAN
 #define NAN (0.0/0.0)
