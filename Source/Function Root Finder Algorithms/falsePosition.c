@@ -20,13 +20,13 @@ int main() {
     double a0, b0, ete, ere, tol;
 
     printf("\t\t\t\tRoot Finder\n"
-           "\t\t\t  False Position Method");
+           "\t\t\t  False Position Method\n");
 
     // getting required data from user
     printf("\nEnter the function you want to solve (example: x^2-3):\n");
     fgets(expression, sizeof(expression), stdin);
 
-    printf("Enter the range of function domain rang [a, b]\n");
+    printf("Enter the range of function domain rang [a, b]:\n");
     printf("Enter a:\n");
     fgets(a, sizeof(a), stdin);
     a0 = strtod(a, &ptr);
@@ -116,8 +116,7 @@ int main() {
         printf("\nThis method solved the equation for x= %lf in domain range of [%lf, %lf].\n\n", x, a0, b0);
         Exit();
         return EXIT_SUCCESS;
-        // if no answer
-    } else {
+    } else { // if no answer
         printf("\nThis method couldn't find the root of function in given interval\n"
                "the last calculated value for x is: %lf.\n\n", x);
         Exit();

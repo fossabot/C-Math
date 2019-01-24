@@ -6,72 +6,101 @@
 #include <stdlib.h>
 
 int main() {
+    /*
+     * Interface of program, this interface will get necessary information from user.
+     */
 
+    // initializing variables
     char expression[INPUT_SIZE];
-    char x1_c[INPUT_SIZE], x2_c[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
+    char a[INPUT_SIZE], b[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
             tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], mode_c[INPUT_SIZE];
     char *ptr;
     int maxiter = 0, mode = 0;
     int flag = 1;
-    double x1, x2, ete, ere, tol;
+    double a0, b0, ete, ere, tol;
 
-    printf("\t\t\t      Root Finder\n\t\t\t     Secant Method\n\t\tIRIBU Numerical"
-           " Analysis Course Project\n\t\t   Student: Mohammad Mahdi Baghbani\n\n");
+    printf("\t\t\t\tRoot Finder\n"
+           "\t\t\t       Secant Method\n");
 
+    // getting required data from user
     printf("\nEnter the function you want to solve (example: x^2-3):\n");
     fgets(expression, sizeof(expression), stdin);
 
-    printf("Enter the two starting points x1 and x2:\n");
-    printf("Enter x1:\n");
-    fgets(x1_c, sizeof(x1_c), stdin);
-    x1 = strtod(x1_c, &ptr);
-    printf("Enter x2:\n");
-    fgets(x2_c, sizeof(x2_c), stdin);
-    x2 = strtod(x2_c, &ptr);
+    printf("Enter the range of function domain rang [a, b]:\n");
+    printf("Enter a:\n");
+    fgets(a, sizeof(a), stdin);
+    a0 = strtod(a, &ptr);
+    printf("Enter b:\n");
+    fgets(b, sizeof(b), stdin);
+    b0 = strtod(b, &ptr);
 
     printf("Enter the estimated true error limit: (enter 0 if you don't want to set an ETE limit):\n");
     fgets(ete_c, sizeof(ete_c), stdin);
     ete = strtod(ete_c, &ptr);
 
+    // check ete to be positive
+    if (ete < 0) {
+        printf("Estimated true error limit must be a \"POSITIVE\" number!\n");
+        Exit();
+        return EXIT_FAILURE;
+    } // end of ete check
+
     printf("Enter the estimated relative error limit (enter 0 if you don't want to set an ERE limit):\n");
     fgets(ere_c, sizeof(ere_c), stdin);
     ere = strtod(ere_c, &ptr);
+
+    // check ere to be positive
+    if (ere < 0) {
+        printf("Estimated relative error limit must be a \"POSITIVE\" number!\n");
+        Exit();
+        return EXIT_FAILURE;
+    } // end of ere check
 
     printf("Enter the tolerance limit (enter 0 if you don't want to set a tolerance limit):\n");
     fgets(tol_c, sizeof(tol_c), stdin);
     tol = strtod(tol_c, &ptr);
 
+    // check tol to be positive
+    if (tol < 0) {
+        printf("Estimated tolerance limit must be a \"POSITIVE\" number!\n");
+        Exit();
+        return EXIT_FAILURE;
+    } // end of ere check
+
     printf("Enter the maximum iteration limit (must be positive number):\n");
     fgets(maxiter_c, sizeof(maxiter_c), stdin);
     maxiter = strtol(maxiter_c, &ptr, 10);
 
+    // check maximum iteration to be more than 0
     if (maxiter <= 0) {
         printf("Invalid value for maximum iteration limit!\n");
         Exit();
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }// end of if maxiter
 
     printf("Do you want to see steps? enter 1 for yes and 0 for no:\n");
     fgets(mode_c, sizeof(mode_c), stdin);
     mode = strtol(mode_c, &ptr, 10);
 
+    // check mode value
     if (mode != 0 && mode != 1) {
         printf("Invalid value for mode!\n");
         Exit();
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     } // end of if mode
 
-    double x = secant(expression, x1, x2, ete, ere, tol, maxiter, mode, &flag);
+    // calculation
+    double x = secant(expression, a0, b0, ete, ere, tol, maxiter, mode, &flag);
 
+    // if there was an answer
     if (flag) {
-        printf("\nThis method solved the equation for x= %lf .\n\n", x);
-    } // end of if flag
-
-    Exit();
-
-    if (flag) {
+        printf("\nThis method solved the equation for x= %lf in domain range of [%lf, %lf].\n\n", x, a0, b0);
+        Exit();
         return EXIT_SUCCESS;
-    } else {
+    } else { // if no answer
+        printf("\nThis method couldn't find the root of function in given interval\n"
+               "the last calculated value for x is: %lf.\n\n", x);
+        Exit();
         return EXIT_FAILURE;
     } // end of if flag
 

@@ -86,8 +86,7 @@ int main() {
         printf("\nThis method has found the minimum of the function at point x = %lf.\n\n", x);
         Exit();
         return EXIT_SUCCESS;
-        // if no answer
-    } else {
+    } else { // if no answer
         printf("\nThis method didn't find the minimum of the function,"
                " the last calculated value for X is: %lf.\n\n", x);
         Exit();

@@ -20,7 +20,7 @@ int main() {
     double x0, ete, ere, tol;
 
     printf("\t\t\t\tRoot Finder\n"
-           "\t\t\t  Newton-Raphson Method");
+           "\t\t\t  Newton-Raphson Method\n");
 
     // getting required data from user
     printf("\nEnter the function you want to solve (example: x^2-3):\n");
@@ -93,8 +93,7 @@ int main() {
         printf("\nThis method solved the equation for x= %lf .\n\n", x);
         Exit();
         return EXIT_SUCCESS;
-        // if no answer
-    } else {
+    } else { // if no answer
         printf("\nThis method couldn't find the root of function\n"
                "the last calculated value for X is: %lf.\n\n", x);
         Exit();

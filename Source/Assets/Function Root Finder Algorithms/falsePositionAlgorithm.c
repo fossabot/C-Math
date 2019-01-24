@@ -15,7 +15,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
 	 * to as "guess and check". Versions of the method predate the advent of algebra and the use of equations.
      *
      * ARGUMENTS:
-     * expressions   a string array that contains the function which to be evaluated by the parser
+     * expressions   the function expression, it must be a string array like "x^2+1"
      * a             starting point of interval [a, b]
      * b             ending point of interval [a, b]
      * ete           estimated true error
@@ -81,8 +81,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
                     printf("In this iteration, a replaced by c, new range is [%lf, %lf].\n", a, b);
                 } // end if(mode)
 
-                // if y3 and y2 have same signs, then substitute b by c and y2 by y3
-            } else if (fc * fb > 0) {
+            } else if (fc * fb > 0) { // if y3 and y2 have same signs, then substitute b by c and y2 by y3
 
                 //calculate true error
                 ete_err = fabs(b - c);
@@ -166,8 +165,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
         *state = 0;
         return c;
 
-        // if y1 and y2 have same signs, then we can't use false position method
-    } else {
+    } else { // if y1 and y2 have same signs, then we can't use false position method
         if (mode) {
             printf("Incorrect bracketing of function domain!\n"
                    "keep in mind that the inequality f(a) * f(b) < 0 must be correct\n"

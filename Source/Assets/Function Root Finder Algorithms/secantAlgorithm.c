@@ -4,70 +4,104 @@
 #include <stdio.h>
 #include <math.h>
 
-double secant(const char *expression, double x1, double x2, double ete, double ere, double tol, int maxiter, int mode,
+double secant(const char *expression, double a, double b, double ete, double ere, double tol, int maxiter, int mode,
               int *state) {
+    /*
+     * In numerical analysis, the secant method is a root-finding algorithm that uses a succession of roots
+     * of secant lines to better approximate a root of a function f. The secant method can be thought of as
+     * a finite-difference approximation of Newton's method. However, the method was developed independently
+     * of Newton's method and predates it by over 3000 years
+     *
+     * ARGUMENTS:
+     * expressions  the function expression, it must be a string array like "x^2+1"
+     * a            starting point of interval [a, b]
+     * b            ending point of interval [a, b]
+     * ete          estimated true error
+     * ere          estimated relative error
+     * tol          tolerance error
+     * maxiter      maximum iteration threshold
+     * mode         show process
+     * state        is answer found or not
+     *
+     */
 
+    // initializing variables
     int iter = 1;
-    double fx1 = function_1_arg(expression, x1);
-    double fx2 = function_1_arg(expression, x2);
-    double xNew = 0;
-    double fxNew;
+    double c = 0;
+    double fc;
     double ete_err;
     double ere_err;
 
+    // calculates y1 = f(a) and y2 =f(b)
+    double fa = function_1_arg(expression, a);
+    double fb = function_1_arg(expression, b);
+
     while (iter <= maxiter) {
-        xNew = x2 - fx2 * (x2 - x1) / (fx2 - fx1);
-        fxNew = function_1_arg(expression, xNew);
+        // calculate c
+        c = b - fb * (b - a) / (fb - fa);
+        // evaluate the function at point c, y3 =f(c)
+        fc = function_1_arg(expression, c);
 
         if (mode) {
-            printf("Iteration number: %d, x(%d) = %lf, f(x(%d)) = %lf\n\n", iter, iter, xNew, iter, fxNew);
+            printf("\nIteration number [#%d]: x%d = %lf, f(x%d) = %lf\n", iter, iter, c, iter, fc);
         } // end of if mode
 
-        ete_err = fabs(xNew - x2);
-        ere_err = fabs((xNew - x2) / x2);
+        //calculate errors
+        ete_err = fabs(c - b);
+        ere_err = fabs((c - b) / b);
 
+        // Termination Criterion
+        // if calculated error is less than estimated true error threshold
         if (ete != 0 && ete_err < ete) {
             if (mode) {
-                printf("\nIn this iteration, |x(%d) - x(%d)| < estimated true error [%.5e < %.5e],\n"
+                printf("\nIn this iteration, |x%d - x%d| < estimated true error [%.5e < %.5e],\n"
                        "so x is close enough to the root of function\n\n", iter, iter - 1, ete_err, ete);
             } // end if(mode)
 
-            return xNew;
+            return c;
         } // end of estimated true error check
 
+        // if calculated error is less than estimated relative error threshold
         if (ere != 0 && ere_err < ere) {
             if (mode) {
-                printf("\nIn this iteration, |(x(%d) - x(%d) / x(%d))| < estimated relative error [%.5e < %.5e"
-                       "],\nso x is close enough to the root of function\n\n", iter, iter - 1, iter, ere_err, ere);
+                printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%.5e < %.5e],\n"
+                       "so x is close enough to the root of function\n\n", iter, iter - 1, iter, ere_err, ere);
             } // end if(mode)
 
-            return xNew;
+            return c;
         } // end of estimated relative error check
 
-        if (tol != 0 && fabs(fxNew) < tol) {
+        // if y3 is less than tolerance error threshold
+        if (tol != 0 && fabs(fc) < tol) {
             if (mode) {
-                printf("\nIn this iteration, |f(x(%d))| < tolerance [%.5e < %.5e],\n"
-                       "so x is close enough to the root of function\n\n", iter, fabs(fxNew), tol);
+                printf("\nIn this iteration, |f(x%d)| < tolerance [%.5e < %.5e],\n"
+                       "so x is close enough to the root of function\n\n", iter, fabs(fc), tol);
             } // end if(mode)
 
-            return xNew;
+            return c;
         } // end of tolerance check
 
-        x1 = x2;
-        fx1 = fx2;
-        x2 = xNew;
-        fx2 = fxNew;
+        // update variables for next iteration
+        a = b;
+        fa = fb;
+        b = c;
+        fb = fc;
         iter++;
 
     } // end of while loop
 
-    if (ete == 0 && ere == 0 && tol == 0) {
-        printf("\nWith maximum iteration of %d\n", maxiter);
-    } else {
-        printf("\nThe solution does not converge or iterations are not sufficient\n");
-    }
-    printf("the last calculated x is %lf\n", xNew);
-    *state = 0;
-    return -1;
+    // answer didn't found
+    if (mode) {
+        if (ete == 0 && ere == 0 && tol == 0) {
+            printf("\nWith maximum iteration of %d\n", maxiter);
+        } else {
+            printf("\nThe solution does not converge or iterations are not sufficient\n");
+        } // end of if ... else
 
+        printf("the last calculated x is %lf\n", c);
+    } // end if(mode)
+
+    // set state to 0 (false)
+    *state = 0;
+    return c;
 } // end of secant function
