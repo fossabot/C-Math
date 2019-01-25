@@ -1,4 +1,5 @@
 #include "util.h"
+
 #include <stdio.h>
 
 void Exit(void) {
