@@ -39,6 +39,29 @@ add_executable(secant
         Source/Assets/Util/_configurations.h)
 
 #=======================================================================================================================
+#                                               Integration Algorithms
+
+add_executable(riemannSum
+        "Source/Integration Algoritms/riemannSum.c"
+        "Source/Assets/Integration Algorithms/riemannSumAlgorithm.c"
+        "Source/Assets/Integration Algorithms/riemannSumAlgorithm.h"
+        Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
+        Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
+        Source/Assets/Util/_configurations.h)
+
+add_executable(trapezoidRule
+        "Source/Integration Algoritms/trapezoidRule.c")
+
+add_executable(simpsonRule
+        "Source/Integration Algoritms/simpsonRule.c")
+
+add_executable(monteCarlo
+        "Source/Integration Algoritms/monteCarlo.c")
+
+add_executable(romberg
+        "Source/Integration Algoritms/romberg.c")
+
+#=======================================================================================================================
 #                                              Optimization Algorithms
 
 add_executable(gradientDescent
