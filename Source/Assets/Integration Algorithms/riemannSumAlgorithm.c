@@ -21,7 +21,7 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
      * a             starting point of interval [a, b]
      * b             ending point of interval [a, b]
      * n             number of sub-intervals to use
-     * options       which point of sub-interval to use  {0: left point, 1: right point, 2: mid-point}
+     * options       which point of sub-interval to use  {0: left point, 1: right point, 2: mid point}
      * mode          show process {0: no, 1: yes}
      *
      */
@@ -29,13 +29,21 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
 
     // check mode and options value
     if ((mode != 0 && mode != 1) || (options != 0 && options != 1 && options != 2)){
-        printf("\nError: option or mode arguments are not valid\n");
+        printf("\nError: arguments option or mode are not valid\n");
         Exit();
         exit(EXIT_FAILURE);
     }
 
+    // check n to be more than zero
+    // this is implemented to prevent divide by zero error
+    if (n <= 0) {
+        printf("Error: argument n must be more than zero!\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    } // end of ete check
+
     // initializing variables
-    double area = 0, x;
+    double area = 0, x, height;
     double c = (b - a) / n;
     int scale = (options == 1) ? 1 : 0;
 
@@ -49,7 +57,18 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
         } else {
             x = a + c * (2 * i + 1) / 2;
         }
-        area += function_1_arg(expression, x);
+        height = function_1_arg(expression, x);
+        area += height;
+
+        // show process
+        if (mode) {
+            printf("Height of rectangle [#%d]: %lf, heights sum =  %lf\n", i, height, area);
+        }
+    }
+
+    // show process
+    if (mode) {
+        printf("area = height sum * width => area = %lf * %lf\n", area, c);
     }
 
     // multiply sums to c
