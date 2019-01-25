@@ -15,7 +15,7 @@ int main() {
     char a[INPUT_SIZE], b[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
             tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], mode_c[INPUT_SIZE], improved_c[INPUT_SIZE];
     char *ptr;
-    int maxiter = 0, mode = 0, improved = 0, illinois = 0, andersonBjork = 0;
+    int maxiter = 0, mode = 0, improved = 0;
     int flag = 1;
     double a0, b0, ete, ere, tol;
 
@@ -38,20 +38,11 @@ int main() {
     fgets(improved_c, sizeof(improved_c), stdin);
     improved = strtol(improved_c, &ptr, 10);
 
-    // check improved value and set required arguments according for user demand
-    switch (improved) {
-        case 0:
-            break;
-        case 1:
-            illinois = 1;
-            break;
-        case 2:
-            andersonBjork = 1;
-            break;
-        default:
-            printf("Invalid value for improved algorithm mode!\n");
-            Exit();
-            return EXIT_FAILURE;
+    // check improved value
+    if (improved != 0 && improved != 1 && improved != 2) {
+        printf("You must enter 0 or 1 or 2.\n");
+        Exit();
+        return EXIT_FAILURE;
     }
 
     printf("Enter the estimated true error limit: (enter 0 if you don't want to set an ETE limit):\n");
@@ -109,7 +100,7 @@ int main() {
     } // end of if mode
 
     // calculate
-    double x = falsePosition(expression, a0, b0, ete, ere, tol, maxiter, illinois, andersonBjork, mode, &flag);
+    double x = falsePosition(expression, a0, b0, ete, ere, tol, (unsigned int) maxiter, improved, mode, &flag);
 
     // if there was an answer
     if (flag) {

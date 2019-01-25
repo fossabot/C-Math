@@ -86,7 +86,7 @@ int main() {
     } // end of if mode
 
     // calculation
-    double x = newtonRaphson(expression, x0, ete, ere, tol, maxiter, mode, &flag);
+    double x = newtonRaphson(expression, x0, ete, ere, tol, (unsigned int) maxiter, mode, &flag);
 
     // if there was an answer
     if (flag) {

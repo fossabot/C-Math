@@ -1,11 +1,13 @@
 #include "bisectionAlgorithm.h"
 #include "../Util/functions.h"
+#include "../Util/util.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
-double bisection(const char *expression, double a, double b, double ete, double ere, double tol, int maxiter, int mode,
-                 int *state) {
+double bisection(const char *expression, double a, double b, double ete, double ere, double tol, unsigned int maxiter,
+                 int mode, int *state) {
     /*
      * The Bisection method in mathematics is a root-finding method that repeatedly bisects an interval and then selects
      * a sub-interval in which a root must lie for further processing. It is a very simple and robust method, but it is
@@ -25,6 +27,13 @@ double bisection(const char *expression, double a, double b, double ete, double 
      * state        is answer found or not
      *
      */
+
+    // check mode
+    if (mode != 0 && mode != 1){
+        printf("\nError: mode argument is not valid\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    }
 
     // calculates y1 = f(a) and y2 =f(b)
     double fa = function_1_arg(expression, a);

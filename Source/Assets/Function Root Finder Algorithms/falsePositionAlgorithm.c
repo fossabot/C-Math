@@ -1,12 +1,14 @@
 #include "falsePositionAlgorithm.h"
 #include "../Util/functions.h"
+#include "../Util/util.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 double
-falsePosition(const char *expression, double a, double b, double ete, double ere, double tol, int maxiter, int illinois,
-              int andersonBjork, int mode, int *state) {
+falsePosition(const char *expression, double a, double b, double ete, double ere, double tol, unsigned int maxiter,
+              int options, int mode, int *state) {
     /*
      * In mathematics, the false position method or regula falsi is a very old method for solving
 	 * an equation in one unknown, that, in modified form, is still in use. In simple terms, 
@@ -22,15 +24,19 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
      * ere           estimated relative error
      * tol           tolerance error
      * maxiter       maximum iteration threshold
-     * illinois      use illinois algorithm  {0: no; 1: yes}
-     * andersonBjork use Anderson-Bjork algorithm  {0: no; 1: yes}
-     * mode          show process {0: no; 1: yes}
+     * options       use improvement algorithms  {0: no, 1: illinois, 2: anderson-bjork}
+     * mode          show process {0: no, 1: yes}
      * state         is answer found or not
      *
      */
 
-    // if both illinois and andersonBjork have been set to 1, only andersonBjork will be used in program.
-    illinois = illinois && andersonBjork ? 0 : illinois;
+
+    // check mode and options value
+    if ((mode != 0 && mode != 1) || (options != 0 && options != 1 && options != 2)){
+        printf("\nError: option or mode arguments are not valid\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    }
 
     // calculates y1 = f(a) and y2 =f(b)
     double fa = function_1_arg(expression, a);
@@ -66,15 +72,10 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
                 a = c;
                 fa = fc;
 
-                // use illinois algorithm to improve regula falsi
-                if (illinois) {
-                    fb = fb / 2;
-                }
-
-                // use illinois algorithm to improve regula falsi
-                if (andersonBjork) {
+                // use illinois or anderson-bjork algorithm to improve regula falsi
+                if (options){
                     m = 1 - fc / fa;
-                    fb = m > 1 ? fb * m : fb / 2;
+                    fb = options == 1 ? fb / 2 : (m > 1 ? fb * m : fb / 2);
                 }
 
                 if (mode) {
@@ -90,15 +91,10 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
                 b = c;
                 fb = fc;
 
-                // use illinois algorithm to improve regula falsi
-                if (illinois) {
-                    fa = fa / 2;
-                }
-
-                // use illinois algorithm to improve regula falsi
-                if (andersonBjork) {
+                // use illinois or anderson-bjork algorithm to improve regula falsi
+                if (options){
                     m = 1 - fc / fb;
-                    fa = m > 1 ? fa * m : fa / 2;
+                    fa = options == 1 ? fa / 2 : (m > 1 ? fa * m : fa / 2);
                 }
 
                 if (mode) {

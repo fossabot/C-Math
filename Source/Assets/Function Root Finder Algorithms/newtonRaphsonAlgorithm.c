@@ -1,12 +1,14 @@
 #include "newtonRaphsonAlgorithm.h"
 #include "../Util/functions.h"
+#include "../Util/util.h"
 #include "../Util/_configurations.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
-double newtonRaphson(const char *expression, double x0, double ete, double ere, double tol, int maxiter, int mode,
-                     int *state) {
+double newtonRaphson(const char *expression, double x0, double ete, double ere, double tol, unsigned int maxiter,
+                     int mode, int *state) {
     /*
      * In numerical analysis, Newton's method (also known as the Newton–Raphson method), named after Isaac Newton and
      * Joseph Raphson, is a method for finding successively better approximations to the roots (or zeroes) of
@@ -32,6 +34,13 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
      * state        is answer found or not
      *
      */
+
+    // check mode
+    if (mode != 0 && mode != 1){
+        printf("\nError: mode argument is not valid\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    }
 
     // initializing variables
     int iter = 1;

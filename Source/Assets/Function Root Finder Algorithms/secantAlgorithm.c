@@ -1,11 +1,13 @@
 #include "secantAlgorithm.h"
 #include "../Util/functions.h"
+#include "../Util/util.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
-double secant(const char *expression, double a, double b, double ete, double ere, double tol, int maxiter, int mode,
-              int *state) {
+double secant(const char *expression, double a, double b, double ete, double ere, double tol, unsigned int maxiter,
+              int mode, int *state) {
     /*
      * In numerical analysis, the secant method is a root-finding algorithm that uses a succession of roots
      * of secant lines to better approximate a root of a function f. The secant method can be thought of as
@@ -24,6 +26,13 @@ double secant(const char *expression, double a, double b, double ete, double ere
      * state        is answer found or not
      *
      */
+
+    // check mode
+    if (mode != 0 && mode != 1){
+        printf("\nError: mode argument is not valid\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    }
 
     // initializing variables
     int iter = 1;
