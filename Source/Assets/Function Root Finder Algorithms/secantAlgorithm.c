@@ -22,7 +22,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
      * ere          estimated relative error
      * tol          tolerance error
      * maxiter      maximum iteration threshold
-     * mode         show process
+     * mode         show process {0: no, 1: yes}
      * state        is answer found or not
      *
      */

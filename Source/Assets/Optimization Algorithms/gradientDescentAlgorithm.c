@@ -19,7 +19,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
      * ere          estimated relative error
      * gamma        step size (also known as learning rate)
      * maxiter      maximum iteration threshold
-     * mode         show process
+     * mode         show process {0: no, 1: yes}
      * state        is answer found or not
      *
      */
