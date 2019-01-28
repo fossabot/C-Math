@@ -21,9 +21,6 @@ double floatUniformRandom(double a, double b) {
      * in real interval
      */
 
-    // set seed
-    seed();
-
     // generate
     return (b - a) * zeroToOneUniformRandom() + a;
 } // end of floatUniformRandom
@@ -32,9 +29,6 @@ long int integerUniformRandom(long int n) {
     /*
      * Generate a random integer between 1 and given value n
      */
-
-    // set seed
-    seed();
 
     // check n
     if (n < 0) {
