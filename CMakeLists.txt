@@ -56,7 +56,7 @@ add_executable(simpsonRule
         "Source/Integration Algoritms/simpsonRule.c")
 
 add_executable(monteCarlo
-        "Source/Integration Algoritms/monteCarlo.c")
+        "Source/Integration Algoritms/monteCarlo.c" "Source/Assets/Integration Algorithms/monteCarloIntegrationAlgorithm.c" "Source/Assets/Integration Algorithms/monteCarloIntegrationAlgorithm.h")
 
 add_executable(romberg
         "Source/Integration Algoritms/romberg.c")
@@ -68,6 +68,13 @@ add_executable(gradientDescent
         "Source/Optimization Algorithms/gradientDescent.c"
         "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.c"
         "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.h"
+        Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
+        Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
+        Source/Assets/Util/_configurations.h)
+
+add_executable(simpleMaxMinFinder
+        "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.c"
+        "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.h"
         Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
         Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
         Source/Assets/Util/_configurations.h)
