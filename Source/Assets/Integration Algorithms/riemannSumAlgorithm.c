@@ -32,7 +32,7 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
         printf("\nError: arguments option or mode are not valid\n");
         Exit();
         exit(EXIT_FAILURE);
-    }
+    } // end of if
 
     // check n to be more than zero
     // this is implemented to prevent divide by zero error

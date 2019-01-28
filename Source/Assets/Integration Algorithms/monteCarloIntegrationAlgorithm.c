@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-double monteCarloPointIntegration(const char *expression, double a, double b, unsigned int n) {
+double monteCarloIntegration(const char *expression, double a, double b, unsigned int n, unsigned int options){
     /*
      * In mathematics, Monte Carlo integration is a technique for numerical integration using random numbers.
      * It is a particular Monte Carlo method that numerically computes a definite integral. While other algorithms
@@ -20,15 +20,62 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
      * a             starting point of interval [a, b]
      * b             ending point of interval [a, b]
      * n             number of sub-intervals to use
+     * options       type of monte carlo to be used {0: random points ,  1: random rectangles}
      *
      */
+
+    // check mode and options value
+    if (options != 0 && options != 1){
+        printf("\nError: arguments option or mode are not valid\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    } // end of if
+
+    // check n to be more than zero
+    // this is implemented to prevent divide by zero error
+    if (n <= 0) {
+        printf("Error: argument n must be more than zero!\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    } // end of ete check
+
+    // use requested type of monte carlo integration
+    switch (options){
+        case 0:
+            return monteCarloPointIntegration(expression, a, b, n);
+        case 1:
+            return monteCarloRectangleIntegration(expression, a, b, n);
+    } // end of switch
+} // end of function monteCarloIntegration
+
+double monteCarloPointIntegration(const char *expression, double a, double b, unsigned int n) {
+    /*
+     * In this method we use random points and then calculate the area under function based on
+     * proportional relation between points under the curve of function and all points to the area
+     * of rectangle which surrounds whole function
+     *
+     * ARGUMENTS:
+     * expressions  the function expression, it must be a string array like "x^2+1"
+     * a             starting point of interval [a, b]
+     * b             ending point of interval [a, b]
+     * n             number of sub-intervals to use
+     *
+     */
+
+    // check n to be more than zero
+    // this is implemented to prevent divide by zero error
+    if (n <= 0) {
+        printf("Error: argument n must be more than zero!\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    } // end of ete check
 
     // find maximum and minimum of function
     double *extremum = simpleMaxMinFinder(expression, a, b, n);
     double max = extremum[0], min = extremum[1];
 
     // initializing variables
-    double Area, rectangleArea, x, y, h, fx;
+    double area, rectangleArea, x, y, h, fx;
     int correctPoints = 0;
 
     // calculate rectangle area
@@ -83,6 +130,50 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
     } // end of for loop
 
     // calculate the estimated area under function
-    Area = fabs(rectangleArea) * (double) correctPoints / n;
-    return Area;
-}
+    area = fabs(rectangleArea) * (double) correctPoints / n;
+    return area;
+} //end of function monteCarloPointIntegration
+
+double monteCarloRectangleIntegration(const char *expression, double a, double b, unsigned int n){
+    /*
+     * In this method we use the same approach as riemann sum rule
+     * but the difference is we use random rectangles
+     *
+     * ARGUMENTS:
+     * expressions  the function expression, it must be a string array like "x^2+1"
+     * a             starting point of interval [a, b]
+     * b             ending point of interval [a, b]
+     * n             number of sub-intervals to use
+     *
+     */
+
+
+    // check n to be more than zero
+    // this is implemented to prevent divide by zero error
+    if (n <= 0) {
+        printf("Error: argument n must be more than zero!\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    } // end of ete check
+
+    // initializing variables
+    double area = 0, x , y;
+    double coefficient = b - a;
+    double width = coefficient / n;
+
+    // set the seed for random number generator
+    seed();
+
+    for (int i = 0; i <= n ; ++i) {
+        // find a random x
+        x =  a + coefficient * zeroToOneUniformRandom();
+        // find it's height
+        y = function_1_arg(expression, x);
+        // sum all heights
+        area += y ;
+    } // end of for loop
+
+    // multiply al heights to width of all rectangles to get total sum
+    area *= width;
+    return area;
+} // end of function monteCarloRectangleIntegration
