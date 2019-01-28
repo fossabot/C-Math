@@ -44,18 +44,18 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
 
     // initializing variables
     double area = 0, x, height;
-    double c = (b - a) / n;
+    double coefficient = (b - a) / n;
     int scale = (options == 1) ? 1 : 0;
 
-    // loop for summing f(a + i * c)
+    // loop for summing f(a + i * coefficient)
     // if left point selected we must calculate for 0 <= i <= n - 1
     // if right point selected we must calculate for 1 <= i <= n
-    // if mid point selected we have to calculate a + c(2i+1)/2 for 0 <= i <= n - 1
+    // if mid point selected we have to calculate a + coefficient * (2i+1)/2 for 0 <= i <= n - 1
     for (int i = scale; i <= n - 1 + scale; ++i) {
         if (options != 2) {
-            x = a + i * c;
+            x = a + i * coefficient;
         } else {
-            x = a + c * (2 * i + 1) / 2;
+            x = a + coefficient * (2 * i + 1) / 2;
         }
         height = function_1_arg(expression, x);
         area += height;
@@ -68,11 +68,11 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
 
     // show process
     if (mode) {
-        printf("area = height sum * width => area = %lf * %lf\n", area, c);
+        printf("area = height sum * width => area = %lf * %lf\n", area, coefficient);
     }
 
-    // multiply sums to c
-    area *= c;
+    // multiply sums to coefficient
+    area *= coefficient;
 
     return area;
 
