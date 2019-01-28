@@ -7,10 +7,6 @@ double zeroToOneUniformRandom(void) {
     /*
      * Generate a random number between 0 and 1
      */
-
-    // set seed
-    seed();
-
     // generate
     return rand() / (double) RAND_MAX;
 } // end of zeroToOneUniformRandom
