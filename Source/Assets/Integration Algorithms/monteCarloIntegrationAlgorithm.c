@@ -28,7 +28,7 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
     double max = extremum[0], min = extremum[1];
 
     // initializing variables
-    double result, rectangleArea, x, y, h, fx;
+    double Area, rectangleArea, x, y, h, fx;
     int correctPoints = 0;
 
     // calculate rectangle area
@@ -83,6 +83,6 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
     } // end of for loop
 
     // calculate the estimated area under function
-    result = fabs(rectangleArea) * (double) correctPoints / n;
-    return result;
+    Area = fabs(rectangleArea) * (double) correctPoints / n;
+    return Area;
 }
