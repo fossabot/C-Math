@@ -18,7 +18,7 @@ int main() {
     double a0, b0;
 
     printf("\t\t\t\tIntegral Calculator\n"
-           "\t\t\t\t   Monte Carlo\n");
+           "\t\t\t\t     Monte Carlo\n");
 
     // getting required data from user
     printf("\nEnter the function you want to integrate (example: x^2-3):\n");
