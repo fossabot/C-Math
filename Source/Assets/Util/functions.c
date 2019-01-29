@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-double function_1_arg(const char *expression, double value) {
+double function_1_arg(const char *expression, double valueX) {
     /*
      * This function takes an expression of a one argument function "f(x)"
      * and a value, then it will calculate y = f(value)
@@ -23,7 +23,7 @@ double function_1_arg(const char *expression, double value) {
     te_expr *equation = te_compile(expression, vars, 1, &err);
 
     if (equation) {
-        x = value;
+        x = valueX;
         const double result = te_eval(equation);
         te_free(equation);
         return result;
