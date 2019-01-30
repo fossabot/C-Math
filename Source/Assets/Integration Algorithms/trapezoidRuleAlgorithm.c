@@ -1,11 +1,11 @@
-#include "riemannSumAlgorithm.h"
+#include "trapezoidRuleAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/util.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
-double riemannSum(const char *expression, double a, double b, unsigned int n, int options, int mode) {
+double trapezoidRule(const char *expression, double a, double b, unsigned int n, int mode) {
     /*
      * In mathematics, a Riemann sum is a certain kind of approximation of an integral by a finite sum. It is named
      * after nineteenth century German mathematician Bernhard Riemann. One very common application is approximating
@@ -21,15 +21,14 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
      * a             starting point of interval [a, b]
      * b             ending point of interval [a, b]
      * n             number of sub-intervals to use
-     * options       which point of sub-interval to use  {0: left point, 1: right point, 2: mid point}
      * mode          show process {0: no, 1: yes}
      *
      */
 
 
     // check mode and options value
-    if ((mode != 0 && mode != 1) || (options != 0 && options != 1 && options != 2)){
-        printf("\nError: arguments option or mode are not valid\n");
+    if (mode != 0 && mode != 1) {
+        printf("\nError: mode argument is not valid\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -43,39 +42,25 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
     } // end of ete check
 
     // initializing variables
-    double area = 0, x, height;
-    // coefficient is also width of every rectangle
+    double area = 0, x;
+    // coefficient is also width of every trapezoid
     double coefficient = (b - a) / n;
-    int scale = (options == 1) ? 1 : 0;
 
-    // loop for summing f(a + i * coefficient)
-    // if left point selected we must calculate for 0 <= i <= n - 1
-    // if right point selected we must calculate for 1 <= i <= n
-    // if mid point selected we have to calculate a + coefficient * (2i+1)/2 for 0 <= i <= n - 1
-    for (int i = scale; i <= n - 1 + scale; ++i) {
-        if (options != 2) {
-            x = a + i * coefficient;
-        } else {
-            x = a + coefficient * (2 * i + 1) / 2;
-        } // end of option if else
+    // according to formula: width/2 * (f(x0) + f(xn) + 2 * sigma(f(xi)))
+    // first we calculate f(x0) + f(xn)
+    area += function_1_arg(expression, a) + function_1_arg(expression, b);
 
-        // calculate height of rectangle and add it to area
-        height = function_1_arg(expression, x);
-        area += height;
-
+    // calculate sigma part
+    for (int i = 1; i < n; ++i) {
+        x = a + i * coefficient;
+        area += 2 * function_1_arg(expression, x);
         // show process
         if (mode) {
-            printf("Height of rectangle [#%d]: %lf, heights sum =  %lf\n", i, height, area);
+            printf("[#%d] Heights sum =  %lf\n", i, area);
         } // end of if mode
     } // end of for loop
 
-    // show process
-    if (mode) {
-        printf("area = height sum * width => area = %lf * %lf\n", area, coefficient);
-    } // end of if mode
-
-    // multiply sums to coefficient to get area
-    // based on formula: area = (constant width) * (sum of heights)
-    area *= coefficient;
+    // multiply sums to width/2
+    area *= coefficient / 2;
     return area;
 } // end of riemann sum function
