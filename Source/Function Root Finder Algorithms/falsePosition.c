@@ -34,7 +34,7 @@ int main() {
     fgets(b, sizeof(b), stdin);
     b0 = strtod(b, &ptr);
 
-    printf("Do you want to use improved algorithms? enter 2 for Anderson-Bjork, 1 for Illinois and 0 for no:\n");
+    printf("Do you want to use improved algorithms? enter 0 for 'no', 1 for Illinois and 2 for Anderson-Bjork:\n");
     fgets(improved_c, sizeof(improved_c), stdin);
     improved = strtol(improved_c, &ptr, 10);
 

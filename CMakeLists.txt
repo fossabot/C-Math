@@ -58,8 +58,8 @@ add_executable(trapezoidRule
         Source/Assets/Util/_configurations.h)
 
 
-#add_executable(simpsonRule
-        #"Source/Integration Algoritms/simpsonRule.c")
+add_executable(simpsonRule
+        "Source/Integration Algoritms/simpsonRule.c" "Source/Assets/Integration Algorithms/simpsonRuleAlgorithm.c" "Source/Assets/Integration Algorithms/simpsonRuleAlgorithm.h")
 
 add_executable(monteCarlo
         "Source/Integration Algoritms/monteCarlo.c"

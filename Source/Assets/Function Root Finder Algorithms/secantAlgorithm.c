@@ -35,7 +35,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
     }
 
     // initializing variables
-    int iter = 1;
+    unsigned int iter = 1;
     double c = 0;
     double fc;
     double ete_err;

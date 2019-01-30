@@ -5,8 +5,8 @@
 #include <stdio.h>
 #include <math.h>
 
-double gradientDescent(const char *expression, double x0, double ete, double ere, double gamma, int maxiter, int mode,
-                       int *state) {
+double gradientDescent(const char *expression, double x0, double ete, double ere, double gamma, unsigned int maxiter,
+                       int mode, int *state) {
     /*
      * Gradient descent is a first-order iterative optimization algorithm for finding the minimum of a function.
      * To find a local minimum of a function using gradient descent, one takes steps proportional to the negative of
@@ -25,7 +25,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
      */
 
     // initializing variables
-    int iter = 0;
+    unsigned int iter = 0;
     double fx;
     double ete_err;
     double ere_err;

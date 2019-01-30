@@ -43,7 +43,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
     }
 
     // initializing variables
-    int iter = 1;
+    unsigned int iter = 1;
     double x = x0;
     double xNew;
     double fx = function_1_arg(expression, x);

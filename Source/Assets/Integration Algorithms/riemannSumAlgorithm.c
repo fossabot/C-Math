@@ -46,13 +46,13 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
     double area = 0, x, height;
     // coefficient is also width of every rectangle
     double coefficient = (b - a) / n;
-    int scale = (options == 1) ? 1 : 0;
+    unsigned int scale = (options == 1) ? 1 : 0;
 
     // loop for summing f(a + i * coefficient)
     // if left point selected we must calculate for 0 <= i <= n - 1
     // if right point selected we must calculate for 1 <= i <= n
     // if mid point selected we have to calculate a + coefficient * (2i+1)/2 for 0 <= i <= n - 1
-    for (int i = scale; i <= n - 1 + scale; ++i) {
+    for (unsigned int i = scale; i <= n - 1 + scale; ++i) {
         if (options != 2) {
             x = a + i * coefficient;
         } else {

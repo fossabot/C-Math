@@ -33,7 +33,7 @@ double *simpleMaxMinFinder(const char *expression, double a, double b, unsigned 
     double coefficient = (b - a) / n;
     double x, y, max = 0, min = 0;
 
-    for (int i = 0; i <= n; ++i) {
+    for (unsigned int i = 0; i <= n; ++i) {
         x = a + coefficient * i;
         y = function_1_arg(expression, x);
 

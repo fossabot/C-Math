@@ -100,7 +100,7 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
     // set the seed for random number generator
     seed();
 
-    for (int i = 0; i <= n; ++i) {
+    for (unsigned int i = 0; i <= n; ++i) {
 
         // generate random coefficients
         double xRandomCoefficient = zeroToOneUniformRandom();
@@ -164,7 +164,7 @@ double monteCarloRectangleIntegration(const char *expression, double a, double b
     // set the seed for random number generator
     seed();
 
-    for (int i = 0; i <= n ; ++i) {
+    for (unsigned int i = 0; i <= n ; ++i) {
         // find a random x
         x =  a + coefficient * zeroToOneUniformRandom();
         // find it's height

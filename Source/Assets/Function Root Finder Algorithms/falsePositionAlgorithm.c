@@ -46,7 +46,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
     if (fa * fb < 0) {
 
         // initializing variables
-        int iter = 1;
+        unsigned int iter = 1;
         double m;
         double c = 0;
         double ete_err;

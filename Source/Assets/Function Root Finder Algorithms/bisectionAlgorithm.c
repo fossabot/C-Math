@@ -43,7 +43,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
     if (fa * fb < 0) {
 
         // initializing variables
-        int iter = 1;
+        unsigned int iter = 1;
         double c = 0;
         double ete_err;
         double ere_err;

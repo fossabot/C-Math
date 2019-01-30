@@ -79,7 +79,7 @@ int main() {
     } // end of if mode
 
     // calculation
-    double x = gradientDescent(expression, x0, ete, ere, gamma, maxiter, mode, &flag);
+    double x = gradientDescent(expression, x0, ete, ere, gamma, (unsigned int) maxiter, mode, &flag);
 
     // if there was an answer
     if (flag) {
