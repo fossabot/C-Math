@@ -44,6 +44,7 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
 
     // initializing variables
     double area = 0, x, height;
+    // coefficient is also width of every rectangle
     double coefficient = (b - a) / n;
     int scale = (options == 1) ? 1 : 0;
 
@@ -57,6 +58,7 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
         } else {
             x = a + coefficient * (2 * i + 1) / 2;
         }
+        // calculate height of rectangle and add it to area
         height = function_1_arg(expression, x);
         area += height;
 
@@ -71,7 +73,8 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
         printf("area = height sum * width => area = %lf * %lf\n", area, coefficient);
     }
 
-    // multiply sums to coefficient
+    // multiply sums to coefficient to get area
+    // based on formula: area = (constant width) * (sum of heights)
     area *= coefficient;
 
     return area;
