@@ -50,7 +50,13 @@ add_executable(riemannSum
         Source/Assets/Util/_configurations.h)
 
 add_executable(trapezoidRule
-        "Source/Integration Algoritms/trapezoidRule.c" "Source/Assets/Integration Algorithms/trapezoidRuleAlgorithm.c" "Source/Assets/Integration Algorithms/trapezoidRuleAlgorithm.h")
+        "Source/Integration Algoritms/trapezoidRule.c"
+        "Source/Assets/Integration Algorithms/trapezoidRuleAlgorithm.c"
+        "Source/Assets/Integration Algorithms/trapezoidRuleAlgorithm.h"
+        Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
+        Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
+        Source/Assets/Util/_configurations.h)
+
 
 #add_executable(simpsonRule
         #"Source/Integration Algoritms/simpsonRule.c")

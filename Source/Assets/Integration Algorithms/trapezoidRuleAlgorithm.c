@@ -51,7 +51,7 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
     area += function_1_arg(expression, a) + function_1_arg(expression, b);
 
     // calculate sigma part
-    for (int i = 1; i < n; ++i) {
+    for (unsigned int i = 1; i < n; ++i) {
         x = a + i * coefficient;
         area += 2 * function_1_arg(expression, x);
         // show process
