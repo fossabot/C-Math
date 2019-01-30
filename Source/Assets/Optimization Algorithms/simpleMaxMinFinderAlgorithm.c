@@ -20,13 +20,20 @@ double *simpleMaxMinFinder(const char *expression, double a, double b, unsigned 
      *
      */
 
+    // fix interval reverse
+    if (a > b){
+        double temp = a;
+        a = b;
+        b = temp;
+    } // end of if
+
     // check n to be more than zero
     // this is implemented to prevent divide by zero error
     if (n <= 0) {
         printf("Error: argument n must be more than zero!\n");
         Exit();
         exit(EXIT_FAILURE);
-    } // end of ete check
+    } // end of n check
 
     // initializing variables
     static double results[2];

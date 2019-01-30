@@ -1,8 +1,10 @@
 #include "gradientDescentAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/_configurations.h"
+#include "../Util/util.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 double gradientDescent(const char *expression, double x0, double ete, double ere, double gamma, unsigned int maxiter,
@@ -23,6 +25,27 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
      * state        is answer found or not
      *
      */
+
+    // check error thresholds
+    if (ere < 0 || ete < 0){
+        printf("\nError: ete or ere or tol argument is not valid\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    } // end of if
+
+    // check mode
+    if (mode != 0 && mode != 1){
+        printf("\nError: mode argument is not valid\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    } // end of if
+
+    // check maxiter to be more than zero
+    if (maxiter <= 0) {
+        printf("Error: argument maxiter must be more than zero!\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    } // end of maxiter check
 
     // initializing variables
     unsigned int iter = 0;

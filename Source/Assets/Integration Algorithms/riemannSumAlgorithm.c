@@ -26,6 +26,12 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
      *
      */
 
+    // fix interval reverse
+    if (a > b){
+        double temp = a;
+        a = b;
+        b = temp;
+    } // end of if
 
     // check mode and options value
     if ((mode != 0 && mode != 1) || (options != 0 && options != 1 && options != 2)){
@@ -40,7 +46,7 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
         printf("Error: argument n must be more than zero!\n");
         Exit();
         exit(EXIT_FAILURE);
-    } // end of ete check
+    } // end of n check
 
     // initializing variables
     double area = 0, x, height;

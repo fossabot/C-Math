@@ -24,6 +24,13 @@ double monteCarloIntegration(const char *expression, double a, double b, unsigne
      *
      */
 
+    // fix interval reverse
+    if (a > b){
+        double temp = a;
+        a = b;
+        b = temp;
+    } // end of if
+
     // check mode and options value
     if (options != 0 && options != 1){
         printf("\nError: arguments option or mode are not valid\n");
@@ -37,7 +44,7 @@ double monteCarloIntegration(const char *expression, double a, double b, unsigne
         printf("Error: argument n must be more than zero!\n");
         Exit();
         exit(EXIT_FAILURE);
-    } // end of ete check
+    } // end of n check
 
     // use requested type of monte carlo integration
     switch (options){
@@ -62,13 +69,20 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
      *
      */
 
+    // fix interval reverse
+    if (a > b){
+        double temp = a;
+        a = b;
+        b = temp;
+    } // end of if
+
     // check n to be more than zero
     // this is implemented to prevent divide by zero error
     if (n <= 0) {
         printf("Error: argument n must be more than zero!\n");
         Exit();
         exit(EXIT_FAILURE);
-    } // end of ete check
+    } // end of n check
 
     // find maximum and minimum of function
     double *extremum = simpleMaxMinFinder(expression, a, b, n);
@@ -147,6 +161,12 @@ double monteCarloRectangleIntegration(const char *expression, double a, double b
      *
      */
 
+    // fix interval reverse
+    if (a > b){
+        double temp = a;
+        a = b;
+        b = temp;
+    } // end of if
 
     // check n to be more than zero
     // this is implemented to prevent divide by zero error
@@ -154,7 +174,7 @@ double monteCarloRectangleIntegration(const char *expression, double a, double b
         printf("Error: argument n must be more than zero!\n");
         Exit();
         exit(EXIT_FAILURE);
-    } // end of ete check
+    } // end of n check
 
     // initializing variables
     double area = 0, x , y;

@@ -28,12 +28,33 @@ double bisection(const char *expression, double a, double b, double ete, double 
      *
      */
 
+    // fix interval reverse
+    if (a > b){
+        double temp = a;
+        a = b;
+        b = temp;
+    } // end of if
+
+    // check error thresholds
+    if (ere < 0 || ete < 0 || tol < 0){
+        printf("\nError: ete or ere or tol argument is not valid\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    } // end of if
+
     // check mode
     if (mode != 0 && mode != 1){
         printf("\nError: mode argument is not valid\n");
         Exit();
         exit(EXIT_FAILURE);
-    }
+    } // end of if
+
+    // check maxiter to be more than zero
+    if (maxiter <= 0) {
+        printf("Error: argument maxiter must be more than zero!\n");
+        Exit();
+        exit(EXIT_FAILURE);
+    } // end of maxiter check
 
     // calculates y1 = f(a) and y2 =f(b)
     double fa = function_1_arg(expression, a);

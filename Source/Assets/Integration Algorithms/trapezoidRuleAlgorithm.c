@@ -26,8 +26,15 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
      */
 
 
-    // check mode and options value
-    if (mode != 0 && mode != 1) {
+    // fix interval reverse
+    if (a > b){
+        double temp = a;
+        a = b;
+        b = temp;
+    } // end of if
+
+    // check mode
+    if (mode != 0 && mode != 1){
         printf("\nError: mode argument is not valid\n");
         Exit();
         exit(EXIT_FAILURE);
@@ -39,7 +46,7 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
         printf("Error: argument n must be more than zero!\n");
         Exit();
         exit(EXIT_FAILURE);
-    } // end of ete check
+    } // end of n check
 
     // initializing variables
     double area = 0, x;
