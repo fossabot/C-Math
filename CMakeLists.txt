@@ -59,7 +59,12 @@ add_executable(trapezoidRule
 
 
 add_executable(simpsonRule
-        "Source/Integration Algoritms/simpsonRule.c" "Source/Assets/Integration Algorithms/simpsonRuleAlgorithm.c" "Source/Assets/Integration Algorithms/simpsonRuleAlgorithm.h")
+        "Source/Integration Algoritms/simpsonRule.c"
+        "Source/Assets/Integration Algorithms/simpsonRuleAlgorithm.c"
+        "Source/Assets/Integration Algorithms/simpsonRuleAlgorithm.h"
+        Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
+        Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
+        Source/Assets/Util/_configurations.h)
 
 add_executable(monteCarlo
         "Source/Integration Algoritms/monteCarlo.c"
@@ -86,12 +91,13 @@ add_executable(gradientDescent
         Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
         Source/Assets/Util/_configurations.h)
 
-#add_executable(simpleMaxMinFinder
-        #"Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.c"
-        #"Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.h"
-       # Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
-       # Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
-       # Source/Assets/Util/_configurations.h)
+add_executable(simpleMaxMinFinder
+        "Source/Optimization Algorithms/simpleMaxMinFinder.c"
+        "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.c"
+        "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.h"
+        Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
+        Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
+        Source/Assets/Util/_configurations.h)
 
 #=======================================================================================================================
 #                                                       Series
