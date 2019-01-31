@@ -50,7 +50,7 @@ double *simpleMaxMinFinder(const char *expression, double a, double b, unsigned 
             min = y;
         }
     }
-
+    // assign values to array
     results[0] = max;
     results[1] = min;
     return results;
