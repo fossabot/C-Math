@@ -1,4 +1,4 @@
-#include "../Assets/Optimization Algorithms/gradientDescentAlgorithm.h"
+#include "../Assets/Optimization Algorithms/gradientAscentAlgorithm.h"
 #include "../Assets/Util/util.h"
 #include "../Assets/Util/_configurations.h"
 
@@ -20,14 +20,14 @@ int main() {
     double a0, b0, x0, gamma, ete, ere, result;
 
     printf("\t\t\t\tOptimization Algorithm\n"
-           "\t\t\t\t   Gradient Descent\n");
+           "\t\t\t\t   Gradient Ascent\n");
 
     // getting required data from user
     printf("\nEnter the function you want to optimize (example: x^4-3*x^3+2):\n");
     fgets(expression, sizeof(expression), stdin);
 
-    // get type of gradient descent optimization
-    printf("Select type of Gradient Descent Optimization {over whole interval: 0 , over custom interval [a, b]: 1}:\n");
+    // get type of gradient ascent optimization
+    printf("Select type of Gradient Ascent Optimization {over whole interval: 0 , over custom interval [a, b]: 1}:\n");
     fgets(options_c, sizeof(options_c), stdin);
     options = strtol(options_c, &ptr, 10);
 
@@ -39,7 +39,7 @@ int main() {
     }
 
     // get input based on selected type
-    switch (options){
+    switch (options) {
         case 0:
             printf("Enter the starting point (x0):\n");
             fgets(x0_c, sizeof(x0_c), stdin);
@@ -105,18 +105,18 @@ int main() {
     } // end of if mode
 
     // calculate with respect of selected type
-    switch (options){
+    switch (options) {
         case 0:
-             result = gradientDescent(expression, x0, ete, ere, gamma, (unsigned int) maxiter, mode, &flag);
+            result = gradientAscent(expression, x0, ete, ere, gamma, (unsigned int) maxiter, mode, &flag);
             break;
         case 1:
-            result = gradientDescentInterval(expression, a0, b0, ete, ere, gamma, (unsigned int) maxiter, mode);
+            result = gradientAscentInterval(expression, a0, b0, ete, ere, gamma, (unsigned int) maxiter, mode);
             break;
     }
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method has found the minimum of the function at point x = %lf.\n\n", result);
+        printf("\nThis method has found the maximum of the function at point x = %lf.\n\n", result);
         Exit();
         return EXIT_SUCCESS;
     } else { // if no answer

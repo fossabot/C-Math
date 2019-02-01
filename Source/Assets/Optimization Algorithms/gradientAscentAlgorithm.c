@@ -1,4 +1,4 @@
-#include "gradientDescentAlgorithm.h"
+#include "gradientAscentAlgorithm.h"
 #include "../Util/randomGenerator.h"
 #include "../Util/functions.h"
 #include "../Util/_configurations.h"
@@ -8,11 +8,11 @@
 #include <stdlib.h>
 #include <math.h>
 
-double gradientDescent(const char *expression, double x0, double ete, double ere, double gamma, unsigned int maxiter,
-                       int mode, int *state) {
+double gradientAscent(const char *expression, double x0, double ete, double ere, double gamma, unsigned int maxiter,
+                      int mode, int *state) {
     /*
-     * Gradient descent is a first-order iterative optimization algorithm for finding the minimum of a function.
-     * To find a local minimum of a function using gradient descent, one takes steps proportional to the negative of
+     * Gradient descent is a first-order iterative optimization algorithm for finding the maximum of a function.
+     * To find a local maximum of a function using gradient ascent, one takes steps proportional to the positive of
      * the gradient (or approximate gradient) of the function at the current point.
      *
      * ARGUMENTS:
@@ -56,9 +56,9 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
     double past_x;
 
     while (iter < maxiter) {
-        // calculate new x0 by subtracting the derivative of function at x0 multiplied by gamma from x0
+        // calculate new x0 by adding the derivative of function at x0 multiplied by gamma from x0
         past_x = x0;
-        x0 -= firstDerivative_1_arg(expression, x0, DX) * gamma;
+        x0 += firstDerivative_1_arg(expression, x0, DX) * gamma;
         fx = function_1_arg(expression, x0);
 
         // calculate errors
@@ -77,7 +77,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
             if (mode) {
                 printf("\nIn this iteration the calculated estimated true error is less than the threshold\n"
                        "(estimated true error) %.5e < %.5e (threshold)\n"
-                       "so the calculated x is the point on domain that minimum of the function happens\n",
+                       "so the calculated x is the point on domain that maximum of the function happens\n",
                        ete_err, ete);
             } // end if(mode)
 
@@ -89,7 +89,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
             if (mode) {
                 printf("\nIn this iteration the calculated estimated real error is less than the threshold\n"
                        "(estimated real error) %.5e < %.5e (threshold)\n"
-                       "so the calculated x is the point on domain that minimum of the function happens\n",
+                       "so the calculated x is the point on domain that maximum of the function happens\n",
                        ere_err, ere);
             } // end if(mode)
 
@@ -107,7 +107,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
             printf("\nThe solution does not converge or iterations are not sufficient\n");
         } // end of if ... else
 
-        printf("the last calculated minimum is %lf\n", x0);
+        printf("the last calculated maximum is %lf\n", x0);
     } // end if(mode)
 
     // set state to 0 (false)
@@ -115,14 +115,14 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
     return x0;
 } // end of gradientDescent function
 
-double gradientDescentInterval(const char *expression, double a, double b, double ete, double ere, double gamma,
-                               unsigned int maxiter, int mode) {
+double gradientAscentInterval(const char *expression, double a, double b, double ete, double ere, double gamma,
+                              unsigned int maxiter, int mode) {
     /*
-     * Gradient descent is a first-order iterative optimization algorithm for finding the minimum of a function.
-     * To find a local minimum of a function using gradient descent, one takes steps proportional to the negative of
+     * Gradient descent is a first-order iterative optimization algorithm for finding the maximum of a function.
+     * To find a local maximum of a function using gradient ascent, one takes steps proportional to the positive of
      * the gradient (or approximate gradient) of the function at the current point.
      *
-     * This function searches minimum on an interval [a, b]
+     * This function searches maximum on an interval [a, b]
      *
      * ARGUMENTS:
      * expressions  the function expression, it must be a string array like "x^2+1"
@@ -177,7 +177,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
     seed();
 
     while (iter < maxiter) {
-        // try maxiter times to find minimum in given interval [a, b] and return lowest result
+        // try maxiter times to find maximum in given interval [a, b] and return highest result
         // update fresult with new result
         fresult = function_1_arg(expression, result);
         // choose a random starting point
@@ -185,11 +185,11 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
 
         // set inner iter to zero before new loop
         innerIter = 0;
-        // go in a loop to find a minimum with random starting point
+        // go in a loop to find a maximum with random starting point
         while (innerIter < maxiter) {
-            // calculate new x by subtracting the derivative of function at x multiplied by gamma from x
+            // calculate new x by adding the derivative of function at x multiplied by gamma from x
             past_x = x;
-            x -= firstDerivative_1_arg(expression, x, DX) * gamma;
+            x += firstDerivative_1_arg(expression, x, DX) * gamma;
             fx = function_1_arg(expression, x);
 
             // calculate errors
@@ -207,12 +207,12 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             if (x < a) {
                 if (mode) {
                     printf("\nIn this iteration the calculated x is less than a : %.5e < %f"
-                           "so minimum of the function occurs at a\n",
+                           "so maximum of the function occurs at a\n",
                            x, a);
                 } // end if(mode)
 
-                // if fa is lower than f(result), then a is where the minimum occurs
-                if (fa < fresult) {
+                // if fa is highest than f(result), then a is where the maximum occurs
+                if (fa > fresult) {
                     result = a;
                 } // end of if
                 break;
@@ -222,12 +222,12 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             if (x > b) {
                 if (mode) {
                     printf("\nIn this iteration the calculated x is bigger than b : %.5e > %f"
-                           "so minimum of the function occurs at b\n",
+                           "so maximum of the function occurs at b\n",
                            x, b);
                 } // end if(mode)
 
-                // if fb is lower than f(result), then b is where the minimum occurs
-                if (fb < fresult) {
+                // if fb is higher than f(result), then b is where the maximum occurs
+                if (fb > fresult) {
                     result = b;
                 } // end of if
                 break;
@@ -238,12 +238,12 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
                 if (mode) {
                     printf("\nIn this iteration the calculated estimated true error is less than the threshold\n"
                            "(estimated true error) %.5e < %.5e (threshold)\n"
-                           "so the calculated x is the point on domain that minimum of the function happens\n",
+                           "so the calculated x is the point on domain that maximum of the function happens\n",
                            ete_err, ete);
                 } // end if(mode)
 
-                // if fx is lower than f(result), then x is where the minimum occurs
-                if (fx < fresult) {
+                // if fx is higher than f(result), then x is where the maximum occurs
+                if (fx > fresult) {
                     result = x;
                 } // end of if
                 break;
@@ -254,12 +254,12 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
                 if (mode) {
                     printf("\nIn this iteration the calculated estimated real error is less than the threshold\n"
                            "(estimated real error) %.5e < %.5e (threshold)\n"
-                           "so the calculated x is the point on domain that minimum of the function happens\n",
+                           "so the calculated x is the point on domain that maximum of the function happens\n",
                            ere_err, ere);
                 } // end if(mode)
 
-                // if fx is lower than f(result), then x is where the minimum occurs
-                if (fx < fresult) {
+                // if fx is higher than f(result), then x is where the maximum occurs
+                if (fx > fresult) {
                     result = x;
                 } // end of if
                 break;
