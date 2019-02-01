@@ -17,7 +17,7 @@ double *simpleMaxMinFinder(const char *expression, double a, double b, unsigned 
      * n             number of sub-intervals to use
      *
      * RETURN:       a pointer to a double array of size 2
-     *               this array contains x where maximum 
+     *               this array contains x where maximum
      *               and minimum of function occurs
      *               result[0] = maximum
      *               result[1] = minimum
@@ -42,15 +42,22 @@ double *simpleMaxMinFinder(const char *expression, double a, double b, unsigned 
     // initializing variables
     static double results[2];
     double coefficient = (b - a) / n;
-    double x, y, max = 0, min = 0;
+    // arbitrary value for max and min
+    double x, y, max = b, min = a;
+    // arbitrary value for fmax and fmin at start of program
+    double fmax = function_1_arg(expression, b), fmin = fmax;
 
     for (unsigned int i = 0; i <= n; ++i) {
+        // new x sample at interval
         x = a + coefficient * i;
         y = function_1_arg(expression, x);
 
-        if (y > max) {
+        // compare y with fmax, fmin and then update
+        if (y > fmax) {
+            fmax = y;
             max = x;
-        } else if (y < min) {
+        } else if (y < fmin) {
+            fmin = y;
             min = x;
         }
     }

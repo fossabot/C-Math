@@ -117,6 +117,25 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
 
 double gradientDescentInterval(const char *expression, double a, double b, double ete, double ere, double gamma,
                                unsigned int maxiter, int mode) {
+    /*
+     * Gradient descent is a first-order iterative optimization algorithm for finding the minimum of a function.
+     * To find a local minimum of a function using gradient descent, one takes steps proportional to the negative of
+     * the gradient (or approximate gradient) of the function at the current point.
+     *
+     * This function searches minimum on an interval [a, b]
+     *
+     * ARGUMENTS:
+     * expressions  the function expression, it must be a string array like "x^2+1"
+     * a            starting point of interval [a, b]
+     * b            ending point of interval [a, b]
+     * ete          estimated true error
+     * ere          estimated relative error
+     * gamma        step size (also known as learning rate)
+     * maxiter      maximum iteration threshold
+     * mode         show process {0: no, 1: yes}
+     *
+     */
+
     // fix interval reverse
     if (a > b) {
         double temp = a;
@@ -164,6 +183,8 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
         // choose a random starting point
         x = a + coefficient * zeroToOneUniformRandom();
 
+        // set inner iter to zero before new loop
+        innerIter = 0;
         // go in a loop to find a minimum with random starting point
         while (innerIter < maxiter) {
             // calculate new x by subtracting the derivative of function at x multiplied by gamma from x

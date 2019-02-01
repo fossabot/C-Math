@@ -47,7 +47,7 @@ int main() {
     double *result = simpleMaxMinFinder(expression, a0, b0, (unsigned int) n);
 
     // show result
-    printf("In domain range [%lf, %lf], maximum = %.5e, minimum = %.5e\n", a0, b0, result[0], result[1]);
+    printf("In domain range [%lf, %lf], x maximum = %lf, x minimum = %lf\n", a0, b0, result[0], result[1]);
     
     Exit();
     return EXIT_SUCCESS;
