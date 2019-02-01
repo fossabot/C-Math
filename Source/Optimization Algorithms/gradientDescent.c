@@ -12,12 +12,12 @@ int main() {
 
     // initializing variables
     char expression[INPUT_SIZE];
-    char x0_c[INPUT_SIZE], gamma_c[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE], maxiter_c[INPUT_SIZE],
-            mode_c[INPUT_SIZE];
+    char a[INPUT_SIZE], b[INPUT_SIZE], x0_c[INPUT_SIZE], gamma_c[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
+            maxiter_c[INPUT_SIZE], options_c[INPUT_SIZE], mode_c[INPUT_SIZE];
     char *ptr;
-    int maxiter = 0, mode = 0;
+    int maxiter = 0, mode = 0, options;
     int flag = 1;
-    double x0, gamma, ete, ere;
+    double a0, b0, x0, gamma, ete, ere, result;
 
     printf("\t\t\t\tOptimization Algorithm\n"
            "\t\t\t\t   Gradient Descent\n");
@@ -26,9 +26,35 @@ int main() {
     printf("\nEnter the function you want to optimize (example: x^4-3*x^3+2):\n");
     fgets(expression, sizeof(expression), stdin);
 
-    printf("Enter the starting point (x0):\n");
-    fgets(x0_c, sizeof(x0_c), stdin);
-    x0 = strtod(x0_c, &ptr);
+    // get type of gradient descent optimization
+    printf("Select type of Gradient Descent Optimization {over whole interval: 0 , over custom interval [a, b]: 1}:\n");
+    fgets(options_c, sizeof(options_c), stdin);
+    options = strtol(options_c, &ptr, 10);
+
+    // check options value
+    if (options != 0 && options != 1) {
+        printf("Wrong type number! you have to enter 0 or 1\n");
+        Exit();
+        return EXIT_FAILURE;
+    }
+
+    // get input based on selected type
+    switch (options){
+        case 0:
+            printf("Enter the starting point (x0):\n");
+            fgets(x0_c, sizeof(x0_c), stdin);
+            x0 = strtod(x0_c, &ptr);
+            break;
+        case 1:
+            printf("Enter the range of function domain rang [a, b]:\n");
+            printf("Enter a:\n");
+            fgets(a, sizeof(a), stdin);
+            a0 = strtod(a, &ptr);
+            printf("Enter b:\n");
+            fgets(b, sizeof(b), stdin);
+            b0 = strtod(b, &ptr);
+            break;
+    } // end of switch
 
     printf("Enter the step size (aka gamma or learning rate): \n");
     fgets(gamma_c, sizeof(gamma_c), stdin);
@@ -78,17 +104,24 @@ int main() {
         return EXIT_FAILURE;
     } // end of if mode
 
-    // calculation
-    double x = gradientDescent(expression, x0, ete, ere, gamma, (unsigned int) maxiter, mode, &flag);
+    // calculate with respect of selected type
+    switch (options){
+        case 0:
+             result = gradientDescent(expression, x0, ete, ere, gamma, (unsigned int) maxiter, mode, &flag);
+            break;
+        case 1:
+            result = gradientDescentInterval(expression, a0, b0, ete, ere, gamma, (unsigned int) maxiter, mode);
+            break;
+    }
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method has found the minimum of the function at point x = %lf.\n\n", x);
+        printf("\nThis method has found the minimum of the function at point x = %lf.\n\n", result);
         Exit();
         return EXIT_SUCCESS;
     } else { // if no answer
         printf("\nThis method didn't find the minimum of the function,"
-               " the last calculated value for X is: %lf.\n\n", x);
+               " the last calculated value for X is: %lf.\n\n", result);
         Exit();
         return EXIT_FAILURE;
     } // end of if flag

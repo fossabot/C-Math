@@ -87,6 +87,7 @@ add_executable(gradientDescent
         "Source/Optimization Algorithms/gradientDescent.c"
         "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.c"
         "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.h"
+        Source/Assets/Util/randomGenerator.c Source/Assets/Util/randomGenerator.h
         Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
         Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
         Source/Assets/Util/_configurations.h)
