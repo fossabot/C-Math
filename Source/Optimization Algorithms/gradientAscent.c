@@ -20,7 +20,7 @@ int main() {
     double a0, b0, x0, gamma, ete, ere, result;
 
     printf("\t\t\t\tOptimization Algorithm\n"
-           "\t\t\t\t   Gradient Ascent\n");
+           "\t\t\t\t    Gradient Ascent\n");
 
     // getting required data from user
     printf("\nEnter the function you want to optimize (example: x^4-3*x^3+2):\n");
