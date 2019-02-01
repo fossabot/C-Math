@@ -86,7 +86,8 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
 
     // find maximum and minimum of function
     double *extremum = simpleMaxMinFinder(expression, a, b, n);
-    double max = extremum[0], min = extremum[1];
+    // get values of maximum and minimum
+    double max = function_1_arg(expression, extremum[0]), min = function_1_arg(expression, extremum[1]);
 
     // initializing variables
     double area, rectangleArea, x, y, h, fx;

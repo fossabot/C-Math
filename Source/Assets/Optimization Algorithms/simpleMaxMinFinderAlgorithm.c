@@ -17,6 +17,10 @@ double *simpleMaxMinFinder(const char *expression, double a, double b, unsigned 
      * n             number of sub-intervals to use
      *
      * RETURN:       a pointer to a double array of size 2
+     *               this array contains x where maximum 
+     *               and minimum of function occurs
+     *               result[0] = maximum
+     *               result[1] = minimum
      *
      */
 
@@ -45,9 +49,9 @@ double *simpleMaxMinFinder(const char *expression, double a, double b, unsigned 
         y = function_1_arg(expression, x);
 
         if (y > max) {
-            max = y;
+            max = x;
         } else if (y < min) {
-            min = y;
+            min = x;
         }
     }
     // assign values to array

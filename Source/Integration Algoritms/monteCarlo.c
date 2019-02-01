@@ -44,7 +44,7 @@ int main() {
         return EXIT_FAILURE;
     }
 
-    // get number of ponts or rectangles
+    // get number of points or rectangles
     switch (options){
         case 0:
             printf("Enter the number of random points for integration:\n");
@@ -52,7 +52,7 @@ int main() {
         case 1:
             printf("Enter the number of random rectangles for integration:\n");
             break;
-    }
+    } // end of switch
     fgets(n_c, sizeof(n_c), stdin);
     n = strtol(n_c, &ptr, 10);
 
