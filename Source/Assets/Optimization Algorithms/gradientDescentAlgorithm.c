@@ -29,7 +29,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
 
     // check error thresholds
     if (ere < 0 || ete < 0) {
-        printf("\nError: ete or ere or tol argument is not valid\n");
+        printf("\nError: ete or ere arguments are not valid\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -145,7 +145,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
 
     // check error thresholds
     if (ere < 0 || ete < 0) {
-        printf("\nError: ete or ere or tol argument is not valid\n");
+        printf("\nError: ete or ere arguments are not valid\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -166,7 +166,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
 
     // initializing variables
     unsigned int iter = 0, innerIter = 0;
-    // choose and arbitrary result at midpoint between a and b to be updated later
+    // choose an arbitrary result at midpoint between a and b to be updated later
     double coefficient = (b - a), result = a + coefficient / 2;
     double x, past_x, fx, fresult;
     double ete_err, ere_err;
@@ -265,7 +265,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
                 break;
             } // end of estimated relative error check
             innerIter++;
-        }
+        } // end of inner while loop
         iter++;
     } // end of while loop
 
