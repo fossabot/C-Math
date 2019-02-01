@@ -1,5 +1,5 @@
-#ifndef __TINYEXPR_H__
-#define __TINYEXPR_H__
+#ifndef __PARSER_H__
+#define __PARSER_H__
 
 
 #ifdef __cplusplus
@@ -59,4 +59,4 @@ void te_free(te_expr *n);
 }
 #endif
 
-#endif /*__TINYEXPR_H__*/
+#endif /*__PARSER_H__*/
