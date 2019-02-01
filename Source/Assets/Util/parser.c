@@ -1,3 +1,39 @@
+/*
+ * TINYEXPR - Tiny recursive descent parser and evaluation engine in C
+ *
+ * Copyright (c) 2015-2018 Lewis Van Winkle
+ *
+ * http://CodePlea.com
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ * claim that you wrote the original software. If you use this software
+ * in a product, an acknowledgement in the product documentation would be
+ * appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ * misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ */
+
+/* COMPILE TIME OPTIONS */
+
+/* Exponentiation associativity:
+For a^b^c = (a^b)^c and -a^b = (-a)^b do nothing.
+For a^b^c = a^(b^c) and -a^b = -(a^b) uncomment the next line.*/
+/* #define TE_POW_FROM_RIGHT */
+
+/* Logarithms
+For log = base 10 log do nothing
+For log = natural log uncomment the next line. */
+/* #define TE_NAT_LOG */
+
 #include "parser.h"
 #include <stdlib.h>
 #include <math.h>
@@ -16,7 +52,7 @@
 typedef double (*te_fun2)(double, double);
 
 enum {
-    TOK_NULL = TE_CLOSURE7+1, TOK_ERROR, TOK_END, TOK_SEP,
+    TOK_NULL = TE_CLOSURE7 + 1, TOK_ERROR, TOK_END, TOK_SEP,
     TOK_OPEN, TOK_CLOSE, TOK_NUMBER, TOK_VARIABLE, TOK_INFIX
 };
 
@@ -113,36 +149,36 @@ static double ncr(double n, double r) {
 static double npr(double n, double r) {return ncr(n, r) * fac(r);}
 
 static const te_variable functions[] = {
-    /* must be in alphabetical order */
-    {"abs", fabs,     TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"acos", acos,    TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"asin", asin,    TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"atan", atan,    TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"atan2", atan2,  TE_FUNCTION2 | TE_FLAG_PURE, 0},
-    {"ceil", ceil,    TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"cos", cos,      TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"cosh", cosh,    TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"e", e,          TE_FUNCTION0 | TE_FLAG_PURE, 0},
-    {"exp", exp,      TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"fac", fac,      TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"floor", floor,  TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"ln", log,       TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        /* must be in alphabetical order */
+        {"abs", fabs, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"acos", acos, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"asin", asin, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"atan", atan, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"atan2", atan2, TE_FUNCTION2 | TE_FLAG_PURE, 0},
+        {"ceil", ceil, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"cos", cos, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"cosh", cosh, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"e", e, TE_FUNCTION0 | TE_FLAG_PURE, 0},
+        {"exp", exp, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"fac", fac, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"floor", floor, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"ln", log, TE_FUNCTION1 | TE_FLAG_PURE, 0},
 #ifdef TE_NAT_LOG
-    {"log", log,      TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"log", log,      TE_FUNCTION1 | TE_FLAG_PURE, 0},
 #else
-    {"log", log10,    TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"log", log10, TE_FUNCTION1 | TE_FLAG_PURE, 0},
 #endif
-    {"log10", log10,  TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"ncr", ncr,      TE_FUNCTION2 | TE_FLAG_PURE, 0},
-    {"npr", npr,      TE_FUNCTION2 | TE_FLAG_PURE, 0},
-    {"pi", pi,        TE_FUNCTION0 | TE_FLAG_PURE, 0},
-    {"pow", pow,      TE_FUNCTION2 | TE_FLAG_PURE, 0},
-    {"sin", sin,      TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"sinh", sinh,    TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"sqrt", sqrt,    TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"tan", tan,      TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {"tanh", tanh,    TE_FUNCTION1 | TE_FLAG_PURE, 0},
-    {0, 0, 0, 0}
+        {"log10", log10, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"ncr", ncr, TE_FUNCTION2 | TE_FLAG_PURE, 0},
+        {"npr", npr, TE_FUNCTION2 | TE_FLAG_PURE, 0},
+        {"pi", pi, TE_FUNCTION0 | TE_FLAG_PURE, 0},
+        {"pow", pow, TE_FUNCTION2 | TE_FLAG_PURE, 0},
+        {"sin", sin, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"sinh", sinh, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"sqrt", sqrt, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"tan", tan, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {"tanh", tanh, TE_FUNCTION1 | TE_FLAG_PURE, 0},
+        {0, 0, 0, 0}
 };
 
 static const te_variable *find_builtin(const char *name, int len) {
@@ -151,7 +187,7 @@ static const te_variable *find_builtin(const char *name, int len) {
 
     /*Binary search.*/
     while (imax >= imin) {
-        const int i = (imin + ((imax-imin)/2));
+        const int i = (imin + ((imax - imin) / 2));
         int c = strncmp(name, functions[i].name, len);
         if (!c) c = '\0' - functions[i].name[len];
         if (c == 0) {
@@ -178,7 +214,6 @@ static const te_variable *find_lookup(const state *s, const char *name, int len)
     }
     return 0;
 }
-
 
 
 static double add(double a, double b) {return a + b;}
@@ -216,8 +251,7 @@ void next_token(state *s) {
                 if (!var) {
                     s->type = TOK_ERROR;
                 } else {
-                    switch(TYPE_MASK(var->type))
-                    {
+                    switch (TYPE_MASK(var->type)) {
                         case TE_VARIABLE:
                             s->type = TOK_VARIABLE;
                             s->bound = var->address;
@@ -431,7 +465,6 @@ static te_expr *factor(state *s) {
 #endif
 
 
-
 static te_expr *term(state *s) {
     /* <term>      =    <factor> {("*" | "/" | "%") <factor>} */
     te_expr *ret = factor(s);
@@ -590,23 +623,39 @@ static void pn (const te_expr *n, int depth) {
     printf("%*s", depth, "");
 
     switch(TYPE_MASK(n->type)) {
-    case TE_CONSTANT: printf("%f\n", n->value); break;
-    case TE_VARIABLE: printf("bound %p\n", n->bound); break;
+        case TE_CONSTANT:
+            printf("%f\n", n->value);
+            break;
+        case TE_VARIABLE:
+            printf("bound %p\n", n->bound);
+            break;
 
-    case TE_FUNCTION0: case TE_FUNCTION1: case TE_FUNCTION2: case TE_FUNCTION3:
-    case TE_FUNCTION4: case TE_FUNCTION5: case TE_FUNCTION6: case TE_FUNCTION7:
-    case TE_CLOSURE0: case TE_CLOSURE1: case TE_CLOSURE2: case TE_CLOSURE3:
-    case TE_CLOSURE4: case TE_CLOSURE5: case TE_CLOSURE6: case TE_CLOSURE7:
-         arity = ARITY(n->type);
-         printf("f%d", arity);
-         for(i = 0; i < arity; i++) {
-             printf(" %p", n->parameters[i]);
-         }
-         printf("\n");
-         for(i = 0; i < arity; i++) {
-             pn(n->parameters[i], depth + 1);
-         }
-         break;
+        case TE_FUNCTION0:
+        case TE_FUNCTION1:
+        case TE_FUNCTION2:
+        case TE_FUNCTION3:
+        case TE_FUNCTION4:
+        case TE_FUNCTION5:
+        case TE_FUNCTION6:
+        case TE_FUNCTION7:
+        case TE_CLOSURE0:
+        case TE_CLOSURE1:
+        case TE_CLOSURE2:
+        case TE_CLOSURE3:
+        case TE_CLOSURE4:
+        case TE_CLOSURE5:
+        case TE_CLOSURE6:
+        case TE_CLOSURE7:
+            arity = ARITY(n->type);
+            printf("f%d", arity);
+            for (i = 0; i < arity; i++) {
+                printf(" %p", n->parameters[i]);
+            }
+            printf("\n");
+            for (i = 0; i < arity; i++) {
+                pn(n->parameters[i], depth + 1);
+            }
+            break;
     }
 }
 
