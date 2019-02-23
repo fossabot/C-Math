@@ -1,18 +1,47 @@
 cmake_minimum_required(VERSION 3.10)
-project(C_Math C)
+project(C_Math LANGUAGES C)
 
 set(CMAKE_C_STANDARD 99)
 
 #=======================================================================================================================
-#                                                  Function Root Finders
+#                                                  Libraries
+#-----------------------------------------------------------------------------------------------------------------------
+#                                               Primary libraries
+
+add_library(util STATIC
+        Source/Assets/Util/util.c Source/Assets/Util/util.h)
+
+add_library(parser STATIC
+        Source/Assets/Util/parser.c Source/Assets/Util/parser.h)
+
+add_library(functions STATIC
+        Source/Assets/Util/functions.c Source/Assets/Util/functions.h)
+
+# link primary libraries
+target_link_libraries(functions
+        PRIVATE parser util)
+
+#-----------------------------------------------------------------------------------------------------------------------
+#                                              Function Libraries
+
+add_library(bisectionAlgorithm STATIC
+        "Source/Assets/Function Root Finder Algorithms/bisectionAlgorithm.c"
+        "Source/Assets/Function Root Finder Algorithms/bisectionAlgorithm.h")
+
+target_link_libraries(bisectionAlgorithm
+        PRIVATE functions util)
+
+#=======================================================================================================================
+#                                                  Executables
+#-----------------------------------------------------------------------------------------------------------------------
+#                                             Function Root Finders
 
 add_executable(bisection
         "Source/Function Root Finder Algorithms/bisection.c"
-        "Source/Assets/Function Root Finder Algorithms/bisectionAlgorithm.c"
-        "Source/Assets/Function Root Finder Algorithms/bisectionAlgorithm.h"
-        Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
-        Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
         Source/Assets/Util/_configurations.h)
+
+target_link_libraries(bisection
+        PRIVATE util bisectionAlgorithm)
 
 add_executable(newtonRaphson
         "Source/Function Root Finder Algorithms/newtonRaphson.c"
@@ -38,8 +67,8 @@ add_executable(secant
         Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
         Source/Assets/Util/_configurations.h)
 
-#=======================================================================================================================
-#                                               Integration Algorithms
+#-----------------------------------------------------------------------------------------------------------------------
+#                                            Integration Algorithms
 
 add_executable(riemannSum
         "Source/Integration Algoritms/riemannSum.c"
@@ -80,8 +109,8 @@ add_executable(monteCarlo
 #add_executable(romberg
         #"Source/Integration Algoritms/romberg.c")
 
-#=======================================================================================================================
-#                                              Optimization Algorithms
+#-----------------------------------------------------------------------------------------------------------------------
+#                                          Optimization Algorithms
 
 add_executable(gradientDescent
         "Source/Optimization Algorithms/gradientDescent.c"
@@ -109,7 +138,7 @@ add_executable(simpleMaxMinFinder
         Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
         Source/Assets/Util/_configurations.h)
 
-#=======================================================================================================================
-#                                                       Series
+#-----------------------------------------------------------------------------------------------------------------------
+#                                                 Series
 
 # add_executable(fibonacci)
