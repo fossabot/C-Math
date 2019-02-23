@@ -2,19 +2,20 @@ cmake_minimum_required(VERSION 3.10)
 project(C_Math LANGUAGES C)
 
 set(CMAKE_C_STANDARD 99)
+set(BUILD_SHARED_LIBS NO)
 
 #=======================================================================================================================
 #                                                  Libraries
 #-----------------------------------------------------------------------------------------------------------------------
 #                                               Primary libraries
 
-add_library(util STATIC
+add_library(util
         Source/Assets/Util/util.c Source/Assets/Util/util.h)
 
-add_library(parser STATIC
+add_library(parser
         Source/Assets/Util/parser.c Source/Assets/Util/parser.h)
 
-add_library(functions STATIC
+add_library(functions
         Source/Assets/Util/functions.c Source/Assets/Util/functions.h)
 
 # link primary libraries
@@ -24,7 +25,7 @@ target_link_libraries(functions
 #-----------------------------------------------------------------------------------------------------------------------
 #                                              Function Libraries
 
-add_library(bisectionAlgorithm STATIC
+add_library(bisectionAlgorithm
         "Source/Assets/Function Root Finder Algorithms/bisectionAlgorithm.c"
         "Source/Assets/Function Root Finder Algorithms/bisectionAlgorithm.h")
 
