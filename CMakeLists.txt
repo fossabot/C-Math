@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.10)
 project(C_Math LANGUAGES C)
 
 set(CMAKE_C_STANDARD 99)
+
+# shared library option [be aware that using shared library needs some changes
+# to PUBLIC PRIVATE parts of linking, and u have to do it at your .]
 set(BUILD_SHARED_LIBS NO)
 
 #=======================================================================================================================
@@ -32,6 +35,13 @@ add_library(bisectionAlgorithm
 target_link_libraries(bisectionAlgorithm
         PRIVATE functions util)
 
+add_library(newtonRaphsonAlgorithm
+        "Source/Assets/Function Root Finder Algorithms/newtonRaphsonAlgorithm.c"
+        "Source/Assets/Function Root Finder Algorithms/newtonRaphsonAlgorithm.h")
+
+target_link_libraries(newtonRaphsonAlgorithm
+        PRIVATE functions util)
+
 #=======================================================================================================================
 #                                                  Executables
 #-----------------------------------------------------------------------------------------------------------------------
@@ -42,15 +52,14 @@ add_executable(bisection
         Source/Assets/Util/_configurations.h)
 
 target_link_libraries(bisection
-        PRIVATE util bisectionAlgorithm)
+        PRIVATE bisectionAlgorithm util)
 
 add_executable(newtonRaphson
         "Source/Function Root Finder Algorithms/newtonRaphson.c"
-        "Source/Assets/Function Root Finder Algorithms/newtonRaphsonAlgorithm.c"
-        "Source/Assets/Function Root Finder Algorithms/newtonRaphsonAlgorithm.h"
-        Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
-        Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
         Source/Assets/Util/_configurations.h)
+
+target_link_libraries(newtonRaphson
+        PRIVATE newtonRaphsonAlgorithm util)
 
 add_executable(falsePosition
         "Source/Function Root Finder Algorithms/falsePosition.c"

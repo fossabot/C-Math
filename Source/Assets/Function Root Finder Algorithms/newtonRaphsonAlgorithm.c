@@ -31,20 +31,20 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
      * tol          tolerance error
      * maxiter      maximum iteration threshold
      * mode         show process {0: no, 1: yes}
-     * state        is answer found or not
+     * state        is answer found or not, will set value of state to 0 if no answers been found
      *
      */
 
     // check error thresholds
     if (ere < 0 || ete < 0 || tol < 0){
-        printf("\nError: ete or ere or tol argument is not valid\n");
+        printf("\nError: ete or ere or tol argument is not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
 
     // check mode
     if (mode != 0 && mode != 1){
-        printf("\nError: mode argument is not valid\n");
+        printf("\nError: mode argument is not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -78,8 +78,8 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
 
             if (mode) {
                 printf("\nIteration number [#%d]: f(x%d) = %lf, f'(x%d) = %lf, delta(x%d) = f(x%d) / f'(x%d) = %lf\n"
-                       "\t\t\tx%d = x%d - delta(x%d) = %.10e\n", iter, iter - 1, fx, iter - 1, dfx, iter - 1, iter - 1,
-                       iter - 1, fx / dfx, iter, iter - 1, iter - 1, xNew);
+                       "\t\t\tx%d = x%d - delta(x%d) = %.10e .\n", iter, iter - 1, fx, iter - 1, dfx, iter - 1,
+                       iter - 1, iter - 1, fx / dfx, iter, iter - 1, iter - 1, xNew);
             } // end of if mode
 
             // calculate errors
@@ -91,7 +91,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             if (ete != 0 && ete_err < ete) {
                 if (mode) {
                     printf("\nIn this iteration, |x%d - x%d| < estimated true error [%.5e < %.5e],\n"
-                           "so x is close enough to the root of function\n\n", iter, iter - 1, ete_err, ete);
+                           "so x is close enough to the root of function.\n\n", iter, iter - 1, ete_err, ete);
                 } // end if(mode)
 
                 return x;
@@ -101,7 +101,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             if (ere != 0 && ere_err < ere) {
                 if (mode) {
                     printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%.5e < %.5e],\n"
-                           "so x is close enough to the root of function\n\n", iter, iter - 1, iter, ere_err, ere);
+                           "so x is close enough to the root of function.\n\n", iter, iter - 1, iter, ere_err, ere);
                 } // end if(mode)
 
                 return x;
@@ -111,7 +111,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             if (tol != 0 && fabs(fx) < tol) {
                 if (mode) {
                     printf("\nIn this iteration, |f(x%d)| < tolerance [%.5e < %.5e],\n"
-                           "so x is close enough to the root of function\n\n", iter, fabs(fx), tol);
+                           "so x is close enough to the root of function.\n\n", iter, fabs(fx), tol);
                 } // end if(mode)
 
                 return x;
@@ -124,7 +124,8 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
         } else { // if derivative is  equal to zero
             if (mode) {
                 printf("Newton-Raphson method can't solve f(x) = 0 if f'(x0) = 0 !\n"
-                       "check your function and if you think it has derivative then try to choose a better x0\n");
+                       "check your function and if you think it has derivative\n"
+                       "then try to choose a better starting point x0 .\n");
             }
 
             // set state to 0 (false)
@@ -139,10 +140,10 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
         if (ete == 0 && ere == 0 && tol == 0) {
             printf("\nWith maximum iteration of %d\n", maxiter);
         } else {
-            printf("\nThe solution does not converge or iterations are not sufficient\n");
+            printf("\nThe solution does not converge or iterations are not sufficient.\n");
         } // end of if ... else
 
-        printf("the last calculated x is %lf\n", x);
+        printf("the last calculated x is %lf .\n", x);
     } // end if(mode)
 
     // set state to 0 (false)

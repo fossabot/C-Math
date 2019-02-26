@@ -11,7 +11,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
  * halving method, the binary search method, or the dichotomy method.
  *
  * ARGUMENTS:
- * expressions  the function expression, it must be a string array like "x^2+1"
+ * expressions  the function expression, it must be a pointer to a string array like "x^2+1"
  * a            starting point of interval [a, b]
  * b            ending point of interval [a, b]
  * ete          estimated true error
