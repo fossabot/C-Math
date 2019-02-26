@@ -38,14 +38,14 @@ double bisection(const char *expression, double a, double b, double ete, double 
 
     // check error thresholds
     if (ere < 0 || ete < 0 || tol < 0){
-        printf("\nError: ete or ere or tol argument is not valid\n");
+        printf("\nError: ete or ere or tol argument is not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
 
     // check mode
     if (mode != 0 && mode != 1){
-        printf("\nError: mode argument is not valid\n");
+        printf("\nError: mode argument is not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -123,7 +123,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
             if (ete != 0 && ete_err < ete) {
                 if (mode) {
                     printf("\nIn this iteration, |x%d - x%d| < estimated true error [%.5e < %.5e],\n"
-                           "so x is close enough to the root of function\n\n", iter, iter - 1, ete_err, ete);
+                           "so x is close enough to the root of function.\n\n", iter, iter - 1, ete_err, ete);
                 } // end if(mode)
 
                 return x;
@@ -133,7 +133,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
             if (ere != 0 && ere_err < ere) {
                 if (mode) {
                     printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%.5e < %.5e"
-                           "],\nso x is close enough to the root of function\n\n", iter, iter - 1, iter, ere_err, ere);
+                           "],\nso x is close enough to the root of function.\n\n", iter, iter - 1, iter, ere_err, ere);
                 } // end if(mode)
 
                 return x;
@@ -143,7 +143,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
             if (tol != 0 && fabs(fc) < tol) {
                 if (mode) {
                     printf("\nIn this iteration, |f(x)| < tolerance [%.5e < %.5e],\n"
-                           "so x is close enough to the root of function\n\n", fabs(fc), tol);
+                           "so x is close enough to the root of function.\n\n", fabs(fc), tol);
                 } // end if(mode)
 
                 return x;
@@ -157,10 +157,10 @@ double bisection(const char *expression, double a, double b, double ete, double 
             if (ete == 0 && ere == 0 && tol == 0) {
                 printf("\nWith maximum iteration of %d\n", maxiter);
             } else {
-                printf("\nThe solution does not converge or iterations are not sufficient\n");
+                printf("\nThe solution does not converge or iterations are not sufficient.\n");
             } // end of if ... else
 
-            printf("the last calculated x is %lf\n", x);
+            printf("the last calculated x is %lf .\n", x);
         } // end if(mode)
 
         // set state to 0 (false)
@@ -171,7 +171,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
         if (mode) {
             printf("Incorrect bracketing of function domain!\n"
                    "keep in mind that the inequality f(a) * f(b) < 0 must be correct\n"
-                   "in order to use Bisection method\n");
+                   "in order to use Bisection method.\n");
         }// end if(mode)
 
         *state = 0;
