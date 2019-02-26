@@ -74,7 +74,7 @@ int main() {
         return EXIT_FAILURE;
     }// end of if maxiter
 
-    printf("Do you want to see steps? enter 1 for yes and 0 for no:\n");
+    printf("Do you want to see steps? {0: no, 1: yes}:\n");
     fgets(mode_c, sizeof(mode_c), stdin);
     mode = strtol(mode_c, &ptr, 10);
 
@@ -95,7 +95,7 @@ int main() {
         return EXIT_SUCCESS;
     } else { // if no answer
         printf("\nThis method couldn't find the root of function\n"
-               "the last calculated value for x is: %lf.\n\n", x);
+               "the last calculated value for x is: %lf .\n\n", x);
         Exit();
         return EXIT_FAILURE;
     } // end of if flag

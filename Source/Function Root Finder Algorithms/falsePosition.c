@@ -26,7 +26,7 @@ int main() {
     printf("\nEnter the function you want to solve (example: x^2-3):\n");
     fgets(expression, sizeof(expression), stdin);
 
-    printf("Enter the range of function domain rang [a, b]:\n");
+    printf("Choose an interval [a, b]:\n");
     printf("Enter a:\n");
     fgets(a, sizeof(a), stdin);
     a0 = strtod(a, &ptr);
@@ -34,7 +34,7 @@ int main() {
     fgets(b, sizeof(b), stdin);
     b0 = strtod(b, &ptr);
 
-    printf("Do you want to use improved algorithms? enter 0 for 'no', 1 for Illinois and 2 for Anderson-Bjork:\n");
+    printf("Select type of false position algorithm {Original: 0 , Illinois: 1 , Anderson-Bjork: 2}:\n");
     fgets(improved_c, sizeof(improved_c), stdin);
     improved = strtol(improved_c, &ptr, 10);
 
@@ -89,7 +89,7 @@ int main() {
         return EXIT_FAILURE;
     }// end of if maxiter
 
-    printf("Do you want to see steps? enter 1 for yes and 0 for no:\n");
+    printf("Do you want to see steps? {0: no, 1: yes}:\n");
     fgets(mode_c, sizeof(mode_c), stdin);
     mode = strtol(mode_c, &ptr, 10);
 
@@ -104,7 +104,7 @@ int main() {
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method solved the equation for x= %lf in domain range of [%lf, %lf].\n\n", x, a0, b0);
+        printf("\nThis method solved the equation for x= %lf in the interval [%lf, %lf].\n\n", x, a0, b0);
         Exit();
         return EXIT_SUCCESS;
     } else { // if no answer
