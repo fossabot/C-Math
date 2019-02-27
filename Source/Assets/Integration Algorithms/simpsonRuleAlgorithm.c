@@ -16,7 +16,7 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
      * a             starting point of interval [a, b]
      * b             ending point of interval [a, b]
      * n             number of sub-intervals to use, better to be an even number
-     * options       which point of sub-interval to use  {0: regular 1/3 rule, 1: 3/8 rule}
+     * options       which point of sub-interval to use  {0: 1/3 rule, 1: 3/8 rule}
      * mode          show process {0: no, 1: yes}
      *
      */
@@ -30,7 +30,7 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
 
     // check mode and options value
     if ((mode != 0 && mode != 1) || (options != 0 && options != 1)) {
-        printf("\nError: arguments option or mode are not valid\n");
+        printf("\nError: arguments option or mode are not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -67,12 +67,12 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
             even += function_1_arg(expression, x);
             // show process
             if (mode) {
-                printf("[#%d] f(xi[i = 2k]) = %lf, sigma(f(xi[i = 2k])) =  %lf\n",
+                printf("[#%d] f(xi[i = 2k]) = %lf, sigma(f(xi[i = 2k])) =  %lf .\n",
                        2 * i, function_1_arg(expression, x), even);
             } // end of if mode
         } // end of for loop
 
-        // sum odd sigma part
+        // sum odd sigma parts
         for (unsigned int i = 1; i <= (double) n / 2; ++i) {
             x = a + (2 * i - 1) * coefficient;
             odd += function_1_arg(expression, x);

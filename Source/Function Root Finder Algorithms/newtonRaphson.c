@@ -23,7 +23,7 @@ int main() {
            "\t\t\t  Newton-Raphson Method\n");
 
     // getting required data from user
-    printf("\nEnter the function you want to solve (example: x^2-3):\n");
+    printf("\nEnter the equation you want to solve (example: x^2-3):\n");
     fgets(expression, sizeof(expression), stdin);
 
     printf("Enter the starting point (x0):\n");
@@ -90,12 +90,12 @@ int main() {
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method solved the equation for x= %lf .\n\n", x);
+        printf("\nThis method solved the equation %s, for x= %lf .\n\n", expression, x);
         Exit();
         return EXIT_SUCCESS;
     } else { // if no answer
-        printf("\nThis method couldn't find the root of function\n"
-               "the last calculated value for x is: %lf .\n\n", x);
+        printf("\nThis method couldn't find the root of equation %s\n"
+               "the last calculated value for x is: %lf .\n\n", expression, x);
         Exit();
         return EXIT_FAILURE;
     } // end of if flag

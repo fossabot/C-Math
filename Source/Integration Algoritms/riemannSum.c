@@ -24,7 +24,7 @@ int main() {
     printf("\nEnter the function you want to integrate (example: x^2-3):\n");
     fgets(expression, sizeof(expression), stdin);
 
-    printf("Enter the range of function domain rang [a, b]:\n");
+    printf("Choose an interval [a, b]:\n");
     printf("Enter a:\n");
     fgets(a, sizeof(a), stdin);
     a0 = strtod(a, &ptr);
@@ -43,17 +43,18 @@ int main() {
         return EXIT_FAILURE;
     } // end of ete check
 
-    printf("Select type of integration {left point: 0, Right point: 1, Mid point: 2}:\n");
+    printf("Select type of Riemann integration rule {Left point: 0, Right point: 1, Mid point: 2}:\n");
     fgets(options_c, sizeof(options_c), stdin);
     options = strtol(options_c, &ptr, 10);
-    // check mode and options value
 
+    // check options value
     if (options != 0 && options != 1 && options != 2) {
         printf("Wrong type number! you have to enter 0 or 1 or 2\n");
         Exit();
         return EXIT_FAILURE;
     }
-    printf("Do you want to see steps? enter 1 for yes and 0 for no:\n");
+
+    printf("Do you want to see steps? {0: no, 1: yes}:\n");
     fgets(mode_c, sizeof(mode_c), stdin);
     mode = strtol(mode_c, &ptr, 10);
 
@@ -68,7 +69,7 @@ int main() {
     double area = riemannSum(expression, a0, b0, (unsigned int) n, options, mode);
 
     // show result
-    printf("\nEstimated area under the function %sin domain range of [%lf, %lf] is equal to: %lf.\n\n", expression,
+    printf("\nEstimated area under the function %s , in domain range of [%lf, %lf] is equal to: %lf .\n\n", expression,
            a0, b0, area);
     Exit();
     return EXIT_SUCCESS;

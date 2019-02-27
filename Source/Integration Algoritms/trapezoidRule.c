@@ -24,7 +24,7 @@ int main() {
     printf("\nEnter the function you want to integrate (example: x^2-3):\n");
     fgets(expression, sizeof(expression), stdin);
 
-    printf("Enter the range of function domain rang [a, b]:\n");
+    printf("Choose an interval [a, b]:\n");
     printf("Enter a:\n");
     fgets(a, sizeof(a), stdin);
     a0 = strtod(a, &ptr);
@@ -58,7 +58,7 @@ int main() {
     double area = trapezoidRule(expression, a0, b0, (unsigned int) n, mode);
 
     // show result
-    printf("\nEstimated area under the function %sin domain range of [%lf, %lf] is equal to: %lf.\n\n", expression,
+    printf("\nEstimated area under the function %s , in domain range of [%lf, %lf] is equal to: %lf .\n\n", expression,
            a0, b0, area);
     Exit();
     return EXIT_SUCCESS;

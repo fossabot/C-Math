@@ -35,7 +35,7 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
 
     // check mode and options value
     if ((mode != 0 && mode != 1) || (options != 0 && options != 1 && options != 2)){
-        printf("\nError: arguments option or mode are not valid\n");
+        printf("\nError: arguments option or mode are not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -71,13 +71,13 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
 
         // show process
         if (mode) {
-            printf("Height of rectangle [#%d]: %lf, heights sum =  %lf\n", i, height, area);
+            printf("Height of rectangle [#%d]: %lf, heights sum =  %lf .\n", i, height, area);
         } // end of if mode
     } // end of for loop
 
     // show process
     if (mode) {
-        printf("area = height sum * width => area = %lf * %lf\n", area, coefficient);
+        printf("area = height sum * width => area = %lf * %lf .\n", area, coefficient);
     } // end of if mode
 
     // multiply sums to coefficient to get area

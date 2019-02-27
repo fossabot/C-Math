@@ -23,7 +23,7 @@ int main() {
            "\t\t\t  False Position Method\n");
 
     // getting required data from user
-    printf("\nEnter the function you want to solve (example: x^2-3):\n");
+    printf("\nEnter the equation you want to solve (example: x^2-3):\n");
     fgets(expression, sizeof(expression), stdin);
 
     printf("Choose an interval [a, b]:\n");
@@ -104,12 +104,13 @@ int main() {
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method solved the equation for x= %lf in the interval [%lf, %lf].\n\n", x, a0, b0);
+        printf("\nThis method solved the equation %s , for x= %lf in the interval [%lf, %lf].\n\n", expression, x, a0,
+               b0);
         Exit();
         return EXIT_SUCCESS;
     } else { // if no answer
-        printf("\nThis method couldn't find the root of function in given interval\n"
-               "the last calculated value for x is: %lf.\n\n", x);
+        printf("\nThis method couldn't find the root of equation %s in given interval\n"
+               "the last calculated value for x is: %lf.\n\n", expression, x);
         Exit();
         return EXIT_FAILURE;
     } // end of if flag

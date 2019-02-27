@@ -29,7 +29,7 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
 
     // check mode
     if (mode != 0 && mode != 1){
-        printf("\nError: mode argument is not valid\n");
+        printf("\nError: mode argument is not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -57,9 +57,14 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
         area += 2 * function_1_arg(expression, x);
         // show process
         if (mode) {
-            printf("[#%d] Heights sum =  %lf\n", i, area);
+            printf("[#%d] Heights sum =  %lf .\n", i, area);
         } // end of if mode
     } // end of for loop
+
+    // show process
+    if (mode) {
+        printf("area = (h / 2) * heights sum => area = (%lf) * %lf .\n", coefficient / 2, area);
+    } // end of if mode
 
     // multiply sums to width/2
     area *= coefficient / 2;
