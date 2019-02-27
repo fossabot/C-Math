@@ -23,7 +23,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
      * tol          tolerance error
      * maxiter      maximum iteration threshold
      * mode         show process {0: no, 1: yes}
-     * state        is answer found or not
+     * state        is answer found or not, will set value of state to 0 if no answers been found
      *
      */
 
@@ -36,14 +36,14 @@ double secant(const char *expression, double a, double b, double ete, double ere
 
     // check error thresholds
     if (ere < 0 || ete < 0 || tol < 0){
-        printf("\nError: ete or ere or tol argument is not valid\n");
+        printf("\nError: ete or ere or tol argument is not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
 
     // check mode
     if (mode != 0 && mode != 1){
-        printf("\nError: mode argument is not valid\n");
+        printf("\nError: mode argument is not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -73,7 +73,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
         fc = function_1_arg(expression, c);
 
         if (mode) {
-            printf("\nIteration number [#%d]: x%d = %lf, f(x%d) = %lf\n", iter, iter, c, iter, fc);
+            printf("\nIteration number [#%d]: x%d = %lf, f(x%d) = %lf .\n", iter, iter, c, iter, fc);
         } // end of if mode
 
         //calculate errors
@@ -85,7 +85,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
         if (ete != 0 && ete_err < ete) {
             if (mode) {
                 printf("\nIn this iteration, |x%d - x%d| < estimated true error [%.5e < %.5e],\n"
-                       "so x is close enough to the root of function\n\n", iter, iter - 1, ete_err, ete);
+                       "so x is close enough to the root of function.\n\n", iter, iter - 1, ete_err, ete);
             } // end if(mode)
 
             return c;
@@ -95,7 +95,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
         if (ere != 0 && ere_err < ere) {
             if (mode) {
                 printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%.5e < %.5e],\n"
-                       "so x is close enough to the root of function\n\n", iter, iter - 1, iter, ere_err, ere);
+                       "so x is close enough to the root of function.\n\n", iter, iter - 1, iter, ere_err, ere);
             } // end if(mode)
 
             return c;
@@ -105,7 +105,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
         if (tol != 0 && fabs(fc) < tol) {
             if (mode) {
                 printf("\nIn this iteration, |f(x%d)| < tolerance [%.5e < %.5e],\n"
-                       "so x is close enough to the root of function\n\n", iter, fabs(fc), tol);
+                       "so x is close enough to the root of function.\n\n", iter, fabs(fc), tol);
             } // end if(mode)
 
             return c;
@@ -125,10 +125,10 @@ double secant(const char *expression, double a, double b, double ete, double ere
         if (ete == 0 && ere == 0 && tol == 0) {
             printf("\nWith maximum iteration of %d\n", maxiter);
         } else {
-            printf("\nThe solution does not converge or iterations are not sufficient\n");
+            printf("\nThe solution does not converge or iterations are not sufficient.\n");
         } // end of if ... else
 
-        printf("the last calculated x is %lf\n", c);
+        printf("the last calculated x is %lf .\n", c);
     } // end if(mode)
 
     // set state to 0 (false)

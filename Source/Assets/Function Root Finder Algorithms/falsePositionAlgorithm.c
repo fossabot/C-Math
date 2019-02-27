@@ -174,7 +174,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
                 printf("\nThe solution does not converge or iterations are not sufficient.\n");
             } // end of if ... else
 
-            printf("the last calculated x is %lf\n", x);
+            printf("the last calculated x is %lf .\n", x);
         } // end if(mode)
 
         // set state to 0 (false)

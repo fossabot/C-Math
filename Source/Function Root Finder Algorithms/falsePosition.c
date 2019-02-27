@@ -13,9 +13,9 @@ int main() {
     // initializing variables
     char expression[INPUT_SIZE];
     char a[INPUT_SIZE], b[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
-            tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], mode_c[INPUT_SIZE], improved_c[INPUT_SIZE];
+            tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], mode_c[INPUT_SIZE], algorithmType_c[INPUT_SIZE];
     char *ptr;
-    int maxiter = 0, mode = 0, improved = 0;
+    int maxiter = 0, mode = 0, algorithmType = 0;
     int flag = 1;
     double a0, b0, ete, ere, tol;
 
@@ -35,11 +35,11 @@ int main() {
     b0 = strtod(b, &ptr);
 
     printf("Select type of false position algorithm {Original: 0 , Illinois: 1 , Anderson-Bjork: 2}:\n");
-    fgets(improved_c, sizeof(improved_c), stdin);
-    improved = strtol(improved_c, &ptr, 10);
+    fgets(algorithmType_c, sizeof(algorithmType_c), stdin);
+    algorithmType = strtol(algorithmType_c, &ptr, 10);
 
-    // check improved value
-    if (improved != 0 && improved != 1 && improved != 2) {
+    // check algorithmType value
+    if (algorithmType != 0 && algorithmType != 1 && algorithmType != 2) {
         printf("You must enter 0 or 1 or 2.\n");
         Exit();
         return EXIT_FAILURE;
@@ -100,7 +100,7 @@ int main() {
     } // end of if mode
 
     // calculate
-    double x = falsePosition(expression, a0, b0, ete, ere, tol, (unsigned int) maxiter, improved, mode, &flag);
+    double x = falsePosition(expression, a0, b0, ete, ere, tol, (unsigned int) maxiter, algorithmType, mode, &flag);
 
     // if there was an answer
     if (flag) {
