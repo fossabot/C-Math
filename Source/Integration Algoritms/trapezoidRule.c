@@ -55,7 +55,7 @@ int main() {
     } // end of if verbose
 
     // calculation
-    double area = trapezoidRule(expression, a0, b0, (unsigned int) n, verbose);
+    double area = trapezoidRule(expression, a0, b0, (unsigned int) n, 0, verbose);
 
     // show result
     printf("\nEstimated area under the function %sin the interval [%lf, %lf] is equal to: %lf .\n\n", expression,

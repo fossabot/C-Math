@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-double trapezoidRule(const char *expression, double a, double b, unsigned int n, int verbose) {
+double trapezoidRule(const char *expression, double a, double b, unsigned int n, double previous, int verbose) {
     /*
      * In mathematics, and more specifically in numerical analysis, the trapezoidal rule
      * (also known as the trapezoid rule or trapezium rule) is a technique for approximating the definite integral.
@@ -15,6 +15,7 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
      * a             starting point of interval [a, b]
      * b             ending point of interval [a, b]
      * n             number of sub-intervals to use
+     * previous      use previous integral in calculation
      * verbose       show process {0: no, 1: yes}
      *
      */
@@ -68,5 +69,8 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
 
     // multiply sums to width/2
     area *= coefficient / 2;
+    // add previous integral to final result
+    area += previous / 2;
+
     return area;
 } // end of riemann sum function
