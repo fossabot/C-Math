@@ -8,7 +8,7 @@
 #include <math.h>
 
 double newtonRaphson(const char *expression, double x0, double ete, double ere, double tol, unsigned int maxiter,
-                     int mode, int *state) {
+                     int verbose, int *state) {
     /*
      * In numerical analysis, Newton's method (also known as the Newton–Raphson method), named after Isaac Newton and
      * Joseph Raphson, is a method for finding successively better approximations to the roots (or zeroes) of
@@ -30,7 +30,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
      * ere          estimated relative error
      * tol          tolerance error
      * maxiter      maximum iteration threshold
-     * mode         show process {0: no, 1: yes}
+     * verbose      show process {0: no, 1: yes}
      * state        is answer found or not, will set value of state to 0 if no answers been found
      *
      */
@@ -42,9 +42,9 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
         exit(EXIT_FAILURE);
     } // end of if
 
-    // check mode
-    if (mode != 0 && mode != 1){
-        printf("\nError: mode argument is not valid.\n");
+    // check verbose
+    if (verbose != 0 && verbose != 1) {
+        printf("\nError: verbose argument is not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -57,14 +57,11 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
     } // end of maxiter check
 
     // initializing variables
-    unsigned int iter = 1;
     double x = x0;
-    double xNew;
     double fx = function_1_arg(expression, x);
-    double fxNew;
-    double dfx;
-    double ete_err;
-    double ere_err;
+    double xNew, fxNew, dfx;
+    double ete_err, ere_err;
+    unsigned int iter = 1;
 
     while (iter <= maxiter) {
         // calculate derivative of function in the given point
@@ -76,11 +73,11 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             xNew = x - fx / dfx;
             fxNew = function_1_arg(expression, xNew);
 
-            if (mode) {
+            if (verbose) {
                 printf("\nIteration number [#%d]: f(x%d) = %lf, f'(x%d) = %lf, delta(x%d) = f(x%d) / f'(x%d) = %lf\n"
                        "\t\t\tx%d = x%d - delta(x%d) = %.10e .\n", iter, iter - 1, fx, iter - 1, dfx, iter - 1,
                        iter - 1, iter - 1, fx / dfx, iter, iter - 1, iter - 1, xNew);
-            } // end of if mode
+            } // end of if verbose
 
             // calculate errors
             ete_err = fabs(fx / dfx);
@@ -89,30 +86,30 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             // Termination Criterion
             // if calculated error is less than estimated true error threshold
             if (ete != 0 && ete_err < ete) {
-                if (mode) {
+                if (verbose) {
                     printf("\nIn this iteration, |x%d - x%d| < estimated true error [%.5e < %.5e],\n"
                            "so x is close enough to the root of function.\n\n", iter, iter - 1, ete_err, ete);
-                } // end if(mode)
+                } // end if(verbose)
 
                 return x;
             } // end of estimated true error check
 
             // if calculated error is less than estimated relative error threshold
             if (ere != 0 && ere_err < ere) {
-                if (mode) {
+                if (verbose) {
                     printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%.5e < %.5e],\n"
                            "so x is close enough to the root of function.\n\n", iter, iter - 1, iter, ere_err, ere);
-                } // end if(mode)
+                } // end if(verbose)
 
                 return x;
             } // end of estimated relative error check
 
             // if fx is less than tolerance error threshold
             if (tol != 0 && fabs(fx) < tol) {
-                if (mode) {
+                if (verbose) {
                     printf("\nIn this iteration, |f(x%d)| < tolerance [%.5e < %.5e],\n"
                            "so x is close enough to the root of function.\n\n", iter, fabs(fx), tol);
-                } // end if(mode)
+                } // end if(verbose)
 
                 return x;
             } // end of tolerance check
@@ -122,7 +119,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             iter++;
 
         } else { // if derivative is  equal to zero
-            if (mode) {
+            if (verbose) {
                 printf("Newton-Raphson method can't solve f(x) = 0 if f'(x0) = 0 !\n"
                        "check your function and if you think it has derivative\n"
                        "then try to choose a better starting point x0 .\n");
@@ -136,7 +133,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
     } // end of while loop
 
     // answer didn't found
-    if (mode) {
+    if (verbose) {
         if (ete == 0 && ere == 0 && tol == 0) {
             printf("\nWith maximum iteration of %d\n", maxiter);
         } else {
@@ -144,7 +141,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
         } // end of if ... else
 
         printf("the last calculated x is %lf .\n", x);
-    } // end if(mode)
+    } // end if(verbose)
 
     // set state to 0 (false)
     *state = 0;

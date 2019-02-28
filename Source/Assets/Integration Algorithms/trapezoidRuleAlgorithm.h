@@ -1,7 +1,7 @@
 #ifndef C_MATH_TRAPEZOIDRULEALGORITHM_H
 #define C_MATH_TRAPEZOIDRULEALGORITHM_H
 
-double trapezoidRule(const char *expression, double a, double b, unsigned int n, int mode);
+double trapezoidRule(const char *expression, double a, double b, unsigned int n, int verbose);
 /*
  * In mathematics, and more specifically in numerical analysis, the trapezoidal rule
  * (also known as the trapezoid rule or trapezium rule) is a technique for approximating the definite integral.
@@ -11,7 +11,7 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
  * a             starting point of interval [a, b]
  * b             ending point of interval [a, b]
  * n             number of sub-intervals to use
- * mode          show process {0: no, 1: yes}
+ * verbose       show process {0: no, 1: yes}
  *
  */
 

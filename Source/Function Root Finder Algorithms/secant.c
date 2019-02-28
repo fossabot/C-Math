@@ -13,10 +13,9 @@ int main() {
     // initializing variables
     char expression[INPUT_SIZE];
     char a[INPUT_SIZE], b[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
-            tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], mode_c[INPUT_SIZE];
+            tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], verbose_c[INPUT_SIZE];
     char *ptr;
-    int maxiter = 0, mode = 0;
-    int flag = 1;
+    int maxiter = 0, verbose = 0, flag = 1;
     double a0, b0, ete, ere, tol;
 
     printf("\t\t\t\tRoot Finder\n"
@@ -79,27 +78,27 @@ int main() {
     }// end of if maxiter
 
     printf("Do you want to see steps? {0: no, 1: yes}:\n");
-    fgets(mode_c, sizeof(mode_c), stdin);
-    mode = strtol(mode_c, &ptr, 10);
+    fgets(verbose_c, sizeof(verbose_c), stdin);
+    verbose = strtol(verbose_c, &ptr, 10);
 
-    // check mode value
-    if (mode != 0 && mode != 1) {
-        printf("Invalid value for mode!\n");
+    // check verbose value
+    if (verbose != 0 && verbose != 1) {
+        printf("Invalid value for verbose!\n");
         Exit();
         return EXIT_FAILURE;
-    } // end of if mode
+    } // end of if verbose
 
     // calculation
-    double x = secant(expression, a0, b0, ete, ere, tol, (unsigned int) maxiter, mode, &flag);
+    double x = secant(expression, a0, b0, ete, ere, tol, (unsigned int) maxiter, verbose, &flag);
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method solved the equation %s , for x= %lf in the interval [%lf, %lf].\n\n", expression, x, a0,
+        printf("\nThis method solved the equation %sfor x= %lf in the interval [%lf, %lf].\n\n", expression, x, a0,
                b0);
         Exit();
         return EXIT_SUCCESS;
     } else { // if no answer
-        printf("\nThis method couldn't find the root of equation %s , in given interval\n"
+        printf("\nThis method couldn't find the root of equation %sin given interval"
                "the last calculated value for x is: %lf .\n\n", expression, x);
         Exit();
         return EXIT_FAILURE;

@@ -8,7 +8,7 @@
 
 double
 falsePosition(const char *expression, double a, double b, double ete, double ere, double tol, unsigned int maxiter,
-              int options, int mode, int *state) {
+              int options, int verbose, int *state) {
     /*
      * In mathematics, the false position method or regula falsi is a very old method for solving
 	 * an equation in one unknown, that, in modified form, is still in use. In simple terms, 
@@ -25,7 +25,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
      * tol           tolerance error
      * maxiter       maximum iteration threshold
      * options       use improvement algorithms  {0: no, 1: illinois, 2: anderson-bjork}
-     * mode          show process {0: no, 1: yes}
+     * verbose       show process {0: no, 1: yes}
      * state         is answer found or not, will set value of state to 0 if no answers been found
      *
      */
@@ -44,9 +44,9 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
         exit(EXIT_FAILURE);
     } // end of if
 
-    // check mode and options value
-    if ((mode != 0 && mode != 1) || (options != 0 && options != 1 && options != 2)){
-        printf("\nError: option or mode arguments are not valid.\n");
+    // check verbose and options value
+    if ((verbose != 0 && verbose != 1) || (options != 0 && options != 1 && options != 2)) {
+        printf("\nError: option or verbose arguments are not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -78,9 +78,9 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
             // evaluate the function at point x, y3 =f(x)
             double fc = function_1_arg(expression, x);
 
-            if (mode) {
+            if (verbose) {
                 printf("\nIteration number [#%d]: x = %10.7lf, f(x) = %.10e .\n", iter, x, fc);
-            } // end if(mode)
+            } // end if(verbose)
 
             // if y3 and y1 have same signs, then substitute a by x and y1 by y3
             if (fc * fa > 0) {
@@ -98,9 +98,9 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
                     fb = options == 1 ? fb / 2 : (m > 1 ? fb * m : fb / 2);
                 }
 
-                if (mode) {
+                if (verbose) {
                     printf("In this iteration, a replaced by x, new range is [%lf, %lf].\n", a, b);
-                } // end if(mode)
+                } // end if(verbose)
 
             } else if (fc * fb > 0) { // if y3 and y2 have same signs, then substitute b by x and y2 by y3
 
@@ -117,14 +117,14 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
                     fa = options == 1 ? fa / 2 : (m > 1 ? fa * m : fa / 2);
                 }
 
-                if (mode) {
+                if (verbose) {
                     printf("In this iteration, b replaced by x, new range is [%lf, %lf].\n", a, b);
-                } // end if(mode)
+                } // end if(verbose)
 
             } else {
-                if (mode) {
+                if (verbose) {
                     printf("In this iteration, f(x) = 0, so x is the root of function.\n\n");
-                } // end if(mode)
+                } // end if(verbose)
 
                 return x;
             } // end of if .. else if chained decisions
@@ -135,30 +135,30 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
             // Termination Criterion
             // if calculated error is less than estimated true error threshold
             if (ete != 0 && ete_err < ete) {
-                if (mode) {
+                if (verbose) {
                     printf("\nIn this iteration, |x%d - x%d| < estimated true error [%.5e < %.5e],\n"
                            "so x is close enough to the root of function.\n\n", iter, iter - 1, ete_err, ete);
-                } // end if(mode)
+                } // end if(verbose)
 
                 return x;
             } // end of estimated true error check
 
             // if calculated error is less than estimated relative error threshold
             if (ere != 0 && ere_err < ere) {
-                if (mode) {
+                if (verbose) {
                     printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%.5e < %.5e],\n"
                            "so x is close enough to the root of function.\n\n", iter, iter - 1, iter, ere_err, ere);
-                } // end if(mode)
+                } // end if(verbose)
 
                 return x;
             } // end of estimated relative error check
 
             // if y3 is less than tolerance error threshold
             if (tol != 0 && fabs(fc) < tol) {
-                if (mode) {
+                if (verbose) {
                     printf("\nIn this iteration, |f(x)| < tolerance [%.5e < %.5e],\n"
                            "so x is close enough to the root of function.\n\n", fabs(fc), tol);
-                } // end if(mode)
+                } // end if(verbose)
 
                 return x;
             } // end of tolerance check
@@ -167,7 +167,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
         } // end of while loop
 
         // answer didn't found
-        if (mode) {
+        if (verbose) {
             if (ete == 0 && ere == 0 && tol == 0) {
                 printf("\nWith maximum iteration of %d\n", maxiter);
             } else {
@@ -175,18 +175,18 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
             } // end of if ... else
 
             printf("the last calculated x is %lf .\n", x);
-        } // end if(mode)
+        } // end if(verbose)
 
         // set state to 0 (false)
         *state = 0;
         return x;
 
     } else { // if y1 and y2 have same signs, then we can't use false position method
-        if (mode) {
+        if (verbose) {
             printf("Incorrect bracketing of function domain!\n"
                    "keep in mind that the inequality f(a) * f(b) < 0 must be correct\n"
                    "in order to use false position method.\n");
-        }// end if(mode)
+        }// end if(verbose)
 
         *state = 0;
         return -1;

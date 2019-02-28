@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-double simpsonRule(const char *expression, double a, double b, unsigned int n, int options, int mode) {
+double simpsonRule(const char *expression, double a, double b, unsigned int n, int options, int verbose) {
     /*
      * In numerical analysis, Simpson's rule is a method for numerical integration,
      * the numerical approximation of definite integrals. Specifically, it is
@@ -17,7 +17,7 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
      * b             ending point of interval [a, b]
      * n             number of sub-intervals to use, better to be an even number
      * options       which point of sub-interval to use  {0: 1/3 rule, 1: 3/8 rule}
-     * mode          show process {0: no, 1: yes}
+     * verbose       show process {0: no, 1: yes}
      *
      */
 
@@ -28,9 +28,9 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
         b = temp;
     } // end of if
 
-    // check mode and options value
-    if ((mode != 0 && mode != 1) || (options != 0 && options != 1)) {
-        printf("\nError: arguments option or mode are not valid.\n");
+    // check verbose and options value
+    if ((verbose != 0 && verbose != 1) || (options != 0 && options != 1)) {
+        printf("\nError: arguments option or verbose are not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -66,10 +66,10 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
             x = a + 2 * i * coefficient;
             even += function_1_arg(expression, x);
             // show process
-            if (mode) {
+            if (verbose) {
                 printf("[#%d] f(xi[i = 2k]) = %lf, sigma(f(xi[i = 2k])) =  %lf .\n",
                        2 * i, function_1_arg(expression, x), even);
-            } // end of if mode
+            } // end of if verbose
         } // end of for loop
 
         // sum odd sigma parts
@@ -77,21 +77,21 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
             x = a + (2 * i - 1) * coefficient;
             odd += function_1_arg(expression, x);
             // show process
-            if (mode) {
+            if (verbose) {
                 printf("[#%d] f(xi[i = 2k-1]) = %lf, sigma(f(xi[i = 2k-1])) =  %lf\n",
                        2 * i - 1, function_1_arg(expression, x), odd);
-            } // end of if mode
+            } // end of if verbose
         } // end of for loop
 
         // add even and odd sigma parts multiplied by their weights to area
         area += 2 * even + 4 * odd;
         // multiply to width/3 to get final area
         area *= coefficient / 3;
-        if (mode) {
+        if (verbose) {
             printf("\narea = h/3 * [f(x0) + f(xn) + 2 * sigma(f(xi[i = 2k])) + 4 * sigma(f(xi[i = 2k-1]))]\n"
                    "area = %lf/3 * [%lf + %lf + 2 * %lf + 4 * %lf]\n", coefficient, function_1_arg(expression, a),
                    function_1_arg(expression, b), even, odd);
-        } // end of if mode
+        } // end of if verbose
     } else {
         // use simpson 3/8 rule, this method is based on cubic interpolation
         // sum both cubic and regular sigma parts
@@ -100,17 +100,17 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
             if (i % 3 == 0) {
                 cubic += function_1_arg(expression, x);
                 // show process
-                if (mode) {
+                if (verbose) {
                     printf("[#%d] f(xi[i = 3k]) = %lf, sigma(f(xi[i = 3k])) =  %lf\n",
                            i, function_1_arg(expression, x), cubic);
-                } // end of if mode
+                } // end of if verbose
             } else {
                 regular += function_1_arg(expression, x);
                 // show process
-                if (mode) {
+                if (verbose) {
                     printf("[#%d] f(xi[i != 3k]) = %lf, sigma(f(xi[i != 3k])) =  %lf\n",
                            i, function_1_arg(expression, x), regular);
-                } // end of if mode
+                } // end of if verbose
             } // end of if else
         } // end of for loop
 
@@ -119,11 +119,11 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
         // multiply to 3*width/8 to get final area
         area *= 3 * coefficient / 8;
         // show process
-        if (mode) {
+        if (verbose) {
             printf("\narea = 3*h/8 * [f(x0) + f(xn) + 3 * sigma(f(xi[i != 3k])) + 2 * sigma(f(xi[i = 3k]))]\n"
                    "area = 3*%lf/8 * [%lf + %lf + 3 * %lf + 2 * %lf]\n", coefficient, function_1_arg(expression, a),
                    function_1_arg(expression, b), regular, cubic);
-        } // end of if mode
+        } // end of if verbose
     } // end of if else
 
     return area;

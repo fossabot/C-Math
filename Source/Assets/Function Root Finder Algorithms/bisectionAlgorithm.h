@@ -2,7 +2,7 @@
 #define C_MATH_BISECTIONALGORITHM_H
 
 double bisection(const char *expression, double a, double b, double ete, double ere, double tol, unsigned int maxiter,
-                 int mode, int *state);
+                 int verbose, int *state);
 /*
  * The Bisection method in mathematics is a root-finding method that repeatedly bisects an interval and then selects
  * a sub-interval in which a root must lie for further processing. It is a very simple and robust method, but it is
@@ -18,7 +18,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
  * ere          estimated relative error
  * tol          tolerance error
  * maxiter      maximum iteration threshold
- * mode         show process {0: no, 1: yes}
+ * verbose      show process {0: no, 1: yes}
  * state        is answer found or not, will set value of state to 0 if no answers been found
  *
  *

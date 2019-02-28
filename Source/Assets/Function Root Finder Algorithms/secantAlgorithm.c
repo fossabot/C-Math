@@ -7,7 +7,7 @@
 #include <math.h>
 
 double secant(const char *expression, double a, double b, double ete, double ere, double tol, unsigned int maxiter,
-              int mode, int *state) {
+              int verbose, int *state) {
     /*
      * In numerical analysis, the secant method is a root-finding algorithm that uses a succession of roots
      * of secant lines to better approximate a root of a function f. The secant method can be thought of as
@@ -22,7 +22,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
      * ere          estimated relative error
      * tol          tolerance error
      * maxiter      maximum iteration threshold
-     * mode         show process {0: no, 1: yes}
+     * verbose      show process {0: no, 1: yes}
      * state        is answer found or not, will set value of state to 0 if no answers been found
      *
      */
@@ -41,9 +41,9 @@ double secant(const char *expression, double a, double b, double ete, double ere
         exit(EXIT_FAILURE);
     } // end of if
 
-    // check mode
-    if (mode != 0 && mode != 1){
-        printf("\nError: mode argument is not valid.\n");
+    // check verbose
+    if (verbose != 0 && verbose != 1) {
+        printf("\nError: verbose argument is not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -72,9 +72,9 @@ double secant(const char *expression, double a, double b, double ete, double ere
         // evaluate the function at point c, y3 =f(c)
         fc = function_1_arg(expression, c);
 
-        if (mode) {
+        if (verbose) {
             printf("\nIteration number [#%d]: x%d = %lf, f(x%d) = %lf .\n", iter, iter, c, iter, fc);
-        } // end of if mode
+        } // end of if verbose
 
         //calculate errors
         ete_err = fabs(c - b);
@@ -83,30 +83,30 @@ double secant(const char *expression, double a, double b, double ete, double ere
         // Termination Criterion
         // if calculated error is less than estimated true error threshold
         if (ete != 0 && ete_err < ete) {
-            if (mode) {
+            if (verbose) {
                 printf("\nIn this iteration, |x%d - x%d| < estimated true error [%.5e < %.5e],\n"
                        "so x is close enough to the root of function.\n\n", iter, iter - 1, ete_err, ete);
-            } // end if(mode)
+            } // end if(verbose)
 
             return c;
         } // end of estimated true error check
 
         // if calculated error is less than estimated relative error threshold
         if (ere != 0 && ere_err < ere) {
-            if (mode) {
+            if (verbose) {
                 printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%.5e < %.5e],\n"
                        "so x is close enough to the root of function.\n\n", iter, iter - 1, iter, ere_err, ere);
-            } // end if(mode)
+            } // end if(verbose)
 
             return c;
         } // end of estimated relative error check
 
         // if y3 is less than tolerance error threshold
         if (tol != 0 && fabs(fc) < tol) {
-            if (mode) {
+            if (verbose) {
                 printf("\nIn this iteration, |f(x%d)| < tolerance [%.5e < %.5e],\n"
                        "so x is close enough to the root of function.\n\n", iter, fabs(fc), tol);
-            } // end if(mode)
+            } // end if(verbose)
 
             return c;
         } // end of tolerance check
@@ -121,7 +121,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
     } // end of while loop
 
     // answer didn't found
-    if (mode) {
+    if (verbose) {
         if (ete == 0 && ere == 0 && tol == 0) {
             printf("\nWith maximum iteration of %d\n", maxiter);
         } else {
@@ -129,7 +129,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
         } // end of if ... else
 
         printf("the last calculated x is %lf .\n", c);
-    } // end if(mode)
+    } // end if(verbose)
 
     // set state to 0 (false)
     *state = 0;

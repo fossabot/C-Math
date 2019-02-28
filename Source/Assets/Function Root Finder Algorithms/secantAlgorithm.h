@@ -2,7 +2,7 @@
 #define C_MATH_SECANTALGORITHM_H
 
 double secant(const char *expression, double x1, double x2, double ete, double ere, double tol, unsigned int maxiter,
-              int mode, int *state);
+              int verbose, int *state);
 /*
  * In numerical analysis, the secant method is a root-finding algorithm that uses a succession of roots
  * of secant lines to better approximate a root of a function f. The secant method can be thought of as
@@ -17,7 +17,7 @@ double secant(const char *expression, double x1, double x2, double ete, double e
  * ere          estimated relative error
  * tol          tolerance error
  * maxiter      maximum iteration threshold
- * mode         show process {0: no, 1: yes}
+ * verbose      show process {0: no, 1: yes}
  * state        is answer found or not, will set value of state to 0 if no answers been found
  *
  */

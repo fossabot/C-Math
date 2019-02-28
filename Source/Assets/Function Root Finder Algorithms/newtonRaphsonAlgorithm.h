@@ -2,7 +2,7 @@
 #define C_MATH_NEWTONRAPHSONALGORITHM_H
 
 double newtonRaphson(const char *expression, double x0, double ete, double ere, double tol, unsigned int maxiter,
-                     int mode, int *state);
+                     int verbose, int *state);
 /*
  * In numerical analysis, Newton's method (also known as the Newton–Raphson method), named after Isaac Newton and
  * Joseph Raphson, is a method for finding successively better approximations to the roots (or zeroes) of
@@ -24,7 +24,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
  * ere          estimated relative error
  * tol          tolerance error
  * maxiter      maximum iteration threshold
- * mode         show process {0: no, 1: yes}
+ * verbose      show process {0: no, 1: yes}
  * state        is answer found or not, will set value of state to 0 if no answers been found
  *
  */

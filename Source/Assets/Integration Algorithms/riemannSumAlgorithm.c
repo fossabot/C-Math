@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-double riemannSum(const char *expression, double a, double b, unsigned int n, int options, int mode) {
+double riemannSum(const char *expression, double a, double b, unsigned int n, int options, int verbose) {
     /*
      * In mathematics, a Riemann sum is a certain kind of approximation of an integral by a finite sum. It is named
      * after nineteenth century German mathematician Bernhard Riemann. One very common application is approximating
@@ -22,7 +22,7 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
      * b             ending point of interval [a, b]
      * n             number of sub-intervals to use
      * options       which point of sub-interval to use  {0: left point, 1: right point, 2: mid point}
-     * mode          show process {0: no, 1: yes}
+     * verbose       show process {0: no, 1: yes}
      *
      */
 
@@ -33,9 +33,9 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
         b = temp;
     } // end of if
 
-    // check mode and options value
-    if ((mode != 0 && mode != 1) || (options != 0 && options != 1 && options != 2)){
-        printf("\nError: arguments option or mode are not valid.\n");
+    // check verbose and options value
+    if ((verbose != 0 && verbose != 1) || (options != 0 && options != 1 && options != 2)) {
+        printf("\nError: arguments option or verbose are not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -70,15 +70,15 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
         area += height;
 
         // show process
-        if (mode) {
+        if (verbose) {
             printf("Height of rectangle [#%d]: %lf, heights sum =  %lf .\n", i, height, area);
-        } // end of if mode
+        } // end of if verbose
     } // end of for loop
 
     // show process
-    if (mode) {
+    if (verbose) {
         printf("area = height sum * width => area = %lf * %lf .\n", area, coefficient);
-    } // end of if mode
+    } // end of if verbose
 
     // multiply sums to coefficient to get area
     // based on formula: area = (constant width) * (sum of heights)

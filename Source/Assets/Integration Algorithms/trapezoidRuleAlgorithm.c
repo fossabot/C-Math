@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-double trapezoidRule(const char *expression, double a, double b, unsigned int n, int mode) {
+double trapezoidRule(const char *expression, double a, double b, unsigned int n, int verbose) {
     /*
      * In mathematics, and more specifically in numerical analysis, the trapezoidal rule
      * (also known as the trapezoid rule or trapezium rule) is a technique for approximating the definite integral.
@@ -15,7 +15,7 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
      * a             starting point of interval [a, b]
      * b             ending point of interval [a, b]
      * n             number of sub-intervals to use
-     * mode          show process {0: no, 1: yes}
+     * verbose       show process {0: no, 1: yes}
      *
      */
 
@@ -27,9 +27,9 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
         b = temp;
     } // end of if
 
-    // check mode
-    if (mode != 0 && mode != 1){
-        printf("\nError: mode argument is not valid.\n");
+    // check verbose
+    if (verbose != 0 && verbose != 1) {
+        printf("\nError: verbose argument is not valid.\n");
         Exit();
         exit(EXIT_FAILURE);
     } // end of if
@@ -56,15 +56,15 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
         x = a + i * coefficient;
         area += 2 * function_1_arg(expression, x);
         // show process
-        if (mode) {
+        if (verbose) {
             printf("[#%d] Heights sum =  %lf .\n", i, area);
-        } // end of if mode
+        } // end of if verbose
     } // end of for loop
 
     // show process
-    if (mode) {
+    if (verbose) {
         printf("area = (h / 2) * heights sum => area = (%lf) * %lf .\n", coefficient / 2, area);
-    } // end of if mode
+    } // end of if verbose
 
     // multiply sums to width/2
     area *= coefficient / 2;

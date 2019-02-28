@@ -3,7 +3,7 @@
 
 double
 falsePosition(const char *expression, double a, double b, double ete, double ere, double tol, unsigned int maxiter,
-              int options, int mode, int *state);
+              int options, int verbose, int *state);
 /*
  * In mathematics, the false position method or regula falsi is a very old method for solving
  * an equation in one unknown, that, in modified form, is still in use. In simple terms,
@@ -20,7 +20,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
  * tol           tolerance error
  * maxiter       maximum iteration threshold
  * options       use improvement algorithms  {0: no, 1: illinois, 2: anderson-bjork}
- * mode          show process {0: no, 1: yes}
+ * verbose       show process {0: no, 1: yes}
  * state         is answer found or not, will set value of state to 0 if no answers been found
  *
  */

@@ -1,7 +1,7 @@
 #ifndef C_MATH_RIEMANNSUMALGORITHM_H
 #define C_MATH_RIEMANNSUMALGORITHM_H
 
-double riemannSum(const char *expression, double a, double b, unsigned int n, int options, int mode);
+double riemannSum(const char *expression, double a, double b, unsigned int n, int options, int verbose);
 /*
  * In mathematics, a Riemann sum is a certain kind of approximation of an integral by a finite sum. It is named
  * after nineteenth century German mathematician Bernhard Riemann. One very common application is approximating
@@ -18,7 +18,7 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
  * b             ending point of interval [a, b]
  * n             number of sub-intervals to use
  * options       which point of sub-interval to use  {0: left point, 1: right point, 2: mid point}
- * mode          show process {0: no, 1: yes}
+ * verbose       show process {0: no, 1: yes}
  *
  */
 
