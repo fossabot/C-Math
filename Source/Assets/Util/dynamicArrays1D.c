@@ -1,4 +1,4 @@
-#include "dynamicArrayLib.h"
+#include "dynamicArrays1D.h"
 #include "util.h"
 
 #include <stdio.h>
@@ -12,8 +12,7 @@ void initArrayLongInt(ArrayLongInt *array, unsigned long int initialSize) {
     if (int_pointer == NULL) {
         printf("Unable to allocate memory!\n");
         free(int_pointer);
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } else {
         array->array = int_pointer;
         array->used = 0;
@@ -35,8 +34,7 @@ void insertToArrayLongInt(ArrayLongInt *array, long int element) {
         if (int_pointer == NULL) {
             printf("Unable to reallocate memory!\n");
             free(int_pointer);
-            Exit();
-            exit(EXIT_FAILURE);
+            Exit(EXIT_FAILURE);
         } else {
             array->size = new_size;
             array->array = int_pointer;
@@ -59,13 +57,23 @@ void initArrayDouble(ArrayDouble *array, unsigned long int initialSize) {
     if (int_pointer == NULL) {
         printf("Unable to allocate memory!\n");
         free(int_pointer);
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } else {
         array->array = int_pointer;
+        array->next = 0;
         array->used = 0;
         array->size = initialSize;
     }
+}
+
+void initValueArrayDouble(ArrayDouble *array, unsigned long int initialSize, double value) {
+
+    initArrayDouble(array, initialSize);
+
+    for (int i = 0; i < initialSize; ++i) {
+        insertToArrayDouble(array, value);
+    }
+
 }
 
 void insertToArrayDouble(ArrayDouble *array, double element) {
@@ -82,18 +90,34 @@ void insertToArrayDouble(ArrayDouble *array, double element) {
         if (int_pointer == NULL) {
             printf("Unable to reallocate memory!\n");
             free(int_pointer);
-            Exit();
-            exit(EXIT_FAILURE);
+            Exit(EXIT_FAILURE);
         } else {
             array->size = new_size;
             array->array = int_pointer;
         }
     }
-    array->array[array->used++] = element;
+    array->array[array->next++] = element;
+    array->used += 1;
+}
+
+void addByIndexToArrayDouble(ArrayDouble *array, double element, unsigned long int index) {
+    if (array->size - 1 < index || index < 0) {
+        printf("Error: wrong index!\n");
+        Exit(EXIT_FAILURE);
+    }
+
+    if (index > array->next) {
+        array->array[index] = element;
+        array->used += 1;
+    } else if (index == array->next) {
+        insertToArrayDouble(array, element);
+    } else {
+        array->array[index] = element;
+    }
 }
 
 void freeArrayDouble(ArrayDouble *array) {
     free(array->array);
     array->array = NULL;
-    array->used = array->size = 0;
+    array->next = array->used = array->size = 0;
 }
