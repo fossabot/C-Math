@@ -117,6 +117,20 @@ target_link_libraries(monteCarloIntegrationAlgorithm
 #***********************************************************************************************************************
 #                                          Optimization Algorithms
 
+add_library(gradientDescentAlgorithm
+        "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.c"
+        "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.h")
+
+target_link_libraries(gradientDescentAlgorithm
+        PRIVATE functions util randomGenerator)
+
+add_library(gradientAscentAlgorithm
+        "Source/Assets/Optimization Algorithms/gradientAscentAlgorithm.c"
+        "Source/Assets/Optimization Algorithms/gradientAscentAlgorithm.h")
+
+target_link_libraries(gradientAscentAlgorithm
+        PRIVATE functions util randomGenerator)
+
 add_library(simpleMaxMinFinderAlgorithm
         "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.c"
         "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.h")
@@ -200,29 +214,24 @@ target_link_libraries(monteCarlo
 
 add_executable(gradientDescent
         "Source/Optimization Algorithms/gradientDescent.c"
-        "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.c"
-        "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.h"
-        Source/Assets/Util/randomGenerator.c Source/Assets/Util/randomGenerator.h
-        Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
-        Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
         Source/Assets/Util/_configurations.h)
+
+target_link_libraries(gradientDescent
+        PRIVATE gradientDescentAlgorithm util)
 
 add_executable(gradientAscent
         "Source/Optimization Algorithms/gradientAscent.c"
-        "Source/Assets/Optimization Algorithms/gradientAscentAlgorithm.c"
-        "Source/Assets/Optimization Algorithms/gradientAscentAlgorithm.h"
-        Source/Assets/Util/randomGenerator.c Source/Assets/Util/randomGenerator.h
-        Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
-        Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
         Source/Assets/Util/_configurations.h)
 
-add_executable(simpleMaxMinFinder
+target_link_libraries(gradientAscent
+        PRIVATE gradientAscentAlgorithm util)
+
+add_executable(maxMinFinder
         "Source/Optimization Algorithms/simpleMaxMinFinder.c"
-        "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.c"
-        "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.h"
-        Source/Assets/Util/functions.c Source/Assets/Util/functions.h Source/Assets/Util/parser.c
-        Source/Assets/Util/parser.h Source/Assets/Util/util.c Source/Assets/Util/util.h
         Source/Assets/Util/_configurations.h)
+
+target_link_libraries(maxMinFinder
+        PRIVATE simpleMaxMinFinderAlgorithm util)
 
 #-----------------------------------------------------------------------------------------------------------------------
 #                                                 Series
