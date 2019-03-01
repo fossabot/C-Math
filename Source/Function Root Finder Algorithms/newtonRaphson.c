@@ -13,14 +13,15 @@ void main() {
     // initializing variables
     char expression[INPUT_SIZE];
     char x0_c[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
-            tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], verbose_c[INPUT_SIZE];
+            tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], verbose_c[INPUT_SIZE], tryAgain_c[INPUT_SIZE];
     char *ptr;
-    int maxiter = 0, verbose = 0, flag = 1;
+    int maxiter = 0, verbose = 0, tryAgain = 0, flag = 1;
     double x0, ete, ere, tol;
 
     printf("\t\t\t\tRoot Finder\n"
            "\t\t\t  Newton-Raphson Method\n");
 
+    START: //LABEL for goto
     // getting required data from user
     printf("\nEnter the equation you want to solve (example: x^2-3):\n");
     fgets(expression, sizeof(expression), stdin);
@@ -29,54 +30,104 @@ void main() {
     fgets(x0_c, sizeof(x0_c), stdin);
     x0 = strtod(x0_c, &ptr);
 
+    ETE: //LABEL for goto
     printf("Enter the estimated true error limit: (enter 0 if you don't want to set an ETE limit):\n");
     fgets(ete_c, sizeof(ete_c), stdin);
     ete = strtod(ete_c, &ptr);
 
     // check ete to be positive
     if (ete < 0) {
-        printf("Estimated true error limit must be a \"POSITIVE\" number!\n");
-        Exit(EXIT_FAILURE);
+        printf("Error: estimated true error limit must be a \"POSITIVE\" number!\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+        if (tryAgain) {
+            goto ETE;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
     } // end of ete check
 
+    ERE: //LABEL for goto
     printf("Enter the estimated relative error limit (enter 0 if you don't want to set an ERE limit):\n");
     fgets(ere_c, sizeof(ere_c), stdin);
     ere = strtod(ere_c, &ptr);
 
     // check ere to be positive
     if (ere < 0) {
-        printf("Estimated relative error limit must be a \"POSITIVE\" number!\n");
-        Exit(EXIT_FAILURE);
+        printf("Error: estimated relative error limit must be a \"POSITIVE\" number!\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+        if (tryAgain) {
+            goto ERE;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
     } // end of ere check
 
+    TOL: //LABEL for goto
     printf("Enter the tolerance limit (enter 0 if you don't want to set a tolerance limit):\n");
     fgets(tol_c, sizeof(tol_c), stdin);
     tol = strtod(tol_c, &ptr);
 
     // check tol to be positive
     if (tol < 0) {
-        printf("Estimated tolerance limit must be a \"POSITIVE\" number!\n");
-        Exit(EXIT_FAILURE);
+        printf("Error: estimated tolerance limit must be a \"POSITIVE\" number!\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+        if (tryAgain) {
+            goto TOL;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
     } // end of ere check
 
+    MAXITER: //LABEL for goto
     printf("Enter the maximum iteration limit (must be positive number):\n");
     fgets(maxiter_c, sizeof(maxiter_c), stdin);
     maxiter = strtol(maxiter_c, &ptr, 10);
 
     // check maximum iteration to be more than 0
     if (maxiter <= 0) {
-        printf("Invalid value for maximum iteration limit!\n");
-        Exit(EXIT_FAILURE);
+        printf("Error: invalid value for maximum iteration limit!\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+        if (tryAgain) {
+            goto MAXITER;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
     }// end of if maxiter
 
+    VERBOSE: //LABEL for goto
     printf("Do you want to see steps? {0: no, 1: yes}:\n");
     fgets(verbose_c, sizeof(verbose_c), stdin);
     verbose = strtol(verbose_c, &ptr, 10);
 
     // check verbose value
     if (verbose != 0 && verbose != 1) {
-        printf("Invalid value for verbose!\n");
-        Exit(EXIT_FAILURE);
+        printf("Error: invalid value for verbose!\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+        if (tryAgain) {
+            goto VERBOSE;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
     } // end of if verbose
 
     // calculation
@@ -90,5 +141,13 @@ void main() {
                "the last calculated value for x is: %lf .\n\n", expression, x);
     } // end of if flag
 
-    Exit(EXIT_SUCCESS);
+    // do you want to start again??
+    printf("\nDo you want to start again? {0: no, 1: yes}\n");
+    fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+    tryAgain = strtol(tryAgain_c, &ptr, 10);
+    if (tryAgain) {
+        goto START;
+    } else {
+        Exit(EXIT_SUCCESS);
+    } // end of if goto
 } // end of main
