@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
+void main() {
     /*
      * Interface of program, this interface will get necessary information from user.
      */
@@ -39,28 +39,25 @@ int main() {
     // check n to be more than zero
     if (n <= 0) {
         printf("Number of trapezoids must be more than zero!\n");
-        Exit();
-        return EXIT_FAILURE;
+        Exit(EXIT_FAILURE);
     } // end of ete check
 
-    printf("Do you want to see steps? enter 1 for yes and 0 for no:\n");
+    printf("Do you want to see steps? {0: no, 1: yes}:\n");
     fgets(verbose_c, sizeof(verbose_c), stdin);
     verbose = strtol(verbose_c, &ptr, 10);
 
     // check verbose value
     if (verbose != 0 && verbose != 1) {
         printf("Invalid value for verbose!\n");
-        Exit();
-        return EXIT_FAILURE;
+        Exit(EXIT_FAILURE);
     } // end of if verbose
 
     // calculation
-    double area = trapezoidRule(expression, a0, b0, (unsigned int) n, 0, verbose);
+    double area = trapezoidRule(expression, a0, b0, (unsigned int) n, verbose);
 
     // show result
     printf("\nEstimated area under the function %sin the interval [%lf, %lf] is equal to: %lf .\n\n", expression,
            a0, b0, area);
-    Exit();
-    return EXIT_SUCCESS;
+    Exit(EXIT_SUCCESS);
 } // end of main
 

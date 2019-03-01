@@ -1,6 +1,6 @@
 #ifndef C_MATH_UTIL_H
 #define C_MATH_UTIL_H
 
-void Exit(void);
+void Exit(int exitCode);
 
 #endif //C_MATH_UTIL_H

@@ -31,10 +31,11 @@ double function_1_arg(const char *expression, double valueX) {
     } else { // Show the user where the error is at
         printf("%s", expression);
         printf("%*s^\nError near here\n", err - 1, "");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of if
 
+    // it shouldn't reach this block of code, but however I write a return statement
+    return 0;
 }// end of function_1_arg
 
 

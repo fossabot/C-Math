@@ -33,20 +33,24 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
         b = temp;
     } // end of if
 
-    // check verbose and options value
-    if ((verbose != 0 && verbose != 1) || (options != 0 && options != 1 && options != 2)) {
-        printf("\nError: arguments option or verbose are not valid.\n");
-        Exit();
-        exit(EXIT_FAILURE);
-    } // end of if
+    // check interval
+    if (a == b) {
+        printf("Error: improper interval!\n");
+        Exit(EXIT_FAILURE);
+    } //end of interval check
 
     // check n to be more than zero
     // this is implemented to prevent divide by zero error
     if (n <= 0) {
         printf("Error: argument n must be more than zero!\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of n check
+
+    // check verbose and options value
+    if ((verbose != 0 && verbose != 1) || (options != 0 && options != 1 && options != 2)) {
+        printf("\nError: either argument option or verbose is not valid.\n");
+        Exit(EXIT_FAILURE);
+    } // end of if
 
     // initializing variables
     double area = 0, x, height;

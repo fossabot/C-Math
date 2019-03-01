@@ -34,33 +34,34 @@ double secant(const char *expression, double a, double b, double ete, double ere
         b = temp;
     } // end of if
 
+    // check interval
+    if (a == b) {
+        printf("Error: improper interval!\n");
+        Exit(EXIT_FAILURE);
+    } //end of interval check
+
     // check error thresholds
     if (ere < 0 || ete < 0 || tol < 0){
         printf("\nError: ete or ere or tol argument is not valid.\n");
-        Exit();
-        exit(EXIT_FAILURE);
-    } // end of if
-
-    // check verbose
-    if (verbose != 0 && verbose != 1) {
-        printf("\nError: verbose argument is not valid.\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of if
 
     // check maxiter to be more than zero
     if (maxiter <= 0) {
         printf("Error: argument maxiter must be more than zero!\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of maxiter check
+
+    // check verbose
+    if (verbose != 0 && verbose != 1) {
+        printf("\nError: verbose argument is not valid.\n");
+        Exit(EXIT_FAILURE);
+    } // end of if
 
     // initializing variables
     unsigned int iter = 1;
     double c = 0;
-    double fc;
-    double ete_err;
-    double ere_err;
+    double fc, ete_err, ere_err;
 
     // calculates y1 = f(a) and y2 =f(b)
     double fa = function_1_arg(expression, a);

@@ -38,23 +38,20 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
     // check error thresholds
     if (ere < 0 || ete < 0 || tol < 0){
         printf("\nError: ete or ere or tol argument is not valid.\n");
-        Exit();
-        exit(EXIT_FAILURE);
-    } // end of if
-
-    // check verbose
-    if (verbose != 0 && verbose != 1) {
-        printf("\nError: verbose argument is not valid.\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of if
 
     // check maxiter to be more than zero
     if (maxiter <= 0) {
         printf("Error: argument maxiter must be more than zero!\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of maxiter check
+
+    // check verbose
+    if (verbose != 0 && verbose != 1) {
+        printf("\nError: verbose argument is not valid.\n");
+        Exit(EXIT_FAILURE);
+    } // end of if
 
     // initializing variables
     double x = x0;

@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
+void main() {
     /*
      * Interface of program, this interface will get necessary information from user.
      */
@@ -36,8 +36,7 @@ int main() {
     // check ete to be positive
     if (ete < 0) {
         printf("Estimated true error limit must be a \"POSITIVE\" number!\n");
-        Exit();
-        return EXIT_FAILURE;
+        Exit(EXIT_FAILURE);
     } // end of ete check
 
     printf("Enter the estimated relative error limit (enter 0 if you don't want to set an ERE limit):\n");
@@ -47,8 +46,7 @@ int main() {
     // check ere to be positive
     if (ere < 0) {
         printf("Estimated relative error limit must be a \"POSITIVE\" number!\n");
-        Exit();
-        return EXIT_FAILURE;
+        Exit(EXIT_FAILURE);
     } // end of ere check
 
     printf("Enter the tolerance limit (enter 0 if you don't want to set a tolerance limit):\n");
@@ -58,8 +56,7 @@ int main() {
     // check tol to be positive
     if (tol < 0) {
         printf("Estimated tolerance limit must be a \"POSITIVE\" number!\n");
-        Exit();
-        return EXIT_FAILURE;
+        Exit(EXIT_FAILURE);
     } // end of ere check
 
     printf("Enter the maximum iteration limit (must be positive number):\n");
@@ -69,8 +66,7 @@ int main() {
     // check maximum iteration to be more than 0
     if (maxiter <= 0) {
         printf("Invalid value for maximum iteration limit!\n");
-        Exit();
-        return EXIT_FAILURE;
+        Exit(EXIT_FAILURE);
     }// end of if maxiter
 
     printf("Do you want to see steps? {0: no, 1: yes}:\n");
@@ -80,8 +76,7 @@ int main() {
     // check verbose value
     if (verbose != 0 && verbose != 1) {
         printf("Invalid value for verbose!\n");
-        Exit();
-        return EXIT_FAILURE;
+        Exit(EXIT_FAILURE);
     } // end of if verbose
 
     // calculation
@@ -90,13 +85,10 @@ int main() {
     // if there was an answer
     if (flag) {
         printf("\nThis method solved the equation %sfor x= %lf .\n\n", expression, x);
-        Exit();
-        return EXIT_SUCCESS;
     } else { // if no answer
         printf("\nThis method couldn't find the root of equation %s"
                "the last calculated value for x is: %lf .\n\n", expression, x);
-        Exit();
-        return EXIT_FAILURE;
     } // end of if flag
 
+    Exit(EXIT_SUCCESS);
 } // end of main

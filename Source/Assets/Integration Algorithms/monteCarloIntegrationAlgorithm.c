@@ -33,26 +33,29 @@ double monteCarloIntegration(const char *expression, double a, double b, unsigne
         b = temp;
     } // end of if
 
+    // check interval
+    if (a == b) {
+        printf("Error: improper interval!\n");
+        Exit(EXIT_FAILURE);
+    } //end of interval check
+
     // check n to be more than zero
     // this is implemented to prevent divide by zero error
     if (n <= 0) {
         printf("Error: argument n must be more than zero!\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of n check
 
     // check mode and options value
     if (options != 0 && options != 1){
         printf("\nError: arguments option or mode are not valid.\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of if
 
     // check verbose
     if (verbose != 0 && verbose != 1) {
         printf("\nError: verbose argument is not valid.\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of if
 
     // use requested type of monte carlo integration
@@ -90,19 +93,23 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
         b = temp;
     } // end of if
 
+    // check interval
+    if (a == b) {
+        printf("Error: improper interval!\n");
+        Exit(EXIT_FAILURE);
+    } //end of interval check
+
     // check n to be more than zero
     // this is implemented to prevent divide by zero error
     if (n <= 0) {
         printf("Error: argument n must be more than zero!\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of n check
 
     // check verbose
     if (verbose != 0 && verbose != 1) {
         printf("\nError: verbose argument is not valid.\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of if
 
     // find maximum and minimum of function
@@ -263,19 +270,23 @@ double monteCarloRectangleIntegration(const char *expression, double a, double b
         b = temp;
     } // end of if
 
+    // check interval
+    if (a == b) {
+        printf("Error: improper interval!\n");
+        Exit(EXIT_FAILURE);
+    } //end of interval check
+
     // check n to be more than zero
     // this is implemented to prevent divide by zero error
     if (n <= 0) {
         printf("Error: argument n must be more than zero!\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of n check
 
     // check verbose
     if (verbose != 0 && verbose != 1) {
         printf("\nError: verbose argument is not valid.\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of if
 
     // initializing variables

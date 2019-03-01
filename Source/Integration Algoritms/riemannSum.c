@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
+void main() {
     /*
      * Interface of program, this interface will get necessary information from user.
      */
@@ -39,8 +39,7 @@ int main() {
     // check n to be more than zero
     if (n <= 0) {
         printf("Number of rectangles must be more than zero!\n");
-        Exit();
-        return EXIT_FAILURE;
+        Exit(EXIT_FAILURE);
     } // end of ete check
 
     printf("Select type of Riemann integration rule {Left point: 0, Right point: 1, Mid point: 2}:\n");
@@ -49,9 +48,8 @@ int main() {
 
     // check options value
     if (options != 0 && options != 1 && options != 2) {
-        printf("Wrong type number! you have to enter 0 or 1 or 2\n");
-        Exit();
-        return EXIT_FAILURE;
+        printf("Wrong type number! you have to enter either 0 or 1 or 2 .\n");
+        Exit(EXIT_FAILURE);
     }
 
     printf("Do you want to see steps? {0: no, 1: yes}:\n");
@@ -61,8 +59,7 @@ int main() {
     // check verbose value
     if (verbose != 0 && verbose != 1) {
         printf("Invalid value for verbose!\n");
-        Exit();
-        return EXIT_FAILURE;
+        Exit(EXIT_FAILURE);
     } // end of if verbose
 
     // calculation
@@ -71,7 +68,6 @@ int main() {
     // show result
     printf("\nEstimated area under the function %sin the interval [%lf, %lf] is equal to: %lf .\n\n", expression,
            a0, b0, area);
-    Exit();
-    return EXIT_SUCCESS;
+    Exit(EXIT_SUCCESS);
 } // end of main
 
