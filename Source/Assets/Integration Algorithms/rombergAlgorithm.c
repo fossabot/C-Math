@@ -1,6 +1,6 @@
 #include "rombergAlgorithm.h"
 #include "trapezoidRuleAlgorithm.h"
-#include "../Util/dynamicArrayLib.h"
+#include "../Util/dynamicArrays1D.h"
 #include "../Util/util.h"
 
 #include <stdio.h>
