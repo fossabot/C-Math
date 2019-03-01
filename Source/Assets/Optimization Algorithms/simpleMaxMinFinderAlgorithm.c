@@ -35,8 +35,7 @@ double *simpleMaxMinFinder(const char *expression, double a, double b, unsigned 
     // this is implemented to prevent divide by zero error
     if (n <= 0) {
         printf("Error: argument n must be more than zero!\n");
-        Exit();
-        exit(EXIT_FAILURE);
+        Exit(EXIT_FAILURE);
     } // end of n check
 
     // initializing variables

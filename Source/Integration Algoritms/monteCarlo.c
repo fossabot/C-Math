@@ -72,7 +72,7 @@ void main() {
     } // end of if verbose
 
     // show something while calculating the area
-    if (!verbose && n >= 5000000) {
+    if (!verbose && n >= 1000000) {
         printf("\nCalculating...\n");
     } // end of if
 
