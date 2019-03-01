@@ -29,14 +29,14 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
 
     // check interval
     if (a == b) {
-        printf("Error: improper interval!\n");
+        printf("\nError: improper interval!\n");
         Exit(EXIT_FAILURE);
     } //end of interval check
 
     // check n to be more than zero
     // this is implemented to prevent divide by zero error
     if (n <= 0) {
-        printf("Error: argument n must be more than zero!\n");
+        printf("\nError: argument n must be more than zero!\n");
         Exit(EXIT_FAILURE);
     } // end of n check
 

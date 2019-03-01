@@ -43,7 +43,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
 
     // check maxiter to be more than zero
     if (maxiter <= 0) {
-        printf("Error: argument maxiter must be more than zero!\n");
+        printf("\nError: argument maxiter must be more than zero!\n");
         Exit(EXIT_FAILURE);
     } // end of maxiter check
 

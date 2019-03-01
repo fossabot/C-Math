@@ -39,7 +39,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
 
     // check interval
     if (a == b) {
-        printf("Error: improper interval!\n");
+        printf("\nError: improper interval!\n");
         Exit(EXIT_FAILURE);
     } //end of interval check
 
@@ -51,7 +51,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
 
     // check maxiter to be more than zero
     if (maxiter <= 0) {
-        printf("Error: argument maxiter must be more than zero!\n");
+        printf("\nError: argument maxiter must be more than zero!\n");
         Exit(EXIT_FAILURE);
     } // end of maxiter check
 

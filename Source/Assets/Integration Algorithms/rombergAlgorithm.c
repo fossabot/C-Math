@@ -18,14 +18,14 @@ double romberg(const char *expression, double a, double b, unsigned int k, doubl
 
     // check interval
     if (a == b) {
-        printf("Error: improper interval!\n");
+        printf("\nError: improper interval!\n");
         Exit(EXIT_FAILURE);
     } //end of interval check
 
     // check k to be more than zero
     // this is implemented to prevent divide by zero error
     if (k < 0) {
-        printf("Error: argument k must be positive!\n");
+        printf("\nError: argument k must be positive!\n");
         Exit(EXIT_FAILURE);
     } // end of k check
 
