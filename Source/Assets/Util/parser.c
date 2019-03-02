@@ -37,6 +37,7 @@ For log = natural log uncomment the next line. */
 #include "parser.h"
 #include <stdlib.h>
 #include <math.h>
+#include <limits.h>
 #include <string.h>
 #include <stdio.h>
 #include <assert.h>
