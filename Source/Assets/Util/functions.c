@@ -19,9 +19,6 @@ double function_1_arg(const char *expression, double valueX) {
     double x;
     int err;
 
-    // lower the characters in expression
-    strToLower(expression);
-
     // initializing vars[] and compile string expression into a te_expr object
     te_variable vars[] = {{"x", &x}};
     te_expr *equation = te_compile(expression, vars, 1, &err);
