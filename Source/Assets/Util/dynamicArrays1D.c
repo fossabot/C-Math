@@ -121,3 +121,76 @@ void freeArrayDouble(ArrayDouble *array) {
     array->array = NULL;
     array->next = array->used = array->size = 0;
 }
+
+void initArrayChar(ArrayChar *array, unsigned long int initialSize) {
+
+    char *char_pointer;
+    char_pointer = (char *) malloc(initialSize * sizeof(char_pointer));
+
+    if (char_pointer == NULL) {
+        printf("Unable to allocate memory!\n");
+        free(char_pointer);
+        Exit(EXIT_FAILURE);
+    } else {
+        array->array = char_pointer;
+        array->next = 0;
+        array->used = 0;
+        array->size = initialSize;
+    }
+}
+
+void initValueArrayChar(ArrayChar *array, unsigned long int initialSize, char value) {
+
+    initArrayChar(array, initialSize);
+
+    for (int i = 0; i < initialSize; ++i) {
+        insertToArrayChar(array, value);
+    }
+
+}
+
+void insertToArrayChar(ArrayChar *array, char element) {
+    // a->used is the number of used entries, because a->array[a->used++] updates a->used
+    // only *after* the array has been accessed.
+    // Therefore a->used can go up to a->size
+    if (array->used == array->size) {
+
+        unsigned long int new_size = array->size * 2;
+
+        char *char_pointer;
+        char_pointer = (char *) realloc(array->array, new_size * sizeof(char_pointer));
+
+        if (char_pointer == NULL) {
+            printf("Unable to reallocate memory!\n");
+            free(char_pointer);
+            Exit(EXIT_FAILURE);
+        } else {
+            array->size = new_size;
+            array->array = char_pointer;
+        }
+    }
+    array->array[array->next++] = element;
+    array->used += 1;
+}
+
+void addByIndexToArrayChar(ArrayChar *array, char element, unsigned long int index) {
+    if (array->size - 1 < index || index < 0) {
+        printf("Error: wrong index!\n");
+        Exit(EXIT_FAILURE);
+    }
+
+    if (index > array->next) {
+        array->array[index] = element;
+        array->used += 1;
+    } else if (index == array->next) {
+        insertToArrayChar(array, element);
+    } else {
+        array->array[index] = element;
+    }
+}
+
+void freeArrayChar(ArrayChar *array) {
+    free(array->array);
+    array->array = NULL;
+    array->next = array->used = array->size = 0;
+}

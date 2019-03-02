@@ -30,4 +30,21 @@ void addByIndexToArrayDouble(ArrayDouble *array, double element, unsigned long i
 
 void freeArrayDouble(ArrayDouble *array);
 
+typedef struct {
+    char *array;
+    unsigned long int next;
+    unsigned long int used;
+    unsigned long int size;
+} ArrayChar;
+
+void initArrayChar(ArrayChar *array, unsigned long int initialSize);
+
+void initValueArrayChar(ArrayChar *array, unsigned long int initialSize, char value);
+
+void insertToArrayChar(ArrayChar *array, char element);
+
+void addByIndexToArrayChar(ArrayChar *array, char element, unsigned long int index);
+
+void freeArrayChar(ArrayChar *array);
+
 #endif //C_MATH_DYNAMICARRAYS1D_H
