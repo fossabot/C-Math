@@ -36,7 +36,7 @@ int main() {
 
     // check interval
     if (a0 == b0) {
-        printf("Error: improper interval! 'a' and 'b' can't have same valueS.\n");
+        printf("Error: improper interval! 'a' and 'b' can't have same values.\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
