@@ -15,9 +15,9 @@ set(BUILD_SHARED_LIBS NO)
 # building options: Release, Debug, RelWithDebInfo, MinRelSize
 # set(CMAKE_BUILD_TYPE Release)
 
-# set(CMAKE_MAKE_PROGRAM #PATH TO MAKE)
-# set(CMAKE_C_COMPILER #PATH TO C COMPILER)
-# set(CMAKE_CXX_COMPILER #PATH TO C++ COMPILER)
+# set(CMAKE_MAKE_PROGRAM)
+# set(CMAKE_C_COMPILER)
+# set(CMAKE_CXX_COMPILER)
 
 #=======================================================================================================================
 #                                                  Libraries
