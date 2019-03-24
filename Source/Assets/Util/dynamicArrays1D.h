@@ -1,50 +1,53 @@
 #ifndef C_MATH_DYNAMICARRAYS1D_H
 #define C_MATH_DYNAMICARRAYS1D_H
 
+#include <stdlib.h>
+
+#define ARRAY_SUCCESSFUL 1
+#define ARRAY_FAILURE 0
+
 typedef struct {
+    char *map;
     long int *array;
-    unsigned long int used;
-    unsigned long int size;
+    size_t next;
+    size_t used;
+    size_t size;
 } ArrayLongInt;
 
-void initArrayLongInt(ArrayLongInt *array, unsigned long int initialSize);
+int initArrayLongInt(ArrayLongInt *array, size_t initialSize);
 
-void insertToArrayLongInt(ArrayLongInt *array, long int element);
+int extendArrayLongInt(ArrayLongInt *array, size_t extendSize);
+
+int initValueArrayLongInt(ArrayLongInt *array, size_t initialSize, long int element);
+
+int fillArrayLongInt(ArrayLongInt *array, size_t start, size_t end, long int element);
+
+int addNextToArrayLongInt(ArrayLongInt *array, long int element);
+
+int addByIndexToArrayLongInt(ArrayLongInt *array, size_t index, long int element);
 
 void freeArrayLongInt(ArrayLongInt *array);
 
 typedef struct {
+    char *map;
     double *array;
-    unsigned long int next;
-    unsigned long int used;
-    unsigned long int size;
+    size_t next;
+    size_t used;
+    size_t size;
 } ArrayDouble;
 
-void initArrayDouble(ArrayDouble *array, unsigned long int initialSize);
+int initArrayDouble(ArrayDouble *array, size_t initialSize);
 
-void initValueArrayDouble(ArrayDouble *array, unsigned long int initialSize, double value);
+int extendArrayDouble(ArrayDouble *array, size_t extendSize);
 
-void insertToArrayDouble(ArrayDouble *array, double element);
+int initValueArrayDouble(ArrayDouble *array, size_t initialSize, double element);
 
-void addByIndexToArrayDouble(ArrayDouble *array, double element, unsigned long int index);
+int fillArrayDouble(ArrayDouble *array, size_t start, size_t end, double element);
+
+int addNextToArrayDouble(ArrayDouble *array, double element);
+
+int addByIndexToArrayDouble(ArrayDouble *array, size_t index, long int element);
 
 void freeArrayDouble(ArrayDouble *array);
-
-typedef struct {
-    char *array;
-    unsigned long int next;
-    unsigned long int used;
-    unsigned long int size;
-} ArrayChar;
-
-void initArrayChar(ArrayChar *array, unsigned long int initialSize);
-
-void initValueArrayChar(ArrayChar *array, unsigned long int initialSize, char value);
-
-void insertToArrayChar(ArrayChar *array, char element);
-
-void addByIndexToArrayChar(ArrayChar *array, char element, unsigned long int index);
-
-void freeArrayChar(ArrayChar *array);
 
 #endif //C_MATH_DYNAMICARRAYS1D_H
