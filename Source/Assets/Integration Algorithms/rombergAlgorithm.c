@@ -58,9 +58,10 @@ double romberg(const char *expression, double a, double b, unsigned int k, doubl
 
     // initializing variables
     const unsigned int no_verbose = 0;
-    unsigned int i, j, l, arraySize, index;
+    unsigned int i, j, l, arraySize;
     double n, integral, trapezoid, error;
     double previous_result = 0, result = 0;
+    size_t index;
 
     // determine array size
     // example (k = 3):
@@ -88,13 +89,13 @@ double romberg(const char *expression, double a, double b, unsigned int k, doubl
         trapezoid = trapezoidRule(expression, a, b, (unsigned int) n, no_verbose);
 
         // add the result to the romberg table
-        insertToArrayDouble(&romberg, trapezoid);
+        addNextToArrayDouble(&romberg, trapezoid);
 
         // romberg algorithm
         for (j = 1; j <= i; ++j) {
             index = romberg.next - 1;
             integral = (romberg.array[index] * pow(4, i) - romberg.array[index - 1]) / (pow(4, i) - 1);
-            insertToArrayDouble(&romberg, integral);
+            addNextToArrayDouble(&romberg, integral);
         }
 
         // calculate error [relative error to avoid large numbers]
