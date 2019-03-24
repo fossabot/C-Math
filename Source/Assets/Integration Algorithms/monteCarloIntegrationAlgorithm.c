@@ -240,7 +240,7 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
 
     if (verbose) {
         printf("\nTotal points = %d .\n", correctPoints);
-        printf("area = rectangle area *  total valid points / all points, area = %lf * %lf / %d .\n",
+        printf("Area = rectangle area *  total valid points / all points, area = %lf * %lf / %d .\n",
                fabs(rectangleArea), (double) correctPoints, n);
     } // end if(verbose)
 

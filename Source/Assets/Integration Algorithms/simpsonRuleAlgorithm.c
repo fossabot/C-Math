@@ -92,8 +92,8 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
         // multiply to width/3 to get final area
         area *= coefficient / 3;
         if (verbose) {
-            printf("\narea = h/3 * [f(x0) + f(xn) + 2 * sigma(f(xi[i = 2k])) + 4 * sigma(f(xi[i = 2k-1]))]\n"
-                   "area = %lf/3 * [%lf + %lf + 2 * %lf + 4 * %lf]\n", coefficient, function_1_arg(expression, a),
+            printf("\nArea = h/3 * [f(x0) + f(xn) + 2 * sigma(f(xi[i = 2k])) + 4 * sigma(f(xi[i = 2k-1]))]\n"
+                   "Area = %lf/3 * [%lf + %lf + 2 * %lf + 4 * %lf]\n", coefficient, function_1_arg(expression, a),
                    function_1_arg(expression, b), even, odd);
         } // end of if verbose
     } else {
@@ -124,8 +124,8 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
         area *= 3 * coefficient / 8;
         // show process
         if (verbose) {
-            printf("\narea = 3*h/8 * [f(x0) + f(xn) + 3 * sigma(f(xi[i != 3k])) + 2 * sigma(f(xi[i = 3k]))]\n"
-                   "area = 3*%lf/8 * [%lf + %lf + 3 * %lf + 2 * %lf]\n", coefficient, function_1_arg(expression, a),
+            printf("\nArea = 3*h/8 * [f(x0) + f(xn) + 3 * sigma(f(xi[i != 3k])) + 2 * sigma(f(xi[i = 3k]))]\n"
+                   "Area = 3*%lf/8 * [%lf + %lf + 3 * %lf + 2 * %lf]\n", coefficient, function_1_arg(expression, a),
                    function_1_arg(expression, b), regular, cubic);
         } // end of if verbose
     } // end of if else

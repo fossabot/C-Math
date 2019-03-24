@@ -67,7 +67,7 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
 
     // show process
     if (verbose) {
-        printf("area = (h / 2) * heights sum => area = (%lf) * %lf .\n", coefficient / 2, area);
+        printf("Area = (h / 2) * heights sum => area = (%lf) * %lf .\n", coefficient / 2, area);
     } // end of if verbose
 
     // multiply sums to width/2
