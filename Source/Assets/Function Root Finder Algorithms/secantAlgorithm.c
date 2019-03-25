@@ -132,7 +132,10 @@ double secant(const char *expression, double a, double b, double ete, double ere
         printf("the last calculated x is %lf .\n", c);
     } // end if(verbose)
 
-    // set state to 0 (false)
-    *state = 0;
+    // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum
+    if (ete != 0 && ere != 0) {
+        // set state to 0 (false)
+        *state = 0;
+    }
     return c;
 } // end of secant function

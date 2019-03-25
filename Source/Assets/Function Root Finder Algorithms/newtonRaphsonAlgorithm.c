@@ -122,9 +122,11 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
                        "then try to choose a better starting point x0 .\n");
             }
 
-            // set state to 0 (false)
-            *state = 0;
-            return -1;
+            // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum
+            if (ete != 0 && ere != 0) {
+                // set state to 0 (false)
+                *state = 0;
+            }
         } // end of if(dfx)
 
     } // end of while loop

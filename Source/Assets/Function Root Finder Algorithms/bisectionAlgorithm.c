@@ -166,8 +166,11 @@ double bisection(const char *expression, double a, double b, double ete, double 
             printf("the last calculated x is %lf .\n", x);
         } // end if(verbose)
 
-        // set state to 0 (false)
-        *state = 0;
+        // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum
+        if (ete != 0 && ere != 0) {
+            // set state to 0 (false)
+            *state = 0;
+        }
         return x;
 
     } else { // if y1 and y2 have same signs, then we can't use bisection method

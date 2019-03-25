@@ -115,8 +115,11 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
         printf("the last calculated minimum is %lf .\n", x0);
     } // end if(verbose)
 
-    // set state to 0 (false)
-    *state = 0;
+    // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum
+    if (ete != 0 && ere != 0) {
+        // set state to 0 (false)
+        *state = 0;
+    }
     return x0;
 } // end of gradientDescent function
 
