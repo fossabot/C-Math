@@ -11,6 +11,7 @@ int main() {
      */
 
     // initializing variables
+    char *fgetsReturn;
     char expression[INPUT_SIZE];
     char a[INPUT_SIZE], b[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
             tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], verbose_c[INPUT_SIZE], algorithmType_c[INPUT_SIZE],
@@ -25,15 +26,15 @@ int main() {
     START: //LABEL for goto
     // getting required data from user
     printf("\nEnter the equation you want to solve (example: x^2-3):\n");
-    fgets(expression, sizeof(expression), stdin);
+    fgetsReturn = fgets(expression, sizeof(expression), stdin);
 
     INTERVAL: //LABEL for goto
     printf("Choose an interval [a, b]:\n");
     printf("Enter a:\n");
-    fgets(a, sizeof(a), stdin);
+    fgetsReturn = fgets(a, sizeof(a), stdin);
     a0 = strtod(a, &ptr);
     printf("Enter b:\n");
-    fgets(b, sizeof(b), stdin);
+    fgetsReturn = fgets(b, sizeof(b), stdin);
     b0 = strtod(b, &ptr);
 
     // check interval
@@ -42,7 +43,7 @@ int main() {
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
         tryAgain = strtol(tryAgain_c, &ptr, 10);
         if (tryAgain) {
             goto INTERVAL;
@@ -53,7 +54,7 @@ int main() {
 
     TYPE:
     printf("Select type of false position algorithm {Original: 0 , Illinois: 1 , Anderson-Bjork: 2}:\n");
-    fgets(algorithmType_c, sizeof(algorithmType_c), stdin);
+    fgetsReturn = fgets(algorithmType_c, sizeof(algorithmType_c), stdin);
     algorithmType = strtol(algorithmType_c, &ptr, 10);
 
     // check algorithmType value
@@ -62,7 +63,7 @@ int main() {
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
         tryAgain = strtol(tryAgain_c, &ptr, 10);
         if (tryAgain) {
             goto TYPE;
@@ -73,7 +74,7 @@ int main() {
 
     ETE: //LABEL for goto
     printf("Enter the estimated true error limit: (enter 0 if you don't want to set an ETE limit):\n");
-    fgets(ete_c, sizeof(ete_c), stdin);
+    fgetsReturn = fgets(ete_c, sizeof(ete_c), stdin);
     ete = strtod(ete_c, &ptr);
 
     // check ete to be positive
@@ -82,7 +83,7 @@ int main() {
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
         tryAgain = strtol(tryAgain_c, &ptr, 10);
         if (tryAgain) {
             goto ETE;
@@ -93,7 +94,7 @@ int main() {
 
     ERE: //LABEL for goto
     printf("Enter the estimated relative error limit (enter 0 if you don't want to set an ERE limit):\n");
-    fgets(ere_c, sizeof(ere_c), stdin);
+    fgetsReturn = fgets(ere_c, sizeof(ere_c), stdin);
     ere = strtod(ere_c, &ptr);
 
     // check ere to be positive
@@ -102,7 +103,7 @@ int main() {
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
         tryAgain = strtol(tryAgain_c, &ptr, 10);
         if (tryAgain) {
             goto ERE;
@@ -113,7 +114,7 @@ int main() {
 
     TOL: //LABEL for goto
     printf("Enter the tolerance limit (enter 0 if you don't want to set a tolerance limit):\n");
-    fgets(tol_c, sizeof(tol_c), stdin);
+    fgetsReturn = fgets(tol_c, sizeof(tol_c), stdin);
     tol = strtod(tol_c, &ptr);
 
     // check tol to be positive
@@ -122,7 +123,7 @@ int main() {
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
         tryAgain = strtol(tryAgain_c, &ptr, 10);
         if (tryAgain) {
             goto TOL;
@@ -133,7 +134,7 @@ int main() {
 
     MAXITER: //LABEL for goto
     printf("Enter the maximum iteration limit (must be positive number):\n");
-    fgets(maxiter_c, sizeof(maxiter_c), stdin);
+    fgetsReturn = fgets(maxiter_c, sizeof(maxiter_c), stdin);
     maxiter = strtol(maxiter_c, &ptr, 10);
 
     // check maximum iteration to be more than 0
@@ -142,7 +143,7 @@ int main() {
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
         tryAgain = strtol(tryAgain_c, &ptr, 10);
         if (tryAgain) {
             goto MAXITER;
@@ -153,7 +154,7 @@ int main() {
 
     VERBOSE: //LABEL for goto
     printf("Do you want to see steps? {0: no, 1: yes}:\n");
-    fgets(verbose_c, sizeof(verbose_c), stdin);
+    fgetsReturn = fgets(verbose_c, sizeof(verbose_c), stdin);
     verbose = strtol(verbose_c, &ptr, 10);
 
     if (verbose != 0 && verbose != 1) {
@@ -161,7 +162,7 @@ int main() {
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
         tryAgain = strtol(tryAgain_c, &ptr, 10);
         if (tryAgain) {
             goto VERBOSE;
@@ -184,7 +185,7 @@ int main() {
 
     // do you want to start again??
     printf("\nDo you want to start again? {0: no, 1: yes}\n");
-    fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+    fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
     tryAgain = strtol(tryAgain_c, &ptr, 10);
     if (tryAgain) {
         goto START;

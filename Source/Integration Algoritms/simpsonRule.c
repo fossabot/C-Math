@@ -11,6 +11,7 @@ int main() {
      */
 
     // initializing variables
+    char *fgetsReturn;
     char expression[INPUT_SIZE];
     char a[INPUT_SIZE], b[INPUT_SIZE], n_c[INPUT_SIZE], options_c[INPUT_SIZE], verbose_c[INPUT_SIZE],
             tryAgain_c[INPUT_SIZE];
@@ -24,15 +25,15 @@ int main() {
     START: //LABEL for goto
     // getting required data from user
     printf("\nEnter the function you want to integrate (example: x^2-3):\n");
-    fgets(expression, sizeof(expression), stdin);
+    fgetsReturn = fgets(expression, sizeof(expression), stdin);
 
     INTERVAL: //LABEL for goto
     printf("Choose an interval [a, b]:\n");
     printf("Enter a:\n");
-    fgets(a, sizeof(a), stdin);
+    fgetsReturn = fgets(a, sizeof(a), stdin);
     a0 = strtod(a, &ptr);
     printf("Enter b:\n");
-    fgets(b, sizeof(b), stdin);
+    fgetsReturn = fgets(b, sizeof(b), stdin);
     b0 = strtod(b, &ptr);
 
     // check interval
@@ -41,7 +42,7 @@ int main() {
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
         tryAgain = strtol(tryAgain_c, &ptr, 10);
         if (tryAgain) {
             goto INTERVAL;
@@ -52,7 +53,7 @@ int main() {
 
     NUMBER: //LABEL for goto
     printf("Enter the number of sub-intervals you want to create for integration:\n");
-    fgets(n_c, sizeof(n_c), stdin);
+    fgetsReturn = fgets(n_c, sizeof(n_c), stdin);
     n = strtol(n_c, &ptr, 10);
 
     // check n to be more than zero
@@ -61,7 +62,7 @@ int main() {
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
         tryAgain = strtol(tryAgain_c, &ptr, 10);
         if (tryAgain) {
             goto NUMBER;
@@ -78,7 +79,7 @@ int main() {
 
     TYPE: //LABEL for goto
     printf("Select type of Simpson's rule integration {h/3 rule: 0, 3*h/8 rule: 1}:\n");
-    fgets(options_c, sizeof(options_c), stdin);
+    fgetsReturn = fgets(options_c, sizeof(options_c), stdin);
     options = strtol(options_c, &ptr, 10);
     // check verbose and options value
 
@@ -87,7 +88,7 @@ int main() {
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
         tryAgain = strtol(tryAgain_c, &ptr, 10);
         if (tryAgain) {
             goto TYPE;
@@ -98,7 +99,7 @@ int main() {
 
     VERBOSE: //LABEL for goto
     printf("Do you want to see steps? {0: no, 1: yes}:\n");
-    fgets(verbose_c, sizeof(verbose_c), stdin);
+    fgetsReturn = fgets(verbose_c, sizeof(verbose_c), stdin);
     verbose = strtol(verbose_c, &ptr, 10);
 
     // check verbose value
@@ -107,7 +108,7 @@ int main() {
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
         tryAgain = strtol(tryAgain_c, &ptr, 10);
         if (tryAgain) {
             goto VERBOSE;
@@ -125,7 +126,7 @@ int main() {
 
     // do you want to start again??
     printf("\nDo you want to start again? {0: no, 1: yes}\n");
-    fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+    fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
     tryAgain = strtol(tryAgain_c, &ptr, 10);
     if (tryAgain) {
         goto START;
