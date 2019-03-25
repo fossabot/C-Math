@@ -28,13 +28,79 @@ int main() {
     printf("\nEnter the equation you want to solve (example: x^2-3):\n");
     fgetsReturn = fgets(expression, sizeof(expression), stdin);
 
+    // check input
+    if (*fgetsReturn == '\n') {
+        printf("Error: you must enter a function.\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+
+        if (tryAgain) {
+            goto START;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
+    } //end of interval check
+
     INTERVAL: //LABEL for goto
     printf("Choose an interval [a, b]:\n");
+
+    A: //LABEL for goto
     printf("Enter a:\n");
     fgetsReturn = fgets(a, sizeof(a), stdin);
+
+    // check input
+    if (*fgetsReturn == '\n') {
+        printf("Error: you must enter a value for 'a'.\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+
+        if (tryAgain) {
+            goto A;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
+    } //end of input check
+
     a0 = strtod(a, &ptr);
+
+    B: //LABEL for goto
     printf("Enter b:\n");
     fgetsReturn = fgets(b, sizeof(b), stdin);
+
+    // check input
+    if (*fgetsReturn == '\n') {
+        printf("Error: you must enter a value for 'b'.\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+
+        if (tryAgain) {
+            goto B;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
+    } //end of input check
+
     b0 = strtod(b, &ptr);
 
     // check interval
@@ -44,7 +110,12 @@ int main() {
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto INTERVAL;
         } else {
@@ -58,13 +129,18 @@ int main() {
     algorithmType = strtol(algorithmType_c, &ptr, 10);
 
     // check algorithmType value
-    if (algorithmType != 0 && algorithmType != 1 && algorithmType != 2) {
+    if ((algorithmType != 0 && algorithmType != 1 && algorithmType != 2) || *fgetsReturn == '\n') {
         printf("Error: invalid type. you must enter either 0 or 1 or 2.\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto TYPE;
         } else {
@@ -78,13 +154,18 @@ int main() {
     ete = strtod(ete_c, &ptr);
 
     // check ete to be positive
-    if (ete < 0) {
+    if (ete < 0 || *fgetsReturn == '\n') {
         printf("Error: estimated true error limit must be a \"POSITIVE\" number!\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto ETE;
         } else {
@@ -98,18 +179,23 @@ int main() {
     ere = strtod(ere_c, &ptr);
 
     // check ere to be positive
-    if (ere < 0) {
+    if (ere < 0 || *fgetsReturn == '\n') {
         printf("Error: estimated relative error limit must be a \"POSITIVE\" number!\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto ERE;
         } else {
             Exit(EXIT_FAILURE);
-        } // end of if goto;
+        } // end of if goto
     } // end of ere check
 
     TOL: //LABEL for goto
@@ -118,18 +204,23 @@ int main() {
     tol = strtod(tol_c, &ptr);
 
     // check tol to be positive
-    if (tol < 0) {
+    if (tol < 0 || *fgetsReturn == '\n') {
         printf("Error: estimated tolerance limit must be a \"POSITIVE\" number!\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto TOL;
         } else {
             Exit(EXIT_FAILURE);
-        } // end of if goto;
+        } // end of if goto
     } // end of ere check
 
     MAXITER: //LABEL for goto
@@ -138,18 +229,23 @@ int main() {
     maxiter = strtol(maxiter_c, &ptr, 10);
 
     // check maximum iteration to be more than 0
-    if (maxiter <= 0) {
+    if (maxiter <= 0 || *fgetsReturn == '\n') {
         printf("Error: invalid value for maximum iteration limit!\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto MAXITER;
         } else {
             Exit(EXIT_FAILURE);
-        } // end of if goto;
+        } // end of if goto
     }// end of if maxiter
 
     VERBOSE: //LABEL for goto
@@ -157,13 +253,19 @@ int main() {
     fgetsReturn = fgets(verbose_c, sizeof(verbose_c), stdin);
     verbose = strtol(verbose_c, &ptr, 10);
 
-    if (verbose != 0 && verbose != 1) {
+    // check verbose value
+    if (verbose != 0 && verbose != 1 || *fgetsReturn == '\n') {
         printf("Error: invalid value for verbose!\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto VERBOSE;
         } else {
@@ -176,17 +278,22 @@ int main() {
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method solved the equation %sfor x= %lf in the interval [%lf, %lf].\n\n", expression, x, a0,
+        printf("\nThis method solved the equation %sfor x= %g in the interval [%g, %g].\n\n", expression, x, a0,
                b0);
     } else { // if no answer
         printf("\nThis method couldn't find the root of equation %sin given interval"
-               "the last calculated value for x is: %lf.\n\n", expression, x);
+               "the last calculated value for x is: %g.\n\n", expression, x);
     } // end of if flag
 
     // do you want to start again??
     printf("\nDo you want to start again? {0: no, 1: yes}\n");
     fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+    if (*fgetsReturn == '\n') {
+        Exit(EXIT_FAILURE);
+    } // end of if
     tryAgain = strtol(tryAgain_c, &ptr, 10);
+
     if (tryAgain) {
         goto START;
     } else {
