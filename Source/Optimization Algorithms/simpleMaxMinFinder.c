@@ -85,5 +85,6 @@ int main() {
     } else {
         Exit(EXIT_SUCCESS);
     } // end of if goto
+    return EXIT_SUCCESS;
 } // end of main
 

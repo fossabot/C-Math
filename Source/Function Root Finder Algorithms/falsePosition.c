@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void main() {
+int main() {
     /*
      * Interface of program, this interface will get necessary information from user.
      */
@@ -191,5 +191,6 @@ void main() {
     } else {
         Exit(EXIT_SUCCESS);
     } // end of if goto
+    return EXIT_SUCCESS;
 } // end of main
 
