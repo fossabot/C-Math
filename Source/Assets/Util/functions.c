@@ -35,19 +35,5 @@ double function_1_arg(const char *expression, double valueX) {
     } // end of if
 
     // it shouldn't reach this block of code, but however I write a return statement
-    return 0;
+    return EXIT_SUCCESS;
 }// end of function_1_arg
-
-
-double firstDerivative_1_arg(const char *expression, double x, double delta) {
-    /*
-     * This function estimates a numerical derivative for a given one argument function at x
-     *
-     * ARGUMENTS:
-     * expressions  the function expression, it must be a string array like "x^2+1"
-     * x            the point where derivative must be evaluated
-     * delta        the dx for getting numerical derivative
-     */
-
-    return (function_1_arg(expression, x + delta) - function_1_arg(expression, x - delta)) / (2 * delta);
-} // end of firstDerivative_1_arg
