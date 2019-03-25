@@ -33,6 +33,10 @@
 # .idea/*.iml
 # .idea/modules
 
+# Build Folder
+Build/
+build/
+
 # CMake
 cmake-build-*/
 
