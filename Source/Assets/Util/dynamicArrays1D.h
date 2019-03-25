@@ -2,6 +2,13 @@
 #define C_MATH_DYNAMICARRAYS1D_H
 
 #include <stdlib.h>
+#include <limits.h>
+
+#ifndef SIZE_MAX
+# ifdef __SIZE_MAX__
+#  define SIZE_MAX __SIZE_MAX__
+# endif
+#endif
 
 #define ARRAY_SUCCESSFUL 1
 #define ARRAY_FAILURE 0
