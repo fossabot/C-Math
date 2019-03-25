@@ -27,13 +27,79 @@ int main() {
     printf("\nEnter the function you want to integrate (example: x^2-3):\n");
     fgetsReturn = fgets(expression, sizeof(expression), stdin);
 
+    // check input
+    if (*fgetsReturn == '\n') {
+        printf("Error: you must enter a function.\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+
+        if (tryAgain) {
+            goto START;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
+    } //end of interval check
+
     INTERVAL: //LABEL for goto
     printf("Choose an interval [a, b]:\n");
+
+    A: //LABEL for goto
     printf("Enter a:\n");
     fgetsReturn = fgets(a, sizeof(a), stdin);
+
+    // check input
+    if (*fgetsReturn == '\n') {
+        printf("Error: you must enter a value for 'a'.\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+
+        if (tryAgain) {
+            goto A;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
+    } //end of input check
+
     a0 = strtod(a, &ptr);
+
+    B: //LABEL for goto
     printf("Enter b:\n");
     fgetsReturn = fgets(b, sizeof(b), stdin);
+
+    // check input
+    if (*fgetsReturn == '\n') {
+        printf("Error: you must enter a value for 'b'.\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+
+        if (tryAgain) {
+            goto B;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
+    } //end of input check
+
     b0 = strtod(b, &ptr);
 
     // check interval
@@ -43,7 +109,12 @@ int main() {
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto INTERVAL;
         } else {
@@ -58,12 +129,17 @@ int main() {
     k = strtol(k_c, &ptr, 10);
 
     // check k to be positive
-    if (k < 0) {
+    if (k < 0 || *fgetsReturn == '\n') {
         printf("Error: k can't be less than 0.\n");
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto K_NUMBER;
         } else {
@@ -77,13 +153,18 @@ int main() {
     tol = strtod(tol_c, &ptr);
 
     // check tol to be positive
-    if (tol < 0) {
+    if (tol < 0 || *fgetsReturn == '\n') {
         printf("Error: estimated tolerance limit must be a \"POSITIVE\" number!\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto TOL;
         } else {
@@ -97,13 +178,18 @@ int main() {
     verbose = strtol(verbose_c, &ptr, 10);
 
     // check verbose value
-    if (verbose != 0 && verbose != 1) {
+    if (verbose != 0 && verbose != 1 || *fgetsReturn == '\n') {
         printf("Error: invalid value for verbose!\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto VERBOSE;
         } else {
@@ -121,7 +207,12 @@ int main() {
     // do you want to start again??
     printf("\nDo you want to start again? {0: no, 1: yes}\n");
     fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+    if (*fgetsReturn == '\n') {
+        Exit(EXIT_FAILURE);
+    } // end of if
     tryAgain = strtol(tryAgain_c, &ptr, 10);
+
     if (tryAgain) {
         goto START;
     } else {

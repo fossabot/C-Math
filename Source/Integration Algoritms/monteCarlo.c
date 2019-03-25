@@ -27,23 +27,94 @@ int main() {
     printf("\nEnter the function you want to integrate (example: x^2-3):\n");
     fgetsReturn = fgets(expression, sizeof(expression), stdin);
 
-    INTERVAL: //LABEL for goto
-    printf("Choose an interval [a, b]:\n");
-    printf("Enter a:\n");
-    fgetsReturn = fgets(a, sizeof(a), stdin);
-    a0 = strtod(a, &ptr);
-    printf("Enter b:\n");
-    fgetsReturn = fgets(b, sizeof(b), stdin);
-    b0 = strtod(b, &ptr);
-
-    // check interval
-    if (a0 == b0) {
-        printf("Error: improper interval! 'a' and 'b' can't have same value.\n");
+    // check input
+    if (*fgetsReturn == '\n') {
+        printf("Error: you must enter a function.\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
+        if (tryAgain) {
+            goto START;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
+    } //end of interval check
+
+    INTERVAL: //LABEL for goto
+    printf("Choose an interval [a, b]:\n");
+
+    A: //LABEL for goto
+    printf("Enter a:\n");
+    fgetsReturn = fgets(a, sizeof(a), stdin);
+
+    // check input
+    if (*fgetsReturn == '\n') {
+        printf("Error: you must enter a value for 'a'.\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+
+        if (tryAgain) {
+            goto A;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
+    } //end of input check
+
+    a0 = strtod(a, &ptr);
+
+    B: //LABEL for goto
+    printf("Enter b:\n");
+    fgetsReturn = fgets(b, sizeof(b), stdin);
+
+    // check input
+    if (*fgetsReturn == '\n') {
+        printf("Error: you must enter a value for 'b'.\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+
+        if (tryAgain) {
+            goto B;
+        } else {
+            Exit(EXIT_FAILURE);
+        } // end of if goto
+    } //end of input check
+
+    b0 = strtod(b, &ptr);
+
+    // check interval
+    if (a0 == b0) {
+        printf("Error: improper interval! 'a' and 'b' can't have same values.\n");
+
+        // a chance to correct your mistake :)
+        printf("\nDo you want to try again? {0: no, 1: yes}\n");
+        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
+        tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto INTERVAL;
         } else {
@@ -58,13 +129,18 @@ int main() {
     options = strtol(options_c, &ptr, 10);
 
     // check options value
-    if (options != 0 && options != 1) {
+    if (options != 0 && options != 1 || *fgetsReturn == '\n') {
         printf("Error: Wrong type number! you have to enter either 0 or 1 .\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto TYPE;
         } else {
@@ -87,7 +163,7 @@ int main() {
     n = strtol(n_c, &ptr, 10);
 
     // check n to be more than zero
-    if (n <= 0) {
+    if (n <= 0 || *fgetsReturn == '\n') {
         switch (options) {
             case 0:
                 printf("Error: number of points must be more than zero!\n");
@@ -100,7 +176,12 @@ int main() {
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto P_R_NUMBER;
         } else {
@@ -114,13 +195,18 @@ int main() {
     verbose = strtol(verbose_c, &ptr, 10);
 
     // check verbose value
-    if (verbose != 0 && verbose != 1) {
+    if (verbose != 0 && verbose != 1 || *fgetsReturn == '\n') {
         printf("Error: invalid value for verbose!\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
         fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+        if (*fgetsReturn == '\n') {
+            Exit(EXIT_FAILURE);
+        } // end of if
         tryAgain = strtol(tryAgain_c, &ptr, 10);
+
         if (tryAgain) {
             goto VERBOSE;
         } else {
@@ -143,7 +229,12 @@ int main() {
     // do you want to start again??
     printf("\nDo you want to start again? {0: no, 1: yes}\n");
     fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
+
+    if (*fgetsReturn == '\n') {
+        Exit(EXIT_FAILURE);
+    } // end of if
     tryAgain = strtol(tryAgain_c, &ptr, 10);
+
     if (tryAgain) {
         goto START;
     } else {
