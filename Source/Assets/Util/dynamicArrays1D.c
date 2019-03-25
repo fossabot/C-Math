@@ -342,7 +342,7 @@ int initArrayDouble(ArrayDouble *array, size_t initialSize) {
     }
 
     // set all map elements to '0' [means emtpy]
-    memset(map_pointer, '0', sizeof(map_pointer));
+    memset(map_pointer, '0', sizeof(*map_pointer));
 
     // set array parameters
     array->array = double_pointer;
