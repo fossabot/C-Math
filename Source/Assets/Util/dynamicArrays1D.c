@@ -46,7 +46,7 @@ int initArrayLongInt(ArrayLongInt *array, size_t initialSize) {
     }
 
     // set all map elements to '0' [means emtpy]
-    memset(map_pointer, '0', sizeof(map_pointer));
+    memset(map_pointer, '0', sizeof(*map_pointer));
 
     // set array parameters
     array->array = long_int_pointer;
@@ -383,7 +383,7 @@ int extendArrayDouble(ArrayDouble *array, size_t extendSize) {
 
     // reallocate memory for array and map
     double_pointer = (double *) realloc(array->array, new_size * sizeof(double_pointer));
-    map_pointer = (char *) realloc(array->map, new_size * sizeof(map_pointer));
+    map_pointer = (char *) realloc(array->map, new_size * sizeof(*map_pointer));
 
     // check if memory reallocated or not
     if (double_pointer == NULL || map_pointer == NULL) {
