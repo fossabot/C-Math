@@ -10,14 +10,14 @@ set(BUILD_SHARED_LIBS NO)
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Settings ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 # please set this variables manually if you want to build files on your system,
-# simply remove the '#' before the 'set' and change the values
+# simply remove the '#' before the 'set' and change the 'x' values
 
 # building options: Release, Debug, RelWithDebInfo, MinRelSize
 # set(CMAKE_BUILD_TYPE Release)
 
-# set(CMAKE_MAKE_PROGRAM)
-# set(CMAKE_C_COMPILER)
-# set(CMAKE_CXX_COMPILER)
+# set(CMAKE_MAKE_PROGRAM x)
+# set(CMAKE_C_COMPILER x)
+# set(CMAKE_CXX_COMPILER x)
 
 #=======================================================================================================================
 #                                                  Libraries
@@ -40,8 +40,16 @@ add_library(randomGenerator
         Source/Assets/Util/randomGenerator.c Source/Assets/Util/randomGenerator.h)
 
 # link primary libraries
+
 target_link_libraries(functions
         PRIVATE parser util)
+
+# OS specified options
+if (UNIX AND NOT APPLE)
+    # this linls math library for parser library to avoid "undefined refrence" error on *nix systems
+    target_link_libraries(parser
+            m)
+endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
 #                                              Functions Libraries
