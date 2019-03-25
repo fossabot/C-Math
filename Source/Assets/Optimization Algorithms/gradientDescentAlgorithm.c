@@ -9,7 +9,7 @@
 #include <math.h>
 
 double gradientDescent(const char *expression, double x0, double ete, double ere, double gamma, unsigned int maxiter,
-                       int verbose, int *state) {
+                       int maximum, int verbose, int *state) {
     /*
      * Gradient descent is a first-order iterative optimization algorithm for finding the minimum of a function.
      * To find a local minimum of a function using gradient descent, one takes steps proportional to the negative of
@@ -22,6 +22,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
      * ere          estimated relative error
      * gamma        step size (also known as learning rate)
      * maxiter      maximum iteration threshold
+     * maximum      this option will let user to find maximum instead of minimum {0: no, 1: yes}
      * verbose      show process {0: no, 1: yes}
      * state        is answer found or not
      *
@@ -39,6 +40,12 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
         Exit(EXIT_FAILURE);
     } // end of maxiter check
 
+    // check maximum to be either 0 or 1
+    if (maximum != 0 && maximum != 1) {
+        printf("\nError: argument maximum must be either 0 or 1!\n");
+        Exit(EXIT_FAILURE);
+    } // end of maximum check
+
     // check verbose
     if (verbose != 0 && verbose != 1) {
         printf("\nError: verbose argument is not valid.\n");
@@ -47,15 +54,16 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
 
     // initializing variables
     unsigned int iter = 0;
-    double fx;
-    double ete_err;
-    double ere_err;
-    double past_x;
+    int modeCoefficient = (maximum == 0) ? 1 : -1;
+    double fx, ete_err, ere_err, past_x;
 
     while (iter < maxiter) {
         // calculate new x0 by subtracting the derivative of function at x0 multiplied by gamma from x0
         past_x = x0;
-        x0 -= firstDerivative_1_arg(expression, x0, DX) * gamma;
+        printf("%lf\n", past_x);
+        x0 -= modeCoefficient * firstDerivative_1_arg(expression, x0, DX) * gamma;
+        printf("%d\n", modeCoefficient);
+        printf("%lf\n", x0);
         fx = function_1_arg(expression, x0);
 
         // calculate errors
@@ -113,7 +121,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
 } // end of gradientDescent function
 
 double gradientDescentInterval(const char *expression, double a, double b, double ete, double ere, double gamma,
-                               unsigned int maxiter, int verbose) {
+                               unsigned int maxiter, int maximum, int verbose) {
     /*
      * Gradient descent is a first-order iterative optimization algorithm for finding the minimum of a function.
      * To find a local minimum of a function using gradient descent, one takes steps proportional to the negative of
@@ -129,6 +137,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
      * ere          estimated relative error
      * gamma        step size (also known as learning rate)
      * maxiter      maximum iteration threshold
+     * maximum      this option will let user to find maximum instead of minimum {0: no, 1: yes}
      * verbose      show process {0: no, 1: yes}
      *
      */
@@ -158,6 +167,12 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
         Exit(EXIT_FAILURE);
     } // end of maxiter check
 
+    // check maximum to be either 0 or 1
+    if (maximum != 0 && maximum != 1) {
+        printf("\nError: argument maximum must be either 0 or 1!\n");
+        Exit(EXIT_FAILURE);
+    } // end of maximum check
+
     // check verbose
     if (verbose != 0 && verbose != 1) {
         printf("\nError: verbose argument is not valid.\n");
@@ -166,6 +181,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
 
     // initializing variables
     unsigned int iter = 0, innerIter = 0;
+    int modeCoefficient = (maximum == 0) ? 1 : -1;
     // choose an arbitrary result at midpoint between a and b to be updated later
     double coefficient = (b - a), result = a + coefficient / 2;
     double x, past_x, fx, fresult;
@@ -189,7 +205,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
         while (innerIter < maxiter) {
             // calculate new x by subtracting the derivative of function at x multiplied by gamma from x
             past_x = x;
-            x -= firstDerivative_1_arg(expression, x, DX) * gamma;
+            x -= modeCoefficient * firstDerivative_1_arg(expression, x, DX) * gamma;
             fx = function_1_arg(expression, x);
 
             // calculate errors

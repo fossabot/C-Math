@@ -132,13 +132,6 @@ add_library(gradientDescentAlgorithm
 target_link_libraries(gradientDescentAlgorithm
         PRIVATE functions util randomGenerator)
 
-add_library(gradientAscentAlgorithm
-        "Source/Assets/Optimization Algorithms/gradientAscentAlgorithm.c"
-        "Source/Assets/Optimization Algorithms/gradientAscentAlgorithm.h")
-
-target_link_libraries(gradientAscentAlgorithm
-        PRIVATE functions util randomGenerator)
-
 add_library(simpleMaxMinFinderAlgorithm
         "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.c"
         "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.h")
@@ -226,13 +219,6 @@ add_executable(gradientDescent
 
 target_link_libraries(gradientDescent
         PRIVATE gradientDescentAlgorithm util)
-
-add_executable(gradientAscent
-        "Source/Optimization Algorithms/gradientAscent.c"
-        Source/Assets/Util/_configurations.h)
-
-target_link_libraries(gradientAscent
-        PRIVATE gradientAscentAlgorithm util)
 
 add_executable(maxMinFinder
         "Source/Optimization Algorithms/simpleMaxMinFinder.c"
