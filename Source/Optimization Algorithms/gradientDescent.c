@@ -345,10 +345,19 @@ int main() {
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method has found the minimum of the function %sat point x = %g .\n\n", expression, result);
+        if (mode) {
+            printf("\nThis method has found the maximum of the function %sat point x = %g .\n\n", expression, result);
+        } else {
+            printf("\nThis method has found the minimum of the function %sat point x = %g .\n\n", expression, result);
+        }
     } else { // if no answer
-        printf("\nThis method didn't find the minimum of the function %s"
-               "the last calculated value for x is: %g .\n\n", expression, result);
+        if (mode) {
+            printf("\nThis method didn't find the maximum of the function %s"
+                   "the last calculated value for x is: %g .\n\n", expression, result);
+        } else {
+            printf("\nThis method didn't find the minimum of the function %s"
+                   "the last calculated value for x is: %g .\n\n", expression, result);
+        }
     } // end of if flag
 
     // do you want to start again??
