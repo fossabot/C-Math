@@ -66,14 +66,18 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
     } // end of if
 
     // initializing variables
-    unsigned int iter = 1;
-    double range, x1, x2, fx1, fx2, error = (b - a);
+    unsigned int iter = 1, state;
+    double range, x1, x2, fx1, fx2, fa, fb, ftest, error = (b - a);
     double xOptimal = 0;
 
     // calculate values
     range = PHI * (b - a);
     x1 = b - range;
     x2 = a + range;
+
+    // evaluate function at points a and b
+    fa = function_1_arg(expression, a);
+    fb = function_1_arg(expression, b);
     // evaluate function at points x1 and x2
     fx1 = function_1_arg(expression, x1);
     fx2 = function_1_arg(expression, x2);
@@ -82,7 +86,114 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
         printf("Starting points : [a, x1, x2, b, range] = [%g, %g, %g, %g, %g] .\n", a, x1, x2, b, range);
     } // end if(verbose)
 
-    while (error > tol && iter <= maxiter) {
+    while (iter <= maxiter) {
+
+        if (xOptimal != 0 && iter != 1) {
+            error = (1 - PHI) * fabs((b - a) / xOptimal);
+        } // end of zero-division guard
+
+        if (error < tol) {
+            break;
+        } // end of if
+
+
+        // edge case analysis
+        if (maximum) {
+            // find bigger edge value
+            if (fa >= fb) {
+                ftest = fa;
+                state = 0;
+            } else {
+                ftest = fb;
+                state = 1;
+            } // end of if
+
+
+            if (ftest >= fx1 && ftest >= fx2) {
+                if (state) {
+
+                    xOptimal = b;
+                    // substitute variables
+                    a = x1;
+                    x1 = x2;
+                    fx1 = fx2;
+                    // re-evaluate
+                    range = PHI * (b - a);
+                    x2 = a + range;
+                    fx2 = function_1_arg(expression, x2);
+                    fa = function_1_arg(expression, a);
+                } else {
+
+                    xOptimal = a;
+                    // substitute variables
+                    b = x2;
+                    x2 = x1;
+                    fx2 = fx1;
+                    // re-evaluate
+                    range = PHI * (b - a);
+                    x1 = b - range;
+                    fx1 = function_1_arg(expression, x1);
+                    fb = function_1_arg(expression, b);
+                } // end of if(state)
+
+                // skip this cycle
+                if (verbose) {
+                    printf("\nIn this iteration [#%d]: edge case has happened.\n", iter);
+                    printf("updated points : [a, x1, x2, b, range] = [%g, %g, %g, %g, %g] .\n", a, x1, x2, b, range);
+                } // end if(verbose)
+                iter++;
+                continue;
+
+            } // end of if(ftest >= fx1 && ftest >= fx2)
+        } else {
+
+            // find smaller edge value
+            if (fa <= fb) {
+                ftest = fa;
+                state = 0;
+            } else {
+                ftest = fb;
+                state = 1;
+            } // end of if
+
+            // compare edge value to inner values
+            if (ftest <= fx1 && ftest <= fx2) {
+                if (state) {
+
+                    xOptimal = b;
+                    // substitute variables
+                    a = x1;
+                    x1 = x2;
+                    fx1 = fx2;
+                    // re-evaluate
+                    range = PHI * (b - a);
+                    x2 = a + range;
+                    fx2 = function_1_arg(expression, x2);
+                    fa = function_1_arg(expression, a);
+                } else {
+
+                    xOptimal = a;
+                    // substitute variables
+                    b = x2;
+                    x2 = x1;
+                    fx2 = fx1;
+                    // re-evaluate
+                    range = PHI * (b - a);
+                    x1 = b - range;
+                    fx1 = function_1_arg(expression, x1);
+                    fb = function_1_arg(expression, b);
+                } // end of if(state)
+
+                if (verbose) {
+                    printf("\nIn this iteration [#%d]: edge case has happened.\n", iter);
+                    printf("updated points : [a, x1, x2, b, range] = [%g, %g, %g, %g, %g] .\n", a, x1, x2, b, range);
+                } // end if(verbose)
+                // skip this cycle
+                iter++;
+                continue;
+
+            } // end of if(ftest >= fx1 && ftest >= fx2)
+        } // end of if else (edge case analysis)
 
         if (fx1 > fx2) {
             if (verbose) {
@@ -92,26 +203,21 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
             if (maximum) {
 
                 xOptimal = x1;
-
                 // substitute variables
                 b = x2;
                 x2 = x1;
                 fx2 = fx1;
-
                 // re-evaluate
                 range = PHI * (b - a);
                 x1 = b - range;
                 fx1 = function_1_arg(expression, x1);
-
             } else {
 
                 xOptimal = x2;
-
                 // substitute variables
                 a = x1;
                 x1 = x2;
                 fx1 = fx2;
-
                 // re-evaluate
                 range = PHI * (b - a);
                 x2 = a + range;
@@ -126,26 +232,21 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
             if (maximum) {
 
                 xOptimal = x2;
-
                 // substitute variables
                 a = x1;
                 x1 = x2;
                 fx1 = fx2;
-
                 // re-evaluate
                 range = PHI * (b - a);
                 x2 = a + range;
                 fx2 = function_1_arg(expression, x2);
-
             } else {
 
                 xOptimal = x1;
-
                 // substitute variables
                 b = x2;
                 x2 = x1;
                 fx2 = fx1;
-
                 // re-evaluate
                 range = PHI * (b - a);
                 x1 = b - range;
@@ -157,10 +258,6 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
         if (verbose) {
             printf("updated points : [a, x1, x2, b, range] = [%g, %g, %g, %g, %g] .\n", a, x1, x2, b, range);
         } // end if(verbose)
-
-        if (xOptimal != 0) {
-            error = (1 - PHI) * fabs((b - a) / xOptimal);
-        } // end of zero-division guard
 
         iter++;
     } // end of while loop
