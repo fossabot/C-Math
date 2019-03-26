@@ -82,9 +82,13 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
         if (ete != 0 && ete_err < ete) {
             if (verbose) {
                 printf("\nIn this iteration the calculated estimated true error is less than the threshold.\n"
-                       "(estimated true error) %g < %g (threshold).\n"
-                       "so the calculated x is the point on domain that minimum of the function happens.\n",
-                       ete_err, ete);
+                       "(estimated true error) %g < %g (threshold).\n", ete_err, ete);
+
+                if (maximum) {
+                    printf("so the calculated x is the point on domain that maximum of the function happens.\n");
+                } else {
+                    printf("so the calculated x is the point on domain that minimum of the function happens.\n");
+                } // end of if
             } // end if(verbose)
 
             return x0;
@@ -94,9 +98,13 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
         if (ere != 0 && ere_err < ere) {
             if (verbose) {
                 printf("\nIn this iteration the calculated estimated real error is less than the threshold.\n"
-                       "(estimated real error) %g < %g (threshold).\n"
-                       "so the calculated x is the point on domain that minimum of the function happens.\n",
-                       ere_err, ere);
+                       "(estimated real error) %g < %g (threshold).\n", ere_err, ere);
+
+                if (maximum) {
+                    printf("so the calculated x is the point on domain that maximum of the function happens.\n");
+                } else {
+                    printf("so the calculated x is the point on domain that minimum of the function happens.\n");
+                } // end of if
             } // end if(verbose)
 
             return x0;
@@ -112,8 +120,6 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
         } else {
             printf("\nThe solution does not converge or iterations are not sufficient.\n");
         } // end of if ... else
-
-        printf("the last calculated minimum is %g .\n", x0);
     } // end if(verbose)
 
     // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum
@@ -131,7 +137,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
      * To find a local minimum of a function using gradient descent, one takes steps proportional to the negative of
      * the gradient (or approximate gradient) of the function at the current point.
      *
-     * This function searches minimum on an interval [a, b]
+     * This function searches minimum/maximum on an interval [a, b]
      *
      * ARGUMENTS:
      * expressions  the function expression, it must be a string array like "x^2+1"
@@ -223,8 +229,8 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             } // end if(verbose)
 
             // Termination Criterion
-            // if new x goes beyond interval lower than a
-            if (x < a) {
+            // if new x goes beyond interval, lower than a
+            if (!maximum && x < a) {
                 if (verbose) {
                     printf("\nIn this iteration the calculated x is less than a : %g < %f"
                            "so minimum of the function occurs at a.\n",
@@ -238,8 +244,22 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
                 break;
             } // end of if
 
-            // if new x goes beyond interval bigger than b
-            if (x > b) {
+            if (maximum && x < a) {
+                if (verbose) {
+                    printf("\nIn this iteration the calculated x is less than a : %g < %f"
+                           "so maximum of the function occurs at a.\n",
+                           x, a);
+                } // end if(verbose)
+
+                // if fa is lower than f(result), then a is where the minimum occurs
+                if (fa > fresult) {
+                    result = a;
+                } // end of if
+                break;
+            } // end of if
+
+            // if new x goes beyond interval, bigger than b
+            if (!maximum && x > b) {
                 if (verbose) {
                     printf("\nIn this iteration the calculated x is bigger than b : %g > %f"
                            "so minimum of the function occurs at b.\n",
@@ -253,17 +273,40 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
                 break;
             } // end of if
 
+            if (maximum && x > b) {
+                if (verbose) {
+                    printf("\nIn this iteration the calculated x is bigger than b : %g > %f"
+                           "so maximum of the function occurs at b.\n",
+                           x, b);
+                } // end if(verbose)
+
+                // if fb is bigger than f(result), then b is where the maximum occurs
+                if (fb > fresult) {
+                    result = b;
+                } // end of if
+                break;
+            } // end of if
+
             // if calculated error is less than estimated true error threshold
             if (ete != 0 && ete_err < ete) {
                 if (verbose) {
                     printf("\nIn this iteration the calculated estimated true error is less than the threshold.\n"
-                           "(estimated true error) %g < %g (threshold).\n"
-                           "so the calculated x is the point on domain that minimum of the function happens.\n",
-                           ete_err, ete);
+                           "(estimated true error) %g < %g (threshold).\n", ete_err, ete);
+
+                    if (maximum) {
+                        printf("so the calculated x is the point on domain that maximum of the function happens.\n");
+                    } else {
+                        printf("so the calculated x is the point on domain that minimum of the function happens.\n");
+                    } // end of if
                 } // end if(verbose)
 
                 // if fx is lower than f(result), then x is where the minimum occurs
-                if (fx < fresult) {
+                if (!maximum && fx < fresult) {
+                    result = x;
+                } // end of if
+
+                // if fx is bigger than f(result), then x is where the maximum occurs
+                if (maximum && fx < fresult) {
                     result = x;
                 } // end of if
                 break;
@@ -273,13 +316,22 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             if (ere != 0 && ere_err < ere) {
                 if (verbose) {
                     printf("\nIn this iteration the calculated estimated real error is less than the threshold.\n"
-                           "(estimated real error) %g < %g (threshold).\n"
-                           "so the calculated x is the point on domain that minimum of the function happens.\n",
-                           ere_err, ere);
+                           "(estimated real error) %g < %g (threshold).\n", ere_err, ere);
                 } // end if(verbose)
 
+                if (maximum) {
+                    printf("so the calculated x is the point on domain that maximum of the function happens.\n");
+                } else {
+                    printf("so the calculated x is the point on domain that minimum of the function happens.\n");
+                } // end of if
+
                 // if fx is lower than f(result), then x is where the minimum occurs
-                if (fx < fresult) {
+                if (!maximum && fx < fresult) {
+                    result = x;
+                } // end of if
+
+                // if fx is bigger than f(result), then x is where the maximum occurs
+                if (maximum && fx < fresult) {
                     result = x;
                 } // end of if
                 break;

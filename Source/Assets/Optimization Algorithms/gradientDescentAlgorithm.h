@@ -29,7 +29,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
  * To find a local minimum of a function using gradient descent, one takes steps proportional to the negative of
  * the gradient (or approximate gradient) of the function at the current point.
  *
- * This function searches minimum on an interval [a, b]
+ * This function searches minimum/maximum on an interval [a, b]
  *
  * ARGUMENTS:
  * expressions  the function expression, it must be a string array like "x^2+1"
