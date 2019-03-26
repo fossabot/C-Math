@@ -135,6 +135,13 @@ target_link_libraries(monteCarloIntegrationAlgorithm
 #***********************************************************************************************************************
 #                                          Optimization Algorithms
 
+add_library(goldenSectionOptAlgorithm
+        "Source/Assets/Optimization Algorithms/goldenSectionOptAlgorithm.c"
+        "Source/Assets/Optimization Algorithms/goldenSectionOptAlgorithm.h")
+
+target_link_libraries(goldenSectionOptAlgorithm
+        PRIVATE functions util)
+
 add_library(gradientDescentAlgorithm
         "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.c"
         "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.h")
@@ -148,13 +155,6 @@ add_library(newtonRaphsonOptAlgorithm
 
 target_link_libraries(newtonRaphsonOptAlgorithm
         PRIVATE functions derivNumericalAlgorithm util)
-
-add_library(goldenSectionOptAlgorithm
-        "Source/Assets/Optimization Algorithms/goldenSectionOptAlgorithm.c"
-        "Source/Assets/Optimization Algorithms/goldenSectionOptAlgorithm.h")
-
-target_link_libraries(newtonRaphsonOptAlgorithm
-        PRIVATE functions util)
 
 add_library(simpleMaxMinFinderAlgorithm
         "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.c"
@@ -227,6 +227,12 @@ target_link_libraries(monteCarlo
 
 #-----------------------------------------------------------------------------------------------------------------------
 #                                          Optimization Algorithms
+
+add_executable(goldenSectionOpt
+        "Source/Optimization Algorithms/goldenSectionOpt.c")
+
+target_link_libraries(goldenSectionOpt
+        PRIVATE goldenSectionOptAlgorithm util)
 
 add_executable(gradientDescent
         "Source/Optimization Algorithms/gradientDescent.c")
