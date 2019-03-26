@@ -54,6 +54,16 @@ endif ()
 #-----------------------------------------------------------------------------------------------------------------------
 #                                              Functions Libraries
 #***********************************************************************************************************************
+#                                           Differentiation Algorithms
+
+add_library(derivNumericalAlgorithm
+        "Source/Assets/Differentiation Algorithms/derivNumericalAlgorithm.c"
+        "Source/Assets/Differentiation Algorithms/derivNumericalAlgorithm.c")
+
+target_link_libraries(derivNumericalAlgorithm
+        PRIVATE functions util)
+
+#***********************************************************************************************************************
 #                                             Function Root Finders
 
 add_library(bisectionAlgorithm
@@ -145,29 +155,25 @@ target_link_libraries(simpleMaxMinFinderAlgorithm
 #                                             Function Root Finders
 
 add_executable(bisection
-        "Source/Function Root Finder Algorithms/bisection.c"
-        Source/Assets/Util/_configurations.h)
+        "Source/Function Root Finder Algorithms/bisection.c")
 
 target_link_libraries(bisection
         PRIVATE bisectionAlgorithm util)
 
 add_executable(newtonRaphson
-        "Source/Function Root Finder Algorithms/newtonRaphson.c"
-        Source/Assets/Util/_configurations.h)
+        "Source/Function Root Finder Algorithms/newtonRaphson.c")
 
 target_link_libraries(newtonRaphson
-        PRIVATE newtonRaphsonAlgorithm util)
+        PRIVATE newtonRaphsonAlgorithm derivNumericalAlgorithm util)
 
 add_executable(falsePosition
-        "Source/Function Root Finder Algorithms/falsePosition.c"
-        Source/Assets/Util/_configurations.h)
+        "Source/Function Root Finder Algorithms/falsePosition.c")
 
 target_link_libraries(falsePosition
         PRIVATE falsePositionAlgorithm util)
 
 add_executable(secant
-        "Source/Function Root Finder Algorithms/secant.c"
-        Source/Assets/Util/_configurations.h)
+        "Source/Function Root Finder Algorithms/secant.c")
 
 target_link_libraries(secant
         PRIVATE secantAlgorithm util)
@@ -176,36 +182,31 @@ target_link_libraries(secant
 #                                            Integration Algorithms
 
 add_executable(riemannSum
-        "Source/Integration Algoritms/riemannSum.c"
-        Source/Assets/Util/_configurations.h)
+        "Source/Integration Algoritms/riemannSum.c")
 
 target_link_libraries(riemannSum
         PRIVATE riemannSumAlgorithm util)
 
 add_executable(trapezoidRule
-        "Source/Integration Algoritms/trapezoidRule.c"
-        Source/Assets/Util/_configurations.h)
+        "Source/Integration Algoritms/trapezoidRule.c")
 
 target_link_libraries(trapezoidRule
         PRIVATE trapezoidRuleAlgorithm util)
 
 add_executable(simpsonRule
-        "Source/Integration Algoritms/simpsonRule.c"
-        Source/Assets/Util/_configurations.h)
+        "Source/Integration Algoritms/simpsonRule.c")
 
 target_link_libraries(simpsonRule
         PRIVATE simpsonRuleAlgorithm util)
 
 add_executable(romberg
-        "Source/Integration Algoritms/romberg.c"
-        Source/Assets/Util/_configurations.h)
+        "Source/Integration Algoritms/romberg.c")
 
 target_link_libraries(romberg
         PRIVATE rombergAlgorithm trapezoidRuleAlgorithm util)
 
 add_executable(monteCarlo
-        "Source/Integration Algoritms/monteCarlo.c"
-        Source/Assets/Util/_configurations.h)
+        "Source/Integration Algoritms/monteCarlo.c")
 
 target_link_libraries(monteCarlo
         PRIVATE monteCarloIntegrationAlgorithm util)
@@ -214,15 +215,13 @@ target_link_libraries(monteCarlo
 #                                          Optimization Algorithms
 
 add_executable(gradientDescent
-        "Source/Optimization Algorithms/gradientDescent.c"
-        Source/Assets/Util/_configurations.h)
+        "Source/Optimization Algorithms/gradientDescent.c")
 
 target_link_libraries(gradientDescent
-        PRIVATE gradientDescentAlgorithm util)
+        PRIVATE gradientDescentAlgorithm derivNumericalAlgorithm util)
 
 add_executable(maxMinFinder
-        "Source/Optimization Algorithms/simpleMaxMinFinder.c"
-        Source/Assets/Util/_configurations.h)
+        "Source/Optimization Algorithms/simpleMaxMinFinder.c")
 
 target_link_libraries(maxMinFinder
         PRIVATE simpleMaxMinFinderAlgorithm util)

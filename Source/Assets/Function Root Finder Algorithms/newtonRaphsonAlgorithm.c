@@ -1,4 +1,5 @@
 #include "newtonRaphsonAlgorithm.h"
+#include "../Differentiation Algorithms/derivNumericalAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/util.h"
 #include "../Util/_configurations.h"
@@ -62,7 +63,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
 
     while (iter <= maxiter) {
         // calculate derivative of function in the given point
-        dfx = firstDerivative_1_arg(expression, x, DX);
+        dfx = firstDerivative_1_arg(expression, x, DX, CENTRAL_DIFFERENCE);
 
         // if derivative isn't equal to zero
         if (dfx) {

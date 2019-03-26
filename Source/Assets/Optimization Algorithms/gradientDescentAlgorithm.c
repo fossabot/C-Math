@@ -1,4 +1,5 @@
 #include "gradientDescentAlgorithm.h"
+#include "../Differentiation Algorithms/derivNumericalAlgorithm.h"
 #include "../Util/randomGenerator.h"
 #include "../Util/functions.h"
 #include "../Util/_configurations.h"
@@ -61,7 +62,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
         // calculate new x0 by subtracting the derivative of function at x0 multiplied by gamma from x0
         past_x = x0;
         printf("%lf\n", past_x);
-        x0 -= modeCoefficient * firstDerivative_1_arg(expression, x0, DX) * gamma;
+        x0 -= modeCoefficient * firstDerivative_1_arg(expression, x0, DX, CENTRAL_DIFFERENCE) * gamma;
         printf("%d\n", modeCoefficient);
         printf("%lf\n", x0);
         fx = function_1_arg(expression, x0);
@@ -208,7 +209,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
         while (innerIter < maxiter) {
             // calculate new x by subtracting the derivative of function at x multiplied by gamma from x
             past_x = x;
-            x -= modeCoefficient * firstDerivative_1_arg(expression, x, DX) * gamma;
+            x -= modeCoefficient * firstDerivative_1_arg(expression, x, DX, CENTRAL_DIFFERENCE) * gamma;
             fx = function_1_arg(expression, x);
 
             // calculate errors
