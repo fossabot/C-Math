@@ -140,7 +140,14 @@ add_library(gradientDescentAlgorithm
         "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.h")
 
 target_link_libraries(gradientDescentAlgorithm
-        PRIVATE functions util randomGenerator)
+        PRIVATE functions randomGenerator util)
+
+add_library(newtonRaphsonOptAlgorithm
+        "Source/Assets/Optimization Algorithms/newtonRaphsonOptAlgorithm.c"
+        "Source/Assets/Optimization Algorithms/newtonRaphsonOptAlgorithm.h")
+
+target_link_libraries(newtonRaphsonOptAlgorithm
+        PRIVATE functions derivNumericalAlgorithm util)
 
 add_library(simpleMaxMinFinderAlgorithm
         "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.c"

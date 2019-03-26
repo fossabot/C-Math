@@ -197,7 +197,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
     int modeCoefficient = (maximum == 0) ? 1 : -1;
     // choose an arbitrary result at midpoint between a and b to be updated later
     double coefficient = (b - a), result = a + coefficient / 2;
-    double x, past_x, fx, fresult;
+    double x, past_x, static_x, fx, fresult;
     double ete_err, ere_err;
     double fa = function_1_arg(expression, a);
     double fb = function_1_arg(expression, b);
@@ -209,6 +209,12 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
         // try maxiter times to find minimum in given interval [a, b] and return lowest result
         // update fresult with new result
         fresult = function_1_arg(expression, result);
+
+        // Termination based on domain range
+        if (coefficient < DX) {
+            break;
+        }
+
         // choose a random starting point
         x = a + coefficient * zeroToOneUniformRandom();
 
@@ -217,6 +223,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
         // go in a loop to find a minimum with random starting point
         while (innerIter < maxiter) {
             // calculate new x by subtracting the derivative of function at x multiplied by gamma from x
+            static_x = x;
             past_x = x;
             x -= modeCoefficient * firstDerivative_1_arg(expression, x, DX, CENTRAL_DIFFERENCE) * gamma;
             fx = function_1_arg(expression, x);
@@ -259,6 +266,10 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
                 if (fa < fresult) {
                     result = a;
                 } // end of if
+
+                // rearrange search domain
+                a = static_x;
+                coefficient = (b - a);
                 break;
             } // end of if
 
@@ -273,6 +284,10 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
                 if (fa > fresult) {
                     result = a;
                 } // end of if
+
+                // rearrange search domain
+                a = static_x;
+                coefficient = (b - a);
                 break;
             } // end of if
 
@@ -288,6 +303,10 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
                 if (fb < fresult) {
                     result = b;
                 } // end of if
+
+                // rearrange search domain
+                b = static_x;
+                coefficient = (b - a);
                 break;
             } // end of if
 
@@ -302,6 +321,10 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
                 if (fb > fresult) {
                     result = b;
                 } // end of if
+
+                // rearrange search domain
+                b = static_x;
+                coefficient = (b - a);
                 break;
             } // end of if
 
