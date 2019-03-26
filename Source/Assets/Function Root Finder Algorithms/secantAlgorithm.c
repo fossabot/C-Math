@@ -141,6 +141,6 @@ double secant(const char *expression, double a, double b, double ete, double ere
     if (ete != 0 && ere != 0 && tol != 0) {
         // set state to 0 (false)
         *state = 0;
-    }
+    } // end of if
     return c;
 } // end of secant function

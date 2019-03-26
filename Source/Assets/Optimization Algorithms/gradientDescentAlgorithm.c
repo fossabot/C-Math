@@ -54,11 +54,11 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
     } // end of if
 
     // initializing variables
-    unsigned int iter = 0;
+    unsigned int iter = 1;
     int modeCoefficient = (maximum == 0) ? 1 : -1;
     double fx, ete_err, ere_err, past_x;
 
-    while (iter < maxiter) {
+    while (iter <= maxiter) {
         // calculate new x0 by subtracting the derivative of function at x0 multiplied by gamma from x0
         past_x = x0;
         x0 -= modeCoefficient * firstDerivative_1_arg(expression, x0, DX, CENTRAL_DIFFERENCE) * gamma;
@@ -193,7 +193,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
     } // end of if
 
     // initializing variables
-    unsigned int iter = 0, innerIter = 0;
+    unsigned int iter = 1, innerIter;
     int modeCoefficient = (maximum == 0) ? 1 : -1;
     // choose an arbitrary result at midpoint between a and b to be updated later
     double coefficient = (b - a), result = a + coefficient / 2;
@@ -205,7 +205,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
     // set the seed for random number generator
     seed();
 
-    while (iter < maxiter) {
+    while (iter <= maxiter) {
         // try maxiter times to find minimum in given interval [a, b] and return lowest result
         // update fresult with new result
         fresult = function_1_arg(expression, result);
@@ -218,10 +218,10 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
         // choose a random starting point
         x = a + coefficient * zeroToOneUniformRandom();
 
-        // set inner iter to zero before new loop
-        innerIter = 0;
+        // reset inner iter to zero before new loop
+        innerIter = 1;
         // go in a loop to find a minimum with random starting point
-        while (innerIter < maxiter) {
+        while (innerIter <= maxiter) {
             // calculate new x by subtracting the derivative of function at x multiplied by gamma from x
             static_x = x;
             past_x = x;

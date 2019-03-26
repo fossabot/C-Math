@@ -79,13 +79,9 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             } // end of if verbose
 
             // calculate errors
-            if (dfx != 0) {
-                ete_err = fabs(fx / dfx);
-            } else {
-                ete_err = ete;
-            } // end of zero-division guard
+            ete_err = fabs(fx / dfx);
 
-            if (dfx && x != 0) {
+            if (x != 0) {
                 ere_err = fabs(ete_err / x);
             } else {
                 ere_err = ere;
@@ -141,7 +137,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
                 }
                 // go out of while loop
                 break;
-            }
+            } // end of if else
         } // end of if(dfx)
     } // end of while loop
 
@@ -160,7 +156,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
     if (ete != 0 && ere != 0 && tol != 0 && iter <= maxiter) {
         // set state to 0 (false)
         *state = 0;
-    }
+    } // end of if
 
     return x;
 } // end of newton Raphson function

@@ -174,7 +174,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
         if (ete != 0 && ere != 0 && tol != 0) {
             // set state to 0 (false)
             *state = 0;
-        }
+        } // end of if
         return x;
 
     } else { // if y1 and y2 have same signs, then we can't use bisection method
