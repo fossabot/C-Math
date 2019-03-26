@@ -59,12 +59,13 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
     double fx = function_1_arg(expression, x);
     double xNew, fxNew, dfx;
     double ete_err, ere_err;
-    unsigned int iter = 1;
+    unsigned int iter = 1, dfx_counter = 2;
 
     while (iter <= maxiter) {
         // calculate derivative of function in the given point
         dfx = firstDerivative_1_arg(expression, x, DX, CENTRAL_DIFFERENCE);
 
+        DFX: // LABEL for go to
         // if derivative isn't equal to zero
         if (dfx) {
             // calculate new x by subtracting the derivative from x
@@ -78,8 +79,17 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             } // end of if verbose
 
             // calculate errors
-            ete_err = fabs(fx / dfx);
-            ere_err = fabs(ete_err / x);
+            if (dfx != 0) {
+                ete_err = fabs(fx / dfx);
+            } else {
+                ete_err = ete;
+            } // end of zero-division guard
+
+            if (dfx && x != 0) {
+                ere_err = fabs(ete_err / x);
+            } else {
+                ere_err = ere;
+            } // end of zero-division guard
 
             // Termination Criterion
             // if calculated error is less than estimated true error threshold
@@ -117,24 +127,27 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             iter++;
 
         } else { // if derivative is  equal to zero
-            if (verbose) {
-                printf("Newton-Raphson method can't solve f(x) = 0 if f'(x0) = 0 !\n"
-                       "check your function and if you think it has derivative\n"
-                       "then try to choose a better starting point x0 .\n");
-            }
-
-            // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum
-            if (ete != 0 && ere != 0) {
-                // set state to 0 (false)
-                *state = 0;
+            // try to get more precise derivative [up to eight order accuracy]
+            if (dfx_counter <= 8) {
+                dfx = centralFirstDerivative_1_arg(expression, x, DX, dfx_counter);
+                dfx_counter += 2;
+                // go back and check value
+                goto DFX;
+            } else {
+                if (verbose) {
+                    printf("Newton-Raphson method can't solve f(x) = 0 if f'(x0) = 0 !\n"
+                           "check your function and if you think it has derivative\n"
+                           "then try to choose a better starting point x0 .\n");
+                }
+                // go out of while loop
+                break;
             }
         } // end of if(dfx)
-
     } // end of while loop
 
     // answer didn't found
     if (verbose) {
-        if (ete == 0 && ere == 0 && tol == 0) {
+        if (ete == 0 && ere == 0 && tol == 0 && iter > maxiter) {
             printf("\nWith maximum iteration of %d\n", maxiter);
         } else {
             printf("\nThe solution does not converge or iterations are not sufficient.\n");
@@ -143,7 +156,11 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
         printf("the last calculated x is %g .\n", x);
     } // end if(verbose)
 
-    // set state to 0 (false)
-    *state = 0;
-    return -1;
+    // error has been set but reaches to maxiter, means algorithms didn't converge to a root
+    if (ete != 0 && ere != 0 && tol != 0 && iter <= maxiter) {
+        // set state to 0 (false)
+        *state = 0;
+    }
+
+    return x;
 } // end of newton Raphson function

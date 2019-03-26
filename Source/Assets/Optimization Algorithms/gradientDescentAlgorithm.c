@@ -61,15 +61,17 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
     while (iter < maxiter) {
         // calculate new x0 by subtracting the derivative of function at x0 multiplied by gamma from x0
         past_x = x0;
-        printf("%g\n", past_x);
         x0 -= modeCoefficient * firstDerivative_1_arg(expression, x0, DX, CENTRAL_DIFFERENCE) * gamma;
-        printf("%d\n", modeCoefficient);
-        printf("%g\n", x0);
         fx = function_1_arg(expression, x0);
 
         // calculate errors
         ete_err = fabs(past_x - x0);
-        ere_err = fabs(ete_err / x0);
+
+        if (x0 != 0) {
+            ere_err = fabs(ete_err / x0);
+        } else {
+            ere_err = ere;
+        } // end of zero-division guard
 
         if (verbose) {
             printf("\nIn this iteration [#%d], x = %g f(x) = %g\n"
@@ -122,6 +124,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
         } // end of if ... else
     } // end if(verbose)
 
+    printf("the last calculated extremum is %g .\n", x0);
     // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum
     if (ete != 0 && ere != 0) {
         // set state to 0 (false)
@@ -220,7 +223,12 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
 
             // calculate errors
             ete_err = fabs(past_x - x);
-            ere_err = fabs(ete_err / x);
+
+            if (x != 0) {
+                ere_err = fabs(ete_err / x);
+            } else {
+                ere_err = ere;
+            } // end of zero-division guard
 
             if (verbose) {
                 printf("\nIn this iteration [#%d][#%d], x = %g f(x) = %g\n"

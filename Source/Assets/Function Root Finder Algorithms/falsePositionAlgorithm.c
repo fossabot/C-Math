@@ -98,6 +98,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
                 // use illinois or anderson-bjork algorithm to improve regula falsi
                 if (options){
                     m = 1 - fc / fa;
+                    // don't think too much! XD x) hahaha
                     fb = options == 1 ? fb / 2 : (m > 1 ? fb * m : fb / 2);
                 }
 
@@ -117,6 +118,7 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
                 // use illinois or anderson-bjork algorithm to improve regula falsi
                 if (options){
                     m = 1 - fc / fb;
+                    // LOL THIS .... AGAIN!
                     fa = options == 1 ? fa / 2 : (m > 1 ? fa * m : fa / 2);
                 }
 
@@ -133,7 +135,12 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
             } // end of if .. else if chained decisions
 
             //calculate relative error
-            ere_err = fabs(ete_err / x);
+            //calculate relative error
+            if (x != 0) {
+                ere_err = fabs(ete_err / x);
+            } else {
+                ere_err = ere;
+            } // end of zero-division guard
 
             // Termination Criterion
             // if calculated error is less than estimated true error threshold
@@ -180,8 +187,8 @@ falsePosition(const char *expression, double a, double b, double ete, double ere
             printf("the last calculated x is %g .\n", x);
         } // end if(verbose)
 
-        // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum
-        if (ete != 0 && ere != 0) {
+        // error has been set but reaches to maxiter, means algorithms didn't converge to a root
+        if (ete != 0 && ere != 0 && tol != 0) {
             // set state to 0 (false)
             *state = 0;
         }

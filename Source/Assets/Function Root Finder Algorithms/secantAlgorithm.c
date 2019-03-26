@@ -79,7 +79,12 @@ double secant(const char *expression, double a, double b, double ete, double ere
 
         //calculate errors
         ete_err = fabs(c - b);
-        ere_err = fabs((c - b) / b);
+        //calculate relative error
+        if (b != 0) {
+            ere_err = fabs(ete_err / b);
+        } else {
+            ere_err = ere;
+        } // end of zero-division guard
 
         // Termination Criterion
         // if calculated error is less than estimated true error threshold
@@ -132,8 +137,8 @@ double secant(const char *expression, double a, double b, double ete, double ere
         printf("the last calculated x is %g .\n", c);
     } // end if(verbose)
 
-    // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum
-    if (ete != 0 && ere != 0) {
+    // error has been set but reaches to maxiter, means algorithms didn't converge to a root
+    if (ete != 0 && ere != 0 && tol != 0) {
         // set state to 0 (false)
         *state = 0;
     }

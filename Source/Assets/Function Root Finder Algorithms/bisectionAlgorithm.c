@@ -119,7 +119,11 @@ double bisection(const char *expression, double a, double b, double ete, double 
             } // end of if .. else if chained decisions
 
             //calculate relative error
-            ere_err = fabs(ete_err / x);
+            if (x != 0) {
+                ere_err = fabs(ete_err / x);
+            } else {
+                ere_err = ere;
+            } // end of zero-division guard
 
             // Termination Criterion
             // if calculated error is less than estimated true error threshold
@@ -166,8 +170,8 @@ double bisection(const char *expression, double a, double b, double ete, double 
             printf("the last calculated x is %g .\n", x);
         } // end if(verbose)
 
-        // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum
-        if (ete != 0 && ere != 0) {
+        // error has been set but reaches to maxiter, means algorithms didn't converge to a root
+        if (ete != 0 && ere != 0 && tol != 0) {
             // set state to 0 (false)
             *state = 0;
         }
