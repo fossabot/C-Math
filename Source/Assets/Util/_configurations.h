@@ -7,4 +7,6 @@
 #define DX_SECOND 1e-4 // for computing derivatives up to forth grade
 #define DX_THIRD 1e-2 // for computing derivatives up to sixth grade
 
+#define PHI 0.6180339887498949 // golden ratio
+
 #endif //C_MATH_CONFIGURATIONS_H
