@@ -221,6 +221,16 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             x -= modeCoefficient * firstDerivative_1_arg(expression, x, DX, CENTRAL_DIFFERENCE) * gamma;
             fx = function_1_arg(expression, x);
 
+            // if fx is lower than f(result), then x is where the minimum occurs
+            if (!maximum && fx < fresult) {
+                result = x;
+            } // end of if
+
+            // if fx is bigger than f(result), then x is where the maximum occurs
+            if (maximum && fx > fresult) {
+                result = x;
+            } // end of if
+
             // calculate errors
             ete_err = fabs(past_x - x);
 
@@ -240,7 +250,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             // if new x goes beyond interval, lower than a
             if (!maximum && x < a) {
                 if (verbose) {
-                    printf("\nIn this iteration the calculated x is less than a : %g < %f"
+                    printf("\nIn this iteration the calculated x is less than a : %g < %g "
                            "so minimum of the function occurs at a.\n",
                            x, a);
                 } // end if(verbose)
@@ -254,7 +264,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
 
             if (maximum && x < a) {
                 if (verbose) {
-                    printf("\nIn this iteration the calculated x is less than a : %g < %f"
+                    printf("\nIn this iteration the calculated x is less than a : %g < %g "
                            "so maximum of the function occurs at a.\n",
                            x, a);
                 } // end if(verbose)
@@ -269,7 +279,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             // if new x goes beyond interval, bigger than b
             if (!maximum && x > b) {
                 if (verbose) {
-                    printf("\nIn this iteration the calculated x is bigger than b : %g > %f"
+                    printf("\nIn this iteration the calculated x is bigger than b : %g > %g "
                            "so minimum of the function occurs at b.\n",
                            x, b);
                 } // end if(verbose)
@@ -283,7 +293,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
 
             if (maximum && x > b) {
                 if (verbose) {
-                    printf("\nIn this iteration the calculated x is bigger than b : %g > %f"
+                    printf("\nIn this iteration the calculated x is bigger than b : %g > %g "
                            "so maximum of the function occurs at b.\n",
                            x, b);
                 } // end if(verbose)
@@ -308,15 +318,6 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
                     } // end of if
                 } // end if(verbose)
 
-                // if fx is lower than f(result), then x is where the minimum occurs
-                if (!maximum && fx < fresult) {
-                    result = x;
-                } // end of if
-
-                // if fx is bigger than f(result), then x is where the maximum occurs
-                if (maximum && fx < fresult) {
-                    result = x;
-                } // end of if
                 break;
             } // end of estimated true error check
 
@@ -333,17 +334,9 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
                     printf("so the calculated x is the point on domain that minimum of the function happens.\n");
                 } // end of if
 
-                // if fx is lower than f(result), then x is where the minimum occurs
-                if (!maximum && fx < fresult) {
-                    result = x;
-                } // end of if
-
-                // if fx is bigger than f(result), then x is where the maximum occurs
-                if (maximum && fx < fresult) {
-                    result = x;
-                } // end of if
                 break;
             } // end of estimated relative error check
+
             innerIter++;
         } // end of inner while loop
         iter++;
