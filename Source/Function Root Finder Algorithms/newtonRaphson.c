@@ -203,7 +203,7 @@ int main() {
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method solved the equation %sfor x= %g .\n\n", expression, x);
+        printf("\nThis method solved the equation %sfor x = %g .\n\n", expression, x);
     } else { // if no answer
         printf("\nThis method couldn't find the root of equation %s"
                "the last calculated value for x is: %g .\n\n", expression, x);

@@ -78,7 +78,7 @@ add_library(newtonRaphsonAlgorithm
         "Source/Assets/Function Root Finder Algorithms/newtonRaphsonAlgorithm.h")
 
 target_link_libraries(newtonRaphsonAlgorithm
-        PRIVATE functions util)
+        PRIVATE functions derivNumericalAlgorithm util)
 
 add_library(falsePositionAlgorithm
         "Source/Assets/Function Root Finder Algorithms/falsePositionAlgorithm.c"
@@ -149,6 +149,13 @@ add_library(newtonRaphsonOptAlgorithm
 target_link_libraries(newtonRaphsonOptAlgorithm
         PRIVATE functions derivNumericalAlgorithm util)
 
+add_library(goldenSectionOptAlgorithm
+        "Source/Assets/Optimization Algorithms/goldenSectionOptAlgorithm.c"
+        "Source/Assets/Optimization Algorithms/goldenSectionOptAlgorithm.h")
+
+target_link_libraries(newtonRaphsonOptAlgorithm
+        PRIVATE functions util)
+
 add_library(simpleMaxMinFinderAlgorithm
         "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.c"
         "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.h")
@@ -171,7 +178,7 @@ add_executable(newtonRaphson
         "Source/Function Root Finder Algorithms/newtonRaphson.c")
 
 target_link_libraries(newtonRaphson
-        PRIVATE newtonRaphsonAlgorithm derivNumericalAlgorithm util)
+        PRIVATE newtonRaphsonAlgorithm util)
 
 add_executable(falsePosition
         "Source/Function Root Finder Algorithms/falsePosition.c")
@@ -226,6 +233,12 @@ add_executable(gradientDescent
 
 target_link_libraries(gradientDescent
         PRIVATE gradientDescentAlgorithm derivNumericalAlgorithm util)
+
+add_executable(newtonRaphsonOpt
+        "Source/Optimization Algorithms/newtonRaphsonOpt.c")
+
+target_link_libraries(newtonRaphsonOpt
+        PRIVATE newtonRaphsonOptAlgorithm util)
 
 add_executable(maxMinFinder
         "Source/Optimization Algorithms/simpleMaxMinFinder.c")

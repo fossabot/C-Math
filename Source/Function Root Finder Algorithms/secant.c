@@ -252,7 +252,7 @@ int main() {
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method solved the equation %sfor x= %g in the interval [%g, %g].\n\n", expression, x, a0,
+        printf("\nThis method solved the equation %sfor x = %g in the interval [%g, %g].\n\n", expression, x, a0,
                b0);
     } else { // if no answer
         printf("\nThis method couldn't find the root of equation %sin given interval"
