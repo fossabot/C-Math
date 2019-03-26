@@ -36,7 +36,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
     } // end of if
 
     // check maxiter to be more than zero
-    if (maxiter <= 0) {
+    if (maxiter < 0) {
         printf("\nError: argument maxiter must be more than zero!\n");
         Exit(EXIT_FAILURE);
     } // end of maxiter check
@@ -175,7 +175,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
     } // end of if
 
     // check maxiter to be more than zero
-    if (maxiter <= 0) {
+    if (maxiter < 0) {
         printf("\nError: argument maxiter must be more than zero!\n");
         Exit(EXIT_FAILURE);
     } // end of maxiter check
