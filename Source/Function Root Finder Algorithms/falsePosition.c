@@ -254,7 +254,7 @@ int main() {
     verbose = strtol(verbose_c, &ptr, 10);
 
     // check verbose value
-    if (verbose != 0 && verbose != 1 || *fgetsReturn == '\n') {
+    if ((verbose != 0 && verbose != 1) || *fgetsReturn == '\n') {
         printf("Error: invalid value for verbose!\n");
 
         // a chance to correct your mistake :)
