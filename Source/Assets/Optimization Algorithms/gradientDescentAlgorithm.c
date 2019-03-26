@@ -74,7 +74,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
         } // end of zero-division guard
 
         if (verbose) {
-            printf("\nIn this iteration [#%d], x = %g f(x) = %g\n"
+            printf("\nIn this iteration [#%d]: x = %g f(x) = %g\n"
                    "and estimated true error = %g and estimated relative error = %g .\n",
                    iter, x0, fx, ete_err, ere_err);
         } // end if(verbose)
@@ -248,7 +248,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             } // end of zero-division guard
 
             if (verbose) {
-                printf("\nIn this iteration [#%d][#%d], x = %g f(x) = %g\n"
+                printf("\nIn this iteration [#%d][#%d]: x = %g f(x) = %g\n"
                        "and estimated true error = %g and estimated relative error = %g .\n",
                        iter, innerIter, x, fx, ete_err, ere_err);
             } // end if(verbose)
