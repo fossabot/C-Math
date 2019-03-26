@@ -72,7 +72,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             fxNew = function_1_arg(expression, xNew);
 
             if (verbose) {
-                printf("\nIteration number [#%d]: f(x%d) = %lf, f'(x%d) = %lf, delta(x%d) = f(x%d) / f'(x%d) = %lf\n"
+                printf("\nIteration number [#%d]: f(x%d) = %g, f'(x%d) = %g, delta(x%d) = f(x%d) / f'(x%d) = %g\n"
                        "\t\t\tx%d = x%d - delta(x%d) = %.10e .\n", iter, iter - 1, fx, iter - 1, dfx, iter - 1,
                        iter - 1, iter - 1, fx / dfx, iter, iter - 1, iter - 1, xNew);
             } // end of if verbose
@@ -85,7 +85,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             // if calculated error is less than estimated true error threshold
             if (ete != 0 && ete_err < ete) {
                 if (verbose) {
-                    printf("\nIn this iteration, |x%d - x%d| < estimated true error [%.5e < %.5e],\n"
+                    printf("\nIn this iteration, |x%d - x%d| < estimated true error [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", iter, iter - 1, ete_err, ete);
                 } // end if(verbose)
 
@@ -95,7 +95,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             // if calculated error is less than estimated relative error threshold
             if (ere != 0 && ere_err < ere) {
                 if (verbose) {
-                    printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%.5e < %.5e],\n"
+                    printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", iter, iter - 1, iter, ere_err, ere);
                 } // end if(verbose)
 
@@ -105,7 +105,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             // if fx is less than tolerance error threshold
             if (tol != 0 && fabs(fx) < tol) {
                 if (verbose) {
-                    printf("\nIn this iteration, |f(x%d)| < tolerance [%.5e < %.5e],\n"
+                    printf("\nIn this iteration, |f(x%d)| < tolerance [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", iter, fabs(fx), tol);
                 } // end if(verbose)
 
@@ -140,7 +140,7 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
             printf("\nThe solution does not converge or iterations are not sufficient.\n");
         } // end of if ... else
 
-        printf("the last calculated x is %lf .\n", x);
+        printf("the last calculated x is %g .\n", x);
     } // end if(verbose)
 
     // set state to 0 (false)

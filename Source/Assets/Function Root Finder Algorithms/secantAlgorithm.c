@@ -74,7 +74,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
         fc = function_1_arg(expression, c);
 
         if (verbose) {
-            printf("\nIteration number [#%d]: x%d = %lf, f(x%d) = %lf .\n", iter, iter, c, iter, fc);
+            printf("\nIteration number [#%d]: x%d = %g, f(x%d) = %g .\n", iter, iter, c, iter, fc);
         } // end of if verbose
 
         //calculate errors
@@ -85,7 +85,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
         // if calculated error is less than estimated true error threshold
         if (ete != 0 && ete_err < ete) {
             if (verbose) {
-                printf("\nIn this iteration, |x%d - x%d| < estimated true error [%.5e < %.5e],\n"
+                printf("\nIn this iteration, |x%d - x%d| < estimated true error [%g < %g],\n"
                        "so x is close enough to the root of function.\n\n", iter, iter - 1, ete_err, ete);
             } // end if(verbose)
 
@@ -95,7 +95,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
         // if calculated error is less than estimated relative error threshold
         if (ere != 0 && ere_err < ere) {
             if (verbose) {
-                printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%.5e < %.5e],\n"
+                printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%g < %g],\n"
                        "so x is close enough to the root of function.\n\n", iter, iter - 1, iter, ere_err, ere);
             } // end if(verbose)
 
@@ -105,7 +105,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
         // if y3 is less than tolerance error threshold
         if (tol != 0 && fabs(fc) < tol) {
             if (verbose) {
-                printf("\nIn this iteration, |f(x%d)| < tolerance [%.5e < %.5e],\n"
+                printf("\nIn this iteration, |f(x%d)| < tolerance [%g < %g],\n"
                        "so x is close enough to the root of function.\n\n", iter, fabs(fc), tol);
             } // end if(verbose)
 
@@ -129,7 +129,7 @@ double secant(const char *expression, double a, double b, double ete, double ere
             printf("\nThe solution does not converge or iterations are not sufficient.\n");
         } // end of if ... else
 
-        printf("the last calculated x is %lf .\n", c);
+        printf("the last calculated x is %g .\n", c);
     } // end if(verbose)
 
     // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum

@@ -75,13 +75,13 @@ double riemannSum(const char *expression, double a, double b, unsigned int n, in
 
         // show process
         if (verbose) {
-            printf("Height of rectangle [#%d]: %lf, heights sum =  %lf .\n", i, height, area);
+            printf("Height of rectangle [#%d]: %g, heights sum =  %g .\n", i, height, area);
         } // end of if verbose
     } // end of for loop
 
     // show process
     if (verbose) {
-        printf("Area = height sum * width => area = %lf * %lf .\n", area, coefficient);
+        printf("Area = height sum * width => area = %g * %g .\n", area, coefficient);
     } // end of if verbose
 
     // multiply sums to coefficient to get area

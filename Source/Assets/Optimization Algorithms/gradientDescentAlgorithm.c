@@ -61,10 +61,10 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
     while (iter < maxiter) {
         // calculate new x0 by subtracting the derivative of function at x0 multiplied by gamma from x0
         past_x = x0;
-        printf("%lf\n", past_x);
+        printf("%g\n", past_x);
         x0 -= modeCoefficient * firstDerivative_1_arg(expression, x0, DX, CENTRAL_DIFFERENCE) * gamma;
         printf("%d\n", modeCoefficient);
-        printf("%lf\n", x0);
+        printf("%g\n", x0);
         fx = function_1_arg(expression, x0);
 
         // calculate errors
@@ -72,8 +72,8 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
         ere_err = fabs(ete_err / x0);
 
         if (verbose) {
-            printf("\nIn this iteration [#%d], x = %.5e f(x) = %.5e\n"
-                   "and estimated true error = %.5e and estimated relative error = %.5e .\n",
+            printf("\nIn this iteration [#%d], x = %g f(x) = %g\n"
+                   "and estimated true error = %g and estimated relative error = %g .\n",
                    iter, x0, fx, ete_err, ere_err);
         } // end if(verbose)
 
@@ -82,7 +82,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
         if (ete != 0 && ete_err < ete) {
             if (verbose) {
                 printf("\nIn this iteration the calculated estimated true error is less than the threshold.\n"
-                       "(estimated true error) %.5e < %.5e (threshold).\n"
+                       "(estimated true error) %g < %g (threshold).\n"
                        "so the calculated x is the point on domain that minimum of the function happens.\n",
                        ete_err, ete);
             } // end if(verbose)
@@ -94,7 +94,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
         if (ere != 0 && ere_err < ere) {
             if (verbose) {
                 printf("\nIn this iteration the calculated estimated real error is less than the threshold.\n"
-                       "(estimated real error) %.5e < %.5e (threshold).\n"
+                       "(estimated real error) %g < %g (threshold).\n"
                        "so the calculated x is the point on domain that minimum of the function happens.\n",
                        ere_err, ere);
             } // end if(verbose)
@@ -113,7 +113,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
             printf("\nThe solution does not converge or iterations are not sufficient.\n");
         } // end of if ... else
 
-        printf("the last calculated minimum is %lf .\n", x0);
+        printf("the last calculated minimum is %g .\n", x0);
     } // end if(verbose)
 
     // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum
@@ -217,8 +217,8 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             ere_err = fabs(ete_err / x);
 
             if (verbose) {
-                printf("\nIn this iteration [#%d][#%d], x = %.5e f(x) = %.5e\n"
-                       "and estimated true error = %.5e and estimated relative error = %.5e .\n",
+                printf("\nIn this iteration [#%d][#%d], x = %g f(x) = %g\n"
+                       "and estimated true error = %g and estimated relative error = %g .\n",
                        iter, innerIter, x, fx, ete_err, ere_err);
             } // end if(verbose)
 
@@ -226,7 +226,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             // if new x goes beyond interval lower than a
             if (x < a) {
                 if (verbose) {
-                    printf("\nIn this iteration the calculated x is less than a : %.5e < %f"
+                    printf("\nIn this iteration the calculated x is less than a : %g < %f"
                            "so minimum of the function occurs at a.\n",
                            x, a);
                 } // end if(verbose)
@@ -241,7 +241,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             // if new x goes beyond interval bigger than b
             if (x > b) {
                 if (verbose) {
-                    printf("\nIn this iteration the calculated x is bigger than b : %.5e > %f"
+                    printf("\nIn this iteration the calculated x is bigger than b : %g > %f"
                            "so minimum of the function occurs at b.\n",
                            x, b);
                 } // end if(verbose)
@@ -257,7 +257,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             if (ete != 0 && ete_err < ete) {
                 if (verbose) {
                     printf("\nIn this iteration the calculated estimated true error is less than the threshold.\n"
-                           "(estimated true error) %.5e < %.5e (threshold).\n"
+                           "(estimated true error) %g < %g (threshold).\n"
                            "so the calculated x is the point on domain that minimum of the function happens.\n",
                            ete_err, ete);
                 } // end if(verbose)
@@ -273,7 +273,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             if (ere != 0 && ere_err < ere) {
                 if (verbose) {
                     printf("\nIn this iteration the calculated estimated real error is less than the threshold.\n"
-                           "(estimated real error) %.5e < %.5e (threshold).\n"
+                           "(estimated real error) %g < %g (threshold).\n"
                            "so the calculated x is the point on domain that minimum of the function happens.\n",
                            ere_err, ere);
                 } // end if(verbose)

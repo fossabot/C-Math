@@ -71,7 +71,7 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
             even += function_1_arg(expression, x);
             // show process
             if (verbose) {
-                printf("[#%d] f(xi[i = 2k]) = %lf, sigma(f(xi[i = 2k])) =  %lf .\n",
+                printf("[#%d] f(xi[i = 2k]) = %g, sigma(f(xi[i = 2k])) =  %g .\n",
                        2 * i, function_1_arg(expression, x), even);
             } // end of if verbose
         } // end of for loop
@@ -82,7 +82,7 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
             odd += function_1_arg(expression, x);
             // show process
             if (verbose) {
-                printf("[#%d] f(xi[i = 2k-1]) = %lf, sigma(f(xi[i = 2k-1])) =  %lf\n",
+                printf("[#%d] f(xi[i = 2k-1]) = %g, sigma(f(xi[i = 2k-1])) =  %g\n",
                        2 * i - 1, function_1_arg(expression, x), odd);
             } // end of if verbose
         } // end of for loop
@@ -93,7 +93,7 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
         area *= coefficient / 3;
         if (verbose) {
             printf("\nArea = h/3 * [f(x0) + f(xn) + 2 * sigma(f(xi[i = 2k])) + 4 * sigma(f(xi[i = 2k-1]))]\n"
-                   "Area = %lf/3 * [%lf + %lf + 2 * %lf + 4 * %lf]\n", coefficient, function_1_arg(expression, a),
+                   "Area = %g/3 * [%g + %g + 2 * %g + 4 * %g]\n", coefficient, function_1_arg(expression, a),
                    function_1_arg(expression, b), even, odd);
         } // end of if verbose
     } else {
@@ -105,14 +105,14 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
                 cubic += function_1_arg(expression, x);
                 // show process
                 if (verbose) {
-                    printf("[#%d] f(xi[i = 3k]) = %lf, sigma(f(xi[i = 3k])) =  %lf\n",
+                    printf("[#%d] f(xi[i = 3k]) = %g, sigma(f(xi[i = 3k])) =  %g\n",
                            i, function_1_arg(expression, x), cubic);
                 } // end of if verbose
             } else {
                 regular += function_1_arg(expression, x);
                 // show process
                 if (verbose) {
-                    printf("[#%d] f(xi[i != 3k]) = %lf, sigma(f(xi[i != 3k])) =  %lf\n",
+                    printf("[#%d] f(xi[i != 3k]) = %g, sigma(f(xi[i != 3k])) =  %g\n",
                            i, function_1_arg(expression, x), regular);
                 } // end of if verbose
             } // end of if else
@@ -125,7 +125,7 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
         // show process
         if (verbose) {
             printf("\nArea = 3*h/8 * [f(x0) + f(xn) + 3 * sigma(f(xi[i != 3k])) + 2 * sigma(f(xi[i = 3k]))]\n"
-                   "Area = 3*%lf/8 * [%lf + %lf + 3 * %lf + 2 * %lf]\n", coefficient, function_1_arg(expression, a),
+                   "Area = 3*%g/8 * [%g + %g + 3 * %g + 2 * %g]\n", coefficient, function_1_arg(expression, a),
                    function_1_arg(expression, b), regular, cubic);
         } // end of if verbose
     } // end of if else

@@ -106,7 +106,7 @@ double romberg(const char *expression, double a, double b, unsigned int k, doubl
         if (i != 0 && tol != 0 && tol > error) {
             // show process
             if (verbose) {
-                printf("\nIn this iteration, error is less that threshold [%.5e < %.5e].\n"
+                printf("\nIn this iteration, error is less that threshold [%g < %g].\n"
                        "so integral is close enough to it's real value.\n", error, tol);
             } // end of if verbose
             break;

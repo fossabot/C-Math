@@ -119,10 +119,10 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
 
     if (verbose) {
         printf("\nFinding maximum and minimum of this function.\n");
-        printf("Maximum of this function happens at point x = %lf ", extremum[0]);
-        printf("and has value = %lf .\n", max);
-        printf("Minimum of this function happens at point x = %lf ", extremum[1]);
-        printf("and has value = %lf .\n", min);
+        printf("Maximum of this function happens at point x = %g ", extremum[0]);
+        printf("and has value = %g .\n", max);
+        printf("Minimum of this function happens at point x = %g ", extremum[1]);
+        printf("and has value = %g .\n", min);
     } // end if(verbose)
 
     // initializing variables
@@ -156,7 +156,7 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
         }
 
         if (verbose) {
-            printf("and it's height is %lf .\n", height);
+            printf("and it's height is %g .\n", height);
         } // end if(verbose)
 
         // the area of the rectangle in this case is the width of rectangle (b - a)
@@ -164,7 +164,7 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
         rectangleArea = width * height;
 
         if (verbose) {
-            printf("Area of the rectangle is %lf .\n", fabs(rectangleArea));
+            printf("Area of the rectangle is %g .\n", fabs(rectangleArea));
         } // end if(verbose)
 
     } else { // if function has both positive and negative f(x) values on interval [a, b]
@@ -172,9 +172,9 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
         rectangleArea = width * height;
 
         if (verbose) {
-            printf("Rectangle has points on both positive and negative side of y axis, and it's height is %lf .\n",
+            printf("Rectangle has points on both positive and negative side of y axis, and it's height is %g .\n",
                    height);
-            printf("Area of the rectangle is %lf .\n", fabs(rectangleArea));
+            printf("Area of the rectangle is %g .\n", fabs(rectangleArea));
         } // end if(verbose)
     } // end of if
 
@@ -200,7 +200,7 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
         }
 
         if (verbose) {
-            printf("\nPoint No. [#%d]: (x, y) = (%lf, %lf) , f(x) = %lf .\n",
+            printf("\nPoint No. [#%d]: (x, y) = (%g, %g) , f(x) = %g .\n",
                    i, x, y, fx);
         } // end if(verbose)
 
@@ -240,7 +240,7 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
 
     if (verbose) {
         printf("\nTotal points = %d .\n", correctPoints);
-        printf("Area = rectangle area *  total valid points / all points, area = %lf * %lf / %d .\n",
+        printf("Area = rectangle area *  total valid points / all points, area = %g * %g / %d .\n",
                fabs(rectangleArea), (double) correctPoints, n);
     } // end if(verbose)
 
@@ -295,7 +295,7 @@ double monteCarloRectangleIntegration(const char *expression, double a, double b
     double width = coefficient / n;
 
     if (verbose) {
-        printf("\nWidth of every rectangle is %lf .\n\n", width);
+        printf("\nWidth of every rectangle is %g .\n\n", width);
     } // end if(verbose)
 
     // set the seed for random number generator
@@ -310,13 +310,13 @@ double monteCarloRectangleIntegration(const char *expression, double a, double b
         area += y ;
 
         if (verbose) {
-            printf("Rectangle No. [#%d]: (x, height) = (%lf, %lf) , Total heights = %lf .\n", i, x, y, area);
+            printf("Rectangle No. [#%d]: (x, height) = (%g, %g) , Total heights = %g .\n", i, x, y, area);
         } // end if(verbose)
 
     } // end of for loop
 
     if (verbose) {
-        printf("\nArea = Total heights * width , Area = %lf * %lf\n", area, width);
+        printf("\nArea = Total heights * width , Area = %g * %g\n", area, width);
     } // end if(verbose)
 
     // multiply all heights to width of all rectangles to get area

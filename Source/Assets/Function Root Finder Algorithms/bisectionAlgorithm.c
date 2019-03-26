@@ -94,7 +94,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
                 fa = fc;
 
                 if (verbose) {
-                    printf("In this iteration, a replaced by x, new range is [%lf, %lf].\n", a, b);
+                    printf("In this iteration, a replaced by x, new range is [%g, %g].\n", a, b);
                 } // end if(verbose)
 
             } else if (fc * fb > 0) { // if y3 and y2 have same signs, then substitute b by x and y2 by y3
@@ -107,7 +107,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
                 fb = fc;
 
                 if (verbose) {
-                    printf("In this iteration, b replaced by x, new range is [%lf, %lf].\n", a, b);
+                    printf("In this iteration, b replaced by x, new range is [%g, %g].\n", a, b);
                 } // end if(verbose)
 
             } else {
@@ -125,7 +125,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
             // if calculated error is less than estimated true error threshold
             if (ete != 0 && ete_err < ete) {
                 if (verbose) {
-                    printf("\nIn this iteration, |x%d - x%d| < estimated true error [%.5e < %.5e],\n"
+                    printf("\nIn this iteration, |x%d - x%d| < estimated true error [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", iter, iter - 1, ete_err, ete);
                 } // end if(verbose)
 
@@ -135,7 +135,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
             // if calculated error is less than estimated relative error threshold
             if (ere != 0 && ere_err < ere) {
                 if (verbose) {
-                    printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%.5e < %.5e"
+                    printf("\nIn this iteration, |(x%d - x%d / x%d)| < estimated relative error [%g < %g"
                            "],\nso x is close enough to the root of function.\n\n", iter, iter - 1, iter, ere_err, ere);
                 } // end if(verbose)
 
@@ -145,7 +145,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
             // if y3 is less than tolerance error threshold
             if (tol != 0 && fabs(fc) < tol) {
                 if (verbose) {
-                    printf("\nIn this iteration, |f(x)| < tolerance [%.5e < %.5e],\n"
+                    printf("\nIn this iteration, |f(x)| < tolerance [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", fabs(fc), tol);
                 } // end if(verbose)
 
@@ -163,7 +163,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
                 printf("\nThe solution does not converge or iterations are not sufficient.\n");
             } // end of if ... else
 
-            printf("the last calculated x is %lf .\n", x);
+            printf("the last calculated x is %g .\n", x);
         } // end if(verbose)
 
         // error has been set but reaches to maxiter, means algorithms didn't converge to an extremum

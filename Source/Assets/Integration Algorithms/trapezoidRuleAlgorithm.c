@@ -61,13 +61,13 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
         area += 2 * function_1_arg(expression, x);
         // show process
         if (verbose) {
-            printf("[#%d] Heights sum =  %lf .\n", i, area);
+            printf("[#%d] Heights sum =  %g .\n", i, area);
         } // end of if verbose
     } // end of for loop
 
     // show process
     if (verbose) {
-        printf("Area = (h / 2) * heights sum => area = (%lf) * %lf .\n", coefficient / 2, area);
+        printf("Area = (h / 2) * heights sum => area = (%g) * %g .\n", coefficient / 2, area);
     } // end of if verbose
 
     // multiply sums to width/2
