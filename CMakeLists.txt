@@ -163,6 +163,13 @@ add_library(simpleMaxMinFinderAlgorithm
 target_link_libraries(simpleMaxMinFinderAlgorithm
         PRIVATE functions util)
 
+#-----------------------------------------------------------------------------------------------------------------------
+#                                             Series Algorithms
+
+add_library(fibonacciAlgorithm
+        "Source/Assets/Series Algorithms/fibonacciAlgorithm.c"
+        "Source/Assets/Series Algorithms/fibonacciAlgorithm.h")
+
 #=======================================================================================================================
 #                                                  Executables
 #-----------------------------------------------------------------------------------------------------------------------
@@ -254,5 +261,3 @@ target_link_libraries(maxMinFinder
 
 #-----------------------------------------------------------------------------------------------------------------------
 #                                                 Series
-
-# add_executable(fibonacci)
