@@ -79,8 +79,8 @@ double romberg(const char *expression, double a, double b, unsigned int k, doubl
     }
 
     // declare and initialize romberg array
-    ArrayDouble romberg;
-    initArrayDouble(&romberg, arraySize);
+    Array1D romberg;
+    initArray1D(&romberg, arraySize, T_DOUBLE);
 
     // calculate
     for (i = 0; i <= k; ++i) {
@@ -89,18 +89,21 @@ double romberg(const char *expression, double a, double b, unsigned int k, doubl
         trapezoid = trapezoidRule(expression, a, b, (unsigned int) n, no_verbose);
 
         // add the result to the romberg table
-        addNextToArrayDouble(&romberg, trapezoid);
+        addNextToArray1D(&romberg, &trapezoid);
 
         // romberg algorithm
         for (j = 1; j <= i; ++j) {
+            // compute next integral
             index = romberg.next - 1;
-            integral = (romberg.array[index] * pow(4, i) - romberg.array[index - 1]) / (pow(4, i) - 1);
-            addNextToArrayDouble(&romberg, integral);
-        }
+            integral = (getElementDoubleArray1D(&romberg, index) * pow(4, i) -
+                        getElementDoubleArray1D(&romberg, index - 1)) / (pow(4, i) - 1);
+            // add result to array
+            addNextToArray1D(&romberg, &integral);
+        } // end of for loop
 
         // calculate error [relative error to avoid large numbers]
-        result = romberg.array[romberg.next - 1];
-        error = (result - previous_result) / result;
+        result = getElementDoubleArray1D(&romberg, romberg.next - 1);
+        error = fabs((result - previous_result) / result);
 
         // Termination Criterion
         if (i != 0 && tol != 0 && tol > error) {
@@ -146,7 +149,7 @@ double romberg(const char *expression, double a, double b, unsigned int k, doubl
         for (i = 1, index = 0; i <= k + 1 && index <= romberg.next - 1; ++i) {
             printf("%-13d", (int) pow(2, i - 1));
             for (j = 1; j <= i; ++j) {
-                printf("%-+13lf", romberg.array[index++]);
+                printf("%-+13lf", getElementDoubleArray1D(&romberg, index++));
                 // choose right punctuation mark
                 if (j == i) {
                     printf(" .\n");
@@ -158,6 +161,6 @@ double romberg(const char *expression, double a, double b, unsigned int k, doubl
     } // end of if verbose
 
     // free allocated memory
-    freeArrayDouble(&romberg);
+    freeArray1D(&romberg);
     return result;
 } // end of romberg function

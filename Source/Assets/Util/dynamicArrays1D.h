@@ -13,48 +13,62 @@
 #define ARRAY_SUCCESSFUL 1
 #define ARRAY_FAILURE 0
 
-typedef struct {
-    char *map;
-    long int *array;
-    size_t next;
-    size_t used;
-    size_t size;
-} ArrayLongInt;
+#define I_EMPTY '0'
+#define I_FILLED '1'
 
-int initArrayLongInt(ArrayLongInt *array, size_t initialSize);
+#define T_CHAR 1
+#define T_SINT 2
+#define T_INT 3
+#define T_LINT 4
+#define T_FLOAT 5
+#define T_DOUBLE 6
 
-int extendArrayLongInt(ArrayLongInt *array, size_t extendSize);
-
-int initValueArrayLongInt(ArrayLongInt *array, size_t initialSize, long int element);
-
-int fillArrayLongInt(ArrayLongInt *array, size_t start, size_t end, long int element);
-
-int addNextToArrayLongInt(ArrayLongInt *array, long int element);
-
-int addByIndexToArrayLongInt(ArrayLongInt *array, size_t index, long int element);
-
-void freeArrayLongInt(ArrayLongInt *array);
+typedef union {
+    char *pChar;
+    short int *pShortInt;
+    int *pInt;
+    long int *pLongInt;
+    float *pFloat;
+    double *pDouble;
+} Array_Type;
 
 typedef struct {
     char *map;
-    double *array;
+    Array_Type array;
+    size_t type;
     size_t next;
     size_t used;
     size_t size;
-} ArrayDouble;
+} Array1D;
 
-int initArrayDouble(ArrayDouble *array, size_t initialSize);
+int initArray1D(Array1D *array, size_t initialSize, size_t type);
 
-int extendArrayDouble(ArrayDouble *array, size_t extendSize);
+int extendSizeArray1D(Array1D *array, size_t extendSize);
 
-int initValueArrayDouble(ArrayDouble *array, size_t initialSize, double element);
+int initValueArray1D(Array1D *array, size_t initialSize, size_t type, void *element);
 
-int fillArrayDouble(ArrayDouble *array, size_t start, size_t end, double element);
+int fillArray1D(Array1D *array, size_t start, size_t step, size_t end, void *element);
 
-int addNextToArrayDouble(ArrayDouble *array, double element);
+int addNextToArray1D(Array1D *array, void *element);
 
-int addByIndexToArrayDouble(ArrayDouble *array, size_t index, long int element);
+int addByIndexArray1D(Array1D *array, size_t index, void *element);
 
-void freeArrayDouble(ArrayDouble *array);
+void freeArray1D(Array1D *array);
+
+void __arrayUpdaterArray1D(Array1D *array, size_t index, void *element);
+
+void __nextUpdaterArray1D(Array1D *array);
+
+char getElementCharArray1D(Array1D *array, size_t index);
+
+short int getElementSIntArray1D(Array1D *array, size_t index);
+
+int getElementIntArray1D(Array1D *array, size_t index);
+
+long int getElementLIntArray1D(Array1D *array, size_t index);
+
+float getElementFloatArray1D(Array1D *array, size_t index);
+
+double getElementDoubleArray1D(Array1D *array, size_t index);
 
 #endif //C_MATH_DYNAMICARRAYS1D_H
