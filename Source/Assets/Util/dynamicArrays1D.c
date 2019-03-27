@@ -20,6 +20,13 @@ int initArray1D(Array1D *array, size_t initialSize, size_t type) {
      * ARRAY_FAILURE
      */
 
+
+    // check array type
+    if (type != T_CHAR && type != T_SINT && type != T_INT && type != T_LINT && type != T_FLOAT && type != T_DOUBLE) {
+        printf("\nError: array type is wrong!\n");
+        return ARRAY_FAILURE;
+    } // end of array type check
+
     // initialize map pointer
     char *map_pointer = NULL;
 
