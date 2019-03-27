@@ -73,6 +73,13 @@ add_library(bisectionAlgorithm
 target_link_libraries(bisectionAlgorithm
         PRIVATE functions util)
 
+add_library(brentAlgorithm
+        "Source/Assets/Function Root Finder Algorithms/brentAlgorithm.c"
+        "Source/Assets/Function Root Finder Algorithms/brentAlgorithm.h")
+
+target_link_libraries(brentAlgorithm
+        PRIVATE functions util)
+
 add_library(newtonRaphsonAlgorithm
         "Source/Assets/Function Root Finder Algorithms/newtonRaphsonAlgorithm.c"
         "Source/Assets/Function Root Finder Algorithms/newtonRaphsonAlgorithm.h")
