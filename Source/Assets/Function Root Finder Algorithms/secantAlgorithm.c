@@ -126,7 +126,6 @@ double secant(const char *expression, double a, double b, double ete, double ere
 
     } // end of while loop
 
-    // answer didn't found
     if (verbose) {
         if (ete == 0 && ere == 0 && tol == 0) {
             printf("\nWith maximum iteration of %d\n", maxiter);

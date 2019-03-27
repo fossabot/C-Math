@@ -141,7 +141,6 @@ double newtonRaphson(const char *expression, double x0, double ete, double ere, 
         } // end of if(dfx)
     } // end of while loop
 
-    // answer didn't found
     if (verbose) {
         if (ete == 0 && ere == 0 && tol == 0 && iter > maxiter) {
             printf("\nWith maximum iteration of %d\n", maxiter);

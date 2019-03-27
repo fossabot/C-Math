@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define SQRT5 2.23606797749979
+
 int fibonacci(unsigned int n) {
     /*
      * In mathematics, the Fibonacci numbers, commonly denoted Fn form a sequence, called the Fibonacci sequence,
@@ -23,5 +25,5 @@ int fibonacci(unsigned int n) {
      */
 
 
-    return (int) round((pow(1 / PHI, n) - (pow(-PHI, n))) / sqrt(5));
+    return (int) round((pow(1 / PHI, n) - (pow(-PHI, n))) / SQRT5);
 }
