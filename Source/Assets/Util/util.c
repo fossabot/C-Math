@@ -3,8 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void swapDouble(double *a, double *b) {
+    *a = *a + *b;
+    *b = *a - *b;
+    *a = *a - *b;
+} // end of swap function
+
 void Exit(int exitCode) {
     printf("\nPress any key to exit ...\n");
     getc(stdin);
     exit(exitCode);
-} // end of exit
+} // end of Exit function
