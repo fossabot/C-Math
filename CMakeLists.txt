@@ -25,19 +25,19 @@ set(BUILD_SHARED_LIBS NO)
 #                                               Primary libraries
 
 add_library(util
-        Source/Assets/Util/util.c Source/Assets/Util/util.h)
+        Source/Library/Util/util.c Source/Library/Util/util.h)
 
 add_library(parser
-        Source/Assets/Util/parser.c Source/Assets/Util/parser.h)
+        Source/Library/Util/parser.c Source/Library/Util/parser.h)
 
 add_library(functions
-        Source/Assets/Util/functions.c Source/Assets/Util/functions.h)
+        Source/Library/Util/functions.c Source/Library/Util/functions.h)
 
 add_library(dynamicArrays
-        Source/Assets/Util/dynamicArrays1D.c Source/Assets/Util/dynamicArrays1D.c)
+        Source/Library/Util/dynamicArrays1D.c Source/Library/Util/dynamicArrays1D.c)
 
 add_library(randomGenerator
-        Source/Assets/Util/randomGenerator.c Source/Assets/Util/randomGenerator.h)
+        Source/Library/Util/randomGenerator.c Source/Library/Util/randomGenerator.h)
 
 # link primary libraries
 
@@ -57,8 +57,8 @@ endif ()
 #                                           Differentiation Algorithms
 
 add_library(derivNumericalAlgorithm
-        "Source/Assets/Differentiation Algorithms/derivNumericalAlgorithm.c"
-        "Source/Assets/Differentiation Algorithms/derivNumericalAlgorithm.c")
+        "Source/Library/Differentiation Algorithms/derivNumericalAlgorithm.c"
+        "Source/Library/Differentiation Algorithms/derivNumericalAlgorithm.c")
 
 target_link_libraries(derivNumericalAlgorithm
         PRIVATE functions util)
@@ -67,36 +67,36 @@ target_link_libraries(derivNumericalAlgorithm
 #                                             Function Root Finders
 
 add_library(bisectionAlgorithm
-        "Source/Assets/Function Root Finder Algorithms/bisectionAlgorithm.c"
-        "Source/Assets/Function Root Finder Algorithms/bisectionAlgorithm.h")
+        "Source/Library/Function Root Finder Algorithms/bisectionAlgorithm.c"
+        "Source/Library/Function Root Finder Algorithms/bisectionAlgorithm.h")
 
 target_link_libraries(bisectionAlgorithm
         PRIVATE functions util)
 
 add_library(brentAlgorithm
-        "Source/Assets/Function Root Finder Algorithms/brentAlgorithm.c"
-        "Source/Assets/Function Root Finder Algorithms/brentAlgorithm.h")
+        "Source/Library/Function Root Finder Algorithms/brentAlgorithm.c"
+        "Source/Library/Function Root Finder Algorithms/brentAlgorithm.h")
 
 target_link_libraries(brentAlgorithm
         PRIVATE functions util)
 
 add_library(newtonRaphsonAlgorithm
-        "Source/Assets/Function Root Finder Algorithms/newtonRaphsonAlgorithm.c"
-        "Source/Assets/Function Root Finder Algorithms/newtonRaphsonAlgorithm.h")
+        "Source/Library/Function Root Finder Algorithms/newtonRaphsonAlgorithm.c"
+        "Source/Library/Function Root Finder Algorithms/newtonRaphsonAlgorithm.h")
 
 target_link_libraries(newtonRaphsonAlgorithm
         PRIVATE functions derivNumericalAlgorithm util)
 
 add_library(falsePositionAlgorithm
-        "Source/Assets/Function Root Finder Algorithms/falsePositionAlgorithm.c"
-        "Source/Assets/Function Root Finder Algorithms/falsePositionAlgorithm.h")
+        "Source/Library/Function Root Finder Algorithms/falsePositionAlgorithm.c"
+        "Source/Library/Function Root Finder Algorithms/falsePositionAlgorithm.h")
 
 target_link_libraries(falsePositionAlgorithm
         PRIVATE functions util)
 
 add_library(secantAlgorithm
-        "Source/Assets/Function Root Finder Algorithms/secantAlgorithm.c"
-        "Source/Assets/Function Root Finder Algorithms/secantAlgorithm.h")
+        "Source/Library/Function Root Finder Algorithms/secantAlgorithm.c"
+        "Source/Library/Function Root Finder Algorithms/secantAlgorithm.h")
 
 target_link_libraries(secantAlgorithm
         PRIVATE functions util)
@@ -105,36 +105,36 @@ target_link_libraries(secantAlgorithm
 #                                            Integration Algorithms
 
 add_library(riemannSumAlgorithm
-        "Source/Assets/Integration Algorithms/riemannSumAlgorithm.c"
-        "Source/Assets/Integration Algorithms/riemannSumAlgorithm.h")
+        "Source/Library/Integration Algorithms/riemannSumAlgorithm.c"
+        "Source/Library/Integration Algorithms/riemannSumAlgorithm.h")
 
 target_link_libraries(riemannSumAlgorithm
         PRIVATE functions util)
 
 add_library(trapezoidRuleAlgorithm
-        "Source/Assets/Integration Algorithms/trapezoidRuleAlgorithm.c"
-        "Source/Assets/Integration Algorithms/trapezoidRuleAlgorithm.h")
+        "Source/Library/Integration Algorithms/trapezoidRuleAlgorithm.c"
+        "Source/Library/Integration Algorithms/trapezoidRuleAlgorithm.h")
 
 target_link_libraries(trapezoidRuleAlgorithm
         PRIVATE functions util)
 
 add_library(simpsonRuleAlgorithm
-        "Source/Assets/Integration Algorithms/simpsonRuleAlgorithm.c"
-        "Source/Assets/Integration Algorithms/simpsonRuleAlgorithm.h")
+        "Source/Library/Integration Algorithms/simpsonRuleAlgorithm.c"
+        "Source/Library/Integration Algorithms/simpsonRuleAlgorithm.h")
 
 target_link_libraries(simpsonRuleAlgorithm
         PRIVATE functions util)
 
 add_library(rombergAlgorithm
-        "Source/Assets/Integration Algorithms/rombergAlgorithm.c"
-        "Source/Assets/Integration Algorithms/rombergAlgorithm.h")
+        "Source/Library/Integration Algorithms/rombergAlgorithm.c"
+        "Source/Library/Integration Algorithms/rombergAlgorithm.h")
 
 target_link_libraries(rombergAlgorithm
         PRIVATE functions util dynamicArrays trapezoidRuleAlgorithm)
 
 add_library(monteCarloIntegrationAlgorithm
-        "Source/Assets/Integration Algorithms/monteCarloIntegrationAlgorithm.c"
-        "Source/Assets/Integration Algorithms/monteCarloIntegrationAlgorithm.h")
+        "Source/Library/Integration Algorithms/monteCarloIntegrationAlgorithm.c"
+        "Source/Library/Integration Algorithms/monteCarloIntegrationAlgorithm.h")
 
 target_link_libraries(monteCarloIntegrationAlgorithm
         PRIVATE functions util randomGenerator simpleMaxMinFinderAlgorithm)
@@ -143,29 +143,29 @@ target_link_libraries(monteCarloIntegrationAlgorithm
 #                                          Optimization Algorithms
 
 add_library(goldenSectionOptAlgorithm
-        "Source/Assets/Optimization Algorithms/goldenSectionOptAlgorithm.c"
-        "Source/Assets/Optimization Algorithms/goldenSectionOptAlgorithm.h")
+        "Source/Library/Optimization Algorithms/goldenSectionOptAlgorithm.c"
+        "Source/Library/Optimization Algorithms/goldenSectionOptAlgorithm.h")
 
 target_link_libraries(goldenSectionOptAlgorithm
         PRIVATE functions util)
 
 add_library(gradientDescentAlgorithm
-        "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.c"
-        "Source/Assets/Optimization Algorithms/gradientDescentAlgorithm.h")
+        "Source/Library/Optimization Algorithms/gradientDescentAlgorithm.c"
+        "Source/Library/Optimization Algorithms/gradientDescentAlgorithm.h")
 
 target_link_libraries(gradientDescentAlgorithm
         PRIVATE functions randomGenerator util)
 
 add_library(newtonRaphsonOptAlgorithm
-        "Source/Assets/Optimization Algorithms/newtonRaphsonOptAlgorithm.c"
-        "Source/Assets/Optimization Algorithms/newtonRaphsonOptAlgorithm.h")
+        "Source/Library/Optimization Algorithms/newtonRaphsonOptAlgorithm.c"
+        "Source/Library/Optimization Algorithms/newtonRaphsonOptAlgorithm.h")
 
 target_link_libraries(newtonRaphsonOptAlgorithm
         PRIVATE functions derivNumericalAlgorithm util)
 
 add_library(simpleMaxMinFinderAlgorithm
-        "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.c"
-        "Source/Assets/Optimization Algorithms/simpleMaxMinFinderAlgorithm.h")
+        "Source/Library/Optimization Algorithms/simpleMaxMinFinderAlgorithm.c"
+        "Source/Library/Optimization Algorithms/simpleMaxMinFinderAlgorithm.h")
 
 target_link_libraries(simpleMaxMinFinderAlgorithm
         PRIVATE functions util)
@@ -174,8 +174,8 @@ target_link_libraries(simpleMaxMinFinderAlgorithm
 #                                             Series Algorithms
 
 add_library(fibonacciAlgorithm
-        "Source/Assets/Series Algorithms/fibonacciAlgorithm.c"
-        "Source/Assets/Series Algorithms/fibonacciAlgorithm.h")
+        "Source/Library/Series Algorithms/fibonacciAlgorithm.c"
+        "Source/Library/Series Algorithms/fibonacciAlgorithm.h")
 
 #=======================================================================================================================
 #                                                  Executables
@@ -183,31 +183,31 @@ add_library(fibonacciAlgorithm
 #                                             Function Root Finders
 
 add_executable(bisection
-        "Source/Function Root Finder Algorithms/bisection.c")
+        "Source/CLI Apps/Function Root Finder Algorithms/bisection.c")
 
 target_link_libraries(bisection
         PRIVATE bisectionAlgorithm util)
 
 add_executable(brent
-        "Source/Function Root Finder Algorithms/brent.c")
+        "Source/CLI Apps/Function Root Finder Algorithms/brent.c")
 
 target_link_libraries(brent
         PRIVATE brentAlgorithm util)
 
 add_executable(newtonRaphson
-        "Source/Function Root Finder Algorithms/newtonRaphson.c")
+        "Source/CLI Apps/Function Root Finder Algorithms/newtonRaphson.c")
 
 target_link_libraries(newtonRaphson
         PRIVATE newtonRaphsonAlgorithm util)
 
 add_executable(falsePosition
-        "Source/Function Root Finder Algorithms/falsePosition.c")
+        "Source/CLI Apps/Function Root Finder Algorithms/falsePosition.c")
 
 target_link_libraries(falsePosition
         PRIVATE falsePositionAlgorithm util)
 
 add_executable(secant
-        "Source/Function Root Finder Algorithms/secant.c")
+        "Source/CLI Apps/Function Root Finder Algorithms/secant.c")
 
 target_link_libraries(secant
         PRIVATE secantAlgorithm util)
@@ -216,31 +216,31 @@ target_link_libraries(secant
 #                                            Integration Algorithms
 
 add_executable(riemannSum
-        "Source/Integration Algoritms/riemannSum.c")
+        "Source/CLI Apps/Integration Algoritms/riemannSum.c")
 
 target_link_libraries(riemannSum
         PRIVATE riemannSumAlgorithm util)
 
 add_executable(trapezoidRule
-        "Source/Integration Algoritms/trapezoidRule.c")
+        "Source/CLI Apps/Integration Algoritms/trapezoidRule.c")
 
 target_link_libraries(trapezoidRule
         PRIVATE trapezoidRuleAlgorithm util)
 
 add_executable(simpsonRule
-        "Source/Integration Algoritms/simpsonRule.c")
+        "Source/CLI Apps/Integration Algoritms/simpsonRule.c")
 
 target_link_libraries(simpsonRule
         PRIVATE simpsonRuleAlgorithm util)
 
 add_executable(romberg
-        "Source/Integration Algoritms/romberg.c")
+        "Source/CLI Apps/Integration Algoritms/romberg.c")
 
 target_link_libraries(romberg
         PRIVATE rombergAlgorithm trapezoidRuleAlgorithm util)
 
 add_executable(monteCarlo
-        "Source/Integration Algoritms/monteCarlo.c")
+        "Source/CLI Apps/Integration Algoritms/monteCarlo.c")
 
 target_link_libraries(monteCarlo
         PRIVATE monteCarloIntegrationAlgorithm util)
@@ -249,25 +249,25 @@ target_link_libraries(monteCarlo
 #                                          Optimization Algorithms
 
 add_executable(goldenSectionOpt
-        "Source/Optimization Algorithms/goldenSectionOpt.c")
+        "Source/CLI Apps/Optimization Algorithms/goldenSectionOpt.c")
 
 target_link_libraries(goldenSectionOpt
         PRIVATE goldenSectionOptAlgorithm util)
 
 add_executable(gradientDescent
-        "Source/Optimization Algorithms/gradientDescent.c")
+        "Source/CLI Apps/Optimization Algorithms/gradientDescent.c")
 
 target_link_libraries(gradientDescent
         PRIVATE gradientDescentAlgorithm derivNumericalAlgorithm util)
 
 add_executable(newtonRaphsonOpt
-        "Source/Optimization Algorithms/newtonRaphsonOpt.c")
+        "Source/CLI Apps/Optimization Algorithms/newtonRaphsonOpt.c")
 
 target_link_libraries(newtonRaphsonOpt
         PRIVATE newtonRaphsonOptAlgorithm util)
 
 add_executable(maxMinFinder
-        "Source/Optimization Algorithms/simpleMaxMinFinder.c")
+        "Source/CLI Apps/Optimization Algorithms/simpleMaxMinFinder.c")
 
 target_link_libraries(maxMinFinder
         PRIVATE simpleMaxMinFinderAlgorithm util)

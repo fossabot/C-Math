@@ -1,6 +1,6 @@
-#include "../Assets/Function Root Finder Algorithms/secantAlgorithm.h"
-#include "../Assets/Util/util.h"
-#include "../Assets/Util/_configurations.h"
+#include "../../Library/Function Root Finder Algorithms/newtonRaphsonAlgorithm.h"
+#include "../../Library/Util/util.h"
+#include "../../Library/Util/_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,14 +13,14 @@ int main() {
     // initializing variables
     char *fgetsReturn;
     char expression[INPUT_SIZE];
-    char a[INPUT_SIZE], b[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
+    char x0_c[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
             tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], verbose_c[INPUT_SIZE], tryAgain_c[INPUT_SIZE];
     char *ptr;
     int maxiter = 0, verbose = 0, tryAgain = 0, flag = 1;
-    double a0, b0, ete, ere, tol;
+    double x0, ete, ere, tol;
 
     printf("\t\t\t\tRoot Finder\n"
-           "\t\t\t       Secant Method\n");
+           "\t\t\t  Newton-Raphson Method\n");
 
     START: //LABEL for goto
     // getting required data from user
@@ -47,16 +47,13 @@ int main() {
         } // end of if goto
     } //end of interval check
 
-    INTERVAL: //LABEL for goto
-    printf("Choose an interval [a, b]:\n");
-
-    A: //LABEL for goto
-    printf("Enter a:\n");
-    fgetsReturn = fgets(a, sizeof(a), stdin);
+    X: //LABEL for goto
+    printf("Enter the starting point (x0):\n");
+    fgetsReturn = fgets(x0_c, sizeof(x0_c), stdin);
 
     // check input
     if (*fgetsReturn == '\n') {
-        printf("Error: you must enter a value for 'a'.\n");
+        printf("Error: you must enter a starting point (x0).\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
@@ -68,59 +65,13 @@ int main() {
         tryAgain = strtol(tryAgain_c, &ptr, 10);
 
         if (tryAgain) {
-            goto A;
-        } else {
-            Exit(EXIT_FAILURE);
-        } // end of if goto
-    } //end of input check
-
-    a0 = strtod(a, &ptr);
-
-    B: //LABEL for goto
-    printf("Enter b:\n");
-    fgetsReturn = fgets(b, sizeof(b), stdin);
-
-    // check input
-    if (*fgetsReturn == '\n') {
-        printf("Error: you must enter a value for 'b'.\n");
-
-        // a chance to correct your mistake :)
-        printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
-
-        if (*fgetsReturn == '\n') {
-            Exit(EXIT_FAILURE);
-        } // end of if
-        tryAgain = strtol(tryAgain_c, &ptr, 10);
-
-        if (tryAgain) {
-            goto B;
-        } else {
-            Exit(EXIT_FAILURE);
-        } // end of if goto
-    } //end of input check
-
-    b0 = strtod(b, &ptr);
-
-    // check interval
-    if (a0 == b0) {
-        printf("Error: improper interval! 'a' and 'b' can't have same values.\n");
-
-        // a chance to correct your mistake :)
-        printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
-
-        if (*fgetsReturn == '\n') {
-            Exit(EXIT_FAILURE);
-        } // end of if
-        tryAgain = strtol(tryAgain_c, &ptr, 10);
-
-        if (tryAgain) {
-            goto INTERVAL;
+            goto X;
         } else {
             Exit(EXIT_FAILURE);
         } // end of if goto
     } //end of interval check
+
+    x0 = strtod(x0_c, &ptr);
 
     ETE: //LABEL for goto
     printf("Enter the estimated true error limit: (enter 0 if you don't want to set an ETE limit):\n");
@@ -248,14 +199,13 @@ int main() {
     } // end of if verbose
 
     // calculation
-    double x = secant(expression, a0, b0, ete, ere, tol, (unsigned int) maxiter, verbose, &flag);
+    double x = newtonRaphson(expression, x0, ete, ere, tol, (unsigned int) maxiter, verbose, &flag);
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method solved the equation %sfor x = %g in the interval [%g, %g].\n\n", expression, x, a0,
-               b0);
+        printf("\nThis method solved the equation %sfor x = %g .\n\n", expression, x);
     } else { // if no answer
-        printf("\nThis method couldn't find the root of equation %sin given interval"
+        printf("\nThis method couldn't find the root of equation %s"
                "the last calculated value for x is: %g .\n\n", expression, x);
     } // end of if flag
 
@@ -275,4 +225,3 @@ int main() {
     } // end of if goto
     return EXIT_SUCCESS;
 } // end of main
-

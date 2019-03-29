@@ -1,6 +1,6 @@
-#include "../Assets/Function Root Finder Algorithms/newtonRaphsonAlgorithm.h"
-#include "../Assets/Util/util.h"
-#include "../Assets/Util/_configurations.h"
+#include "../../Library/Optimization Algorithms/newtonRaphsonOptAlgorithm.h"
+#include "../../Library/Util/util.h"
+#include "../../Library/Util/_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,12 +19,12 @@ int main() {
     int maxiter = 0, verbose = 0, tryAgain = 0, flag = 1;
     double x0, ete, ere, tol;
 
-    printf("\t\t\t\tRoot Finder\n"
-           "\t\t\t  Newton-Raphson Method\n");
+    printf("\t\t\t\tOptimization  Algorithm\n"
+           "\t\t\t\t Newton-Raphson Method\n");
 
     START: //LABEL for goto
     // getting required data from user
-    printf("\nEnter the equation you want to solve (example: x^2-3):\n");
+    printf("\nEnter the equation you want to optimize (example: x^2-3):\n");
     fgetsReturn = fgets(expression, sizeof(expression), stdin);
 
     // check input
@@ -199,14 +199,14 @@ int main() {
     } // end of if verbose
 
     // calculation
-    double x = newtonRaphson(expression, x0, ete, ere, tol, (unsigned int) maxiter, verbose, &flag);
+    double x = newtonRaphsonOptimization(expression, x0, ete, ere, tol, (unsigned int) maxiter, verbose, &flag);
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method solved the equation %sfor x = %g .\n\n", expression, x);
+        printf("\nThis method has found the extremum of the function %sfor x = %g .\n\n", expression, x);
     } else { // if no answer
-        printf("\nThis method couldn't find the root of equation %s"
-               "the last calculated value for x is: %g .\n\n", expression, x);
+        printf("\nThis method couldn't find the extremum of function %s"
+               "the last calculated value for extremum is: %g .\n\n", expression, x);
     } // end of if flag
 
     // do you want to start again??
@@ -225,3 +225,5 @@ int main() {
     } // end of if goto
     return EXIT_SUCCESS;
 } // end of main
+
+

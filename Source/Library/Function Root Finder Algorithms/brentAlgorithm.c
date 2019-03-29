@@ -83,7 +83,7 @@ double brent(const char *expression, double a, double b, double tol, unsigned in
             // Termination Criterion
             if (tol != 0 && error < tol) {
                 if (verbose) {
-                    printf("\nIn this iteration [#%d]: |b - a| < tolerance [%g < %g],\n"
+                    printf("\nIn this iteration [#%d]: |b - a| < tolerance -> [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", iter - 1, error, tol);
                 } // end if(verbose)
 

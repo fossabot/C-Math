@@ -1,6 +1,6 @@
-#include "../Assets/Integration Algorithms/riemannSumAlgorithm.h"
-#include "../Assets/Util/util.h"
-#include "../Assets/Util/_configurations.h"
+#include "../../Library/Integration Algorithms/trapezoidRuleAlgorithm.h"
+#include "../../Library/Util/util.h"
+#include "../../Library/Util/_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,14 +13,13 @@ int main() {
     // initializing variables
     char *fgetsReturn;
     char expression[INPUT_SIZE];
-    char a[INPUT_SIZE], b[INPUT_SIZE], n_c[INPUT_SIZE], options_c[INPUT_SIZE], verbose_c[INPUT_SIZE],
-            tryAgain_c[INPUT_SIZE];
+    char a[INPUT_SIZE], b[INPUT_SIZE], n_c[INPUT_SIZE], verbose_c[INPUT_SIZE], tryAgain_c[INPUT_SIZE];
     char *ptr;
-    int n = 0, options = 0, verbose = 0, tryAgain = 0;
+    int n = 0, verbose = 0, tryAgain = 0;
     double a0, b0;
 
     printf("\t\t\t\tIntegral Calculator\n"
-           "\t\t\t\t Riemann Sum Rule\n");
+           "\t\t\t\t  Trapezoid Rule\n");
 
     START: //LABEL for goto
     // getting required data from user
@@ -123,13 +122,13 @@ int main() {
     } //end of interval check
 
     NUMBER: //LABEL for goto
-    printf("Enter the number of rectangles you want to create for integration:\n");
+    printf("Enter the number of trapezoids you want to create for integration:\n");
     fgetsReturn = fgets(n_c, sizeof(n_c), stdin);
     n = strtol(n_c, &ptr, 10);
 
     // check n to be more than zero
     if (n <= 0 || *fgetsReturn == '\n') {
-        printf("Error: number of rectangles must be more than zero!\n");
+        printf("Error: number of trapezoids must be more than zero!\n");
 
         // a chance to correct your mistake :)
         printf("\nDo you want to try again? {0: no, 1: yes}\n");
@@ -146,31 +145,6 @@ int main() {
             Exit(EXIT_FAILURE);
         } // end of if goto
     } // end of ete check
-
-    TYPE: //LABEL for goto
-    printf("Select type of Riemann integration rule {Left point: 0, Right point: 1, Mid point: 2}:\n");
-    fgetsReturn = fgets(options_c, sizeof(options_c), stdin);
-    options = strtol(options_c, &ptr, 10);
-
-    // check options value
-    if ((options != 0 && options != 1 && options != 2) || *fgetsReturn == '\n') {
-        printf("Error: wrong type number! you have to enter either 0 or 1 or 2 .\n");
-
-        // a chance to correct your mistake :)
-        printf("\nDo you want to try again? {0: no, 1: yes}\n");
-        fgetsReturn = fgets(tryAgain_c, sizeof(tryAgain_c), stdin);
-
-        if (*fgetsReturn == '\n') {
-            Exit(EXIT_FAILURE);
-        } // end of if
-        tryAgain = strtol(tryAgain_c, &ptr, 10);
-
-        if (tryAgain) {
-            goto TYPE;
-        } else {
-            Exit(EXIT_FAILURE);
-        } // end of if goto
-    }
 
     VERBOSE: //LABEL for goto
     printf("Do you want to see steps? {0: no, 1: yes}:\n");
@@ -198,10 +172,10 @@ int main() {
     } // end of if verbose
 
     // calculation
-    double area = riemannSum(expression, a0, b0, (unsigned int) n, options, verbose);
+    double area = trapezoidRule(expression, a0, b0, (unsigned int) n, verbose);
 
     // show result
-    printf("\nEstimated area under the function %sin the interval [%lf, %lf] is equal to: %lf .\n\n", expression,
+    printf("\nEstimated area under the function %sin the interval [%g, %g] is equal to: %g .\n\n", expression,
            a0, b0, area);
 
     // do you want to start again??

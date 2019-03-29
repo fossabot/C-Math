@@ -1,6 +1,6 @@
-#include "../Assets/Optimization Algorithms/gradientDescentAlgorithm.h"
-#include "../Assets/Util/util.h"
-#include "../Assets/Util/_configurations.h"
+#include "../../Library/Optimization Algorithms/gradientDescentAlgorithm.h"
+#include "../../Library/Util/util.h"
+#include "../../Library/Util/_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
