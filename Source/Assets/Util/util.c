@@ -3,10 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// a macro to swap any type,
-// care must be taken while using this macro
-#define swap(a, b) {a = a + b; b = a - b; a = a - b}
-
 void swapDouble(double *a, double *b) {
     *a = *a + *b;
     *b = *a - *b;
