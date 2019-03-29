@@ -10,7 +10,7 @@ double brent(const char *expression, double a, double b, double tol, unsigned in
 
     // fix interval reverse
     if (a > b) {
-        swapDouble(&a, &b);
+        EZ_SWAP(a, b);
     } // end of if
 
     // check interval
@@ -41,14 +41,19 @@ double brent(const char *expression, double a, double b, double tol, unsigned in
     double fa = function_1_arg(expression, a);
     double fb = function_1_arg(expression, b);
 
-    // if y1 and y2 have different signs, then we can use brent method
+    // if y1 and y2 have different signs, so we can use brent method
+    // because when we bracket a function in two end of an interval (a, b)
+    // if and only if f(a)f(b) < 0, function should have at least 1 root in that interval,
+    // assume f(a) > 0, then f(b) must be smaller than zero to hold the equation f(a)f(b) < 0
+    // it's clear that the curve of function should intersect x-axis at some point between [a, b]
+    // in order to move from f(a) > 0 to f(b) < 0
     if (fa * fb < 0) {
 
         // if magnitude of f(a) is less than magnitude of f(b)
         // swap a with b and fa with fb
         if (fabs(fa) < fabs(fb)) {
-            swapDouble(&a, &b);
-            swapDouble(&fa, &fb);
+            EZ_SWAP(a, b);
+            EZ_SWAP(fa, fb);
         } // end of if
 
         // initializing variables
