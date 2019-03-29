@@ -25,5 +25,5 @@ int fibonacci(unsigned int n) {
      */
 
 
-    return (int) round((pow(1 / PHI, n) - (pow(-PHI, n))) / SQRT5);
+    return (int) round((pow(PHI, n) - (pow(-1/PHI, n))) / SQRT5);
 }
