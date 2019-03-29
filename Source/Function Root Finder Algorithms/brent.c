@@ -206,7 +206,7 @@ int main() {
                b0);
     } else { // if no answer
         printf("\nThis method couldn't find the root of equation %sin given interval"
-               "the last calculated value for x is: %g .\n\n", expression, x);
+               "the last calculated value for root is: x = %g .\n\n", expression, x);
     } // end of if flag
 
     // do you want to start again??
