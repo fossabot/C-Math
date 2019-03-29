@@ -188,6 +188,12 @@ add_executable(bisection
 target_link_libraries(bisection
         PRIVATE bisectionAlgorithm util)
 
+add_executable(brent
+        "Source/Function Root Finder Algorithms/brent.c")
+
+target_link_libraries(brent
+        PRIVATE brentAlgorithm util)
+
 add_executable(newtonRaphson
         "Source/Function Root Finder Algorithms/newtonRaphson.c")
 
