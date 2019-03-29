@@ -109,6 +109,13 @@ double centralFirstDerivative_1_arg(const char *expression, double x, double del
 } // end of centralFirstDerivative_1_arg function
 
 double centralSecondDerivative_1_arg(const char *expression, double x, double delta, int accuracy) {
+    /*
+     * accuracy     defines the precision of algorithm, available accuracy order {2, 4, 6, 8}
+     *
+     * NOTE: it's good to use delta in range [1e-8, 1e-16] for this function
+     * [double floating point accuracy IEEE 754-1985]
+     * DX is defined DX = 1e-8 in _configurations.h
+     */
 
     // check accuracy
     if (accuracy != SECOND_ORDER_ACCURACY && accuracy != FOURTH_ORDER_ACCURACY && accuracy != SIXTH_ORDER_ACCURACY
@@ -157,6 +164,11 @@ double centralSecondDerivative_1_arg(const char *expression, double x, double de
 } // end of centralSecondDerivative_1_arg function
 
 double centralThirdDerivative_1_arg(const char *expression, double x, double delta, int accuracy) {
+    /*
+     * NOTE: it's good to use delta in range [1e-3, 1e-5] for this function
+     * [double floating point accuracy IEEE 754-1985]
+     * DX_SECOND is defined DX = 1e-4 in _configurations.h
+     */
 
     // check accuracy
     if (accuracy != SECOND_ORDER_ACCURACY && accuracy != FOURTH_ORDER_ACCURACY && accuracy != SIXTH_ORDER_ACCURACY) {
@@ -204,6 +216,13 @@ double centralThirdDerivative_1_arg(const char *expression, double x, double del
 } // end of centralThirdDerivative_1_arg function
 
 double centralFourthDerivative_1_arg(const char *expression, double x, double delta, int accuracy) {
+    /*
+     * accuracy     defines the precision of algorithm, available accuracy order {2, 4, 6}
+     *
+     * NOTE: it's good to use delta in range [1e-3, 1e-4] for this function
+     * [double floating point accuracy IEEE 754-1985]
+     * DX is defined DX = 1e-4 in _configurations.h
+     */
 
     // check accuracy
     if (accuracy != SECOND_ORDER_ACCURACY && accuracy != FOURTH_ORDER_ACCURACY && accuracy != SIXTH_ORDER_ACCURACY) {
@@ -246,6 +265,13 @@ double centralFourthDerivative_1_arg(const char *expression, double x, double de
 } // end of centralFourthDerivative_1_arg function
 
 double centralFifthDerivative_1_arg(const char *expression, double x, double delta, int accuracy) {
+    /*
+     * accuracy     defines the precision of algorithm, available accuracy order {2, 4, 6}
+     *
+     * NOTE: it's good to use delta in range [1e-1, 1e-3] for this function
+     * [double floating point accuracy IEEE 754-1985]
+     * DX_THIRD is defined DX = 1e-2 in _configurations.h
+     */
 
     // check accuracy
     if (accuracy != SECOND_ORDER_ACCURACY && accuracy != FOURTH_ORDER_ACCURACY && accuracy != SIXTH_ORDER_ACCURACY) {
@@ -300,6 +326,13 @@ double centralFifthDerivative_1_arg(const char *expression, double x, double del
 } // end of centralFifthDerivative_1_arg function
 
 double centralSixthDerivative_1_arg(const char *expression, double x, double delta, int accuracy) {
+    /*
+     * accuracy     defines the precision of algorithm, available accuracy order {2, 4, 6}
+     *
+     * NOTE: it's good to use delta in range [1e-1, 1e-2] for this function
+     * [double floating point accuracy IEEE 754-1985]
+     * DX_THIRD is defined DX = 1e-2 in _configurations.h
+     */
 
     // check accuracy
     if (accuracy != SECOND_ORDER_ACCURACY && accuracy != FOURTH_ORDER_ACCURACY && accuracy != SIXTH_ORDER_ACCURACY) {

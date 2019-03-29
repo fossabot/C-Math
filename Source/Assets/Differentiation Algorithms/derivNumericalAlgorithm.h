@@ -12,7 +12,6 @@
 
 
 double firstDerivative_1_arg(const char *expression, double x, double delta, int options);
-
 /*
  * This function estimates a numerical derivative for a given one argument function at x
  *
@@ -25,7 +24,6 @@ double firstDerivative_1_arg(const char *expression, double x, double delta, int
  */
 
 double centralFirstDerivative_1_arg(const char *expression, double x, double delta, int accuracy);
-
 /*
  * This function estimates a numerical derivative for a given one argument function at point x
  * with "central" finite difference method
@@ -43,7 +41,6 @@ double centralFirstDerivative_1_arg(const char *expression, double x, double del
  */
 
 double centralSecondDerivative_1_arg(const char *expression, double x, double delta, int accuracy);
-
 /*
  * accuracy     defines the precision of algorithm, available accuracy order {2, 4, 6, 8}
  *
@@ -53,7 +50,6 @@ double centralSecondDerivative_1_arg(const char *expression, double x, double de
  */
 
 double centralThirdDerivative_1_arg(const char *expression, double x, double delta, int accuracy);
-
 /*
  * NOTE: it's good to use delta in range [1e-3, 1e-5] for this function
  * [double floating point accuracy IEEE 754-1985]
@@ -61,7 +57,6 @@ double centralThirdDerivative_1_arg(const char *expression, double x, double del
  */
 
 double centralFourthDerivative_1_arg(const char *expression, double x, double delta, int accuracy);
-
 /*
  * accuracy     defines the precision of algorithm, available accuracy order {2, 4, 6}
  *
@@ -71,13 +66,12 @@ double centralFourthDerivative_1_arg(const char *expression, double x, double de
  */
 
 double centralFifthDerivative_1_arg(const char *expression, double x, double delta, int accuracy);
-
 /*
  * accuracy     defines the precision of algorithm, available accuracy order {2, 4, 6}
  *
  * NOTE: it's good to use delta in range [1e-1, 1e-3] for this function
  * [double floating point accuracy IEEE 754-1985]
- * DX_THIRD is defined DX = 1e-8 in _configurations.h
+ * DX_THIRD is defined DX = 1e-2 in _configurations.h
  */
 
 double centralSixthDerivative_1_arg(const char *expression, double x, double delta, int accuracy);
