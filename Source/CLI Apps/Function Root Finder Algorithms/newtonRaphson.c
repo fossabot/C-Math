@@ -199,14 +199,14 @@ int main() {
     } // end of if verbose
 
     // calculation
-    double x = newtonRaphson(expression, x0, ete, ere, tol, (unsigned int) maxiter, verbose, &flag);
+    double x = ASL_newtonRaphson_root(expression, x0, ete, ere, tol, (unsigned int) maxiter, verbose, &flag);
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method solved the equation %sfor x = %g .\n\n", expression, x);
+        printf("\nThis method solved the function %sfor x = %g i.\n\n", expression, x);
     } else { // if no answer
-        printf("\nThis method couldn't find the root of equation %s"
-               "the last calculated value for x is: %g .\n\n", expression, x);
+        printf("\nThis method couldn't find the root of the function %sin the given interval"
+               "the last calculated value for root is: x = %g .\n\n", expression, x);
     } // end of if flag
 
     // do you want to start again??

@@ -198,7 +198,7 @@ int main() {
     } // end of if verbose
 
     // calculation
-    double x = brent(expression, a0, b0, tol, (unsigned int) maxiter, verbose, &flag);
+    double x = ASL_brent_root(expression, a0, b0, tol, (unsigned int) maxiter, verbose, &flag);
 
     // if there was an answer
     if (flag) {
