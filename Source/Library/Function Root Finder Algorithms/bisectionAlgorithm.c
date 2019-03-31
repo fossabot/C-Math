@@ -1,3 +1,36 @@
+/* Source/Library/Function Root Finder Algorithms/bisectionAlgorithm.c
+ *
+ * ASL - Azadeh Scientific Library in C
+ *
+ * Copyright (C) 2019 Mohammad Mahdi Bgahbani Pourvahid
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ * claim that you wrote the original software. If you use this software
+ * in a product, an acknowledgement in the product documentation would be
+ * appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ * misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ */
+
 #include "bisectionAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/util.h"
@@ -7,14 +40,57 @@
 #include <stdlib.h>
 #include <math.h>
 
-double bisection(const char *expression, double a, double b, double ete, double ere, double tol, unsigned int maxiter,
-                 int verbose, int *state) {
+double ASL_bisection_root(const char *expression, double a, double b, double ete, double ere, double tol,
+                          unsigned int maxiter,
+                          int verbose, int *state) {
     /*
      * The Bisection method in mathematics is a root-finding method that repeatedly bisects an interval and then selects
      * a sub-interval in which a root must lie for further processing. It is a very simple and robust method, but it is
      * also relatively slow. Because of this, it is often used to obtain a rough approximation to a solution which is
      * then used as a starting point for more rapidly converging methods. The method is also called the interval
      * halving method, the binary search method, or the dichotomy method.
+     *
+     * PURPOSE:
+     * ASL_bisection_root seeks a root of a function F(X) in an interval [A, B].
+     *
+     * DISCUSSION:
+     * This function assumes that F(A)*F(B) < 0.
+     *
+     * LICENSING:
+     * This code is distributed under the GNU Affero General Public License v3.0 (AGPL).
+     *
+     * Permissions of this strongest copyleft license are conditioned on making available complete source code
+     * of licensed works and modifications, which include larger works using a licensed work, under the same license.
+     * Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+     * When a modified version is used to provide a service over a network, the complete source code of
+     * the modified version must be made available.
+     *
+     * AGPL Permissions:
+     * Commercial use
+     * Modification
+     * Distribution
+     * Patent use
+     * Private use
+     *
+     * AGPL Limitations:
+     * Liability
+     * Warranty
+     *
+     * AGPL Conditions:
+     * License and copyright notice
+     * State changes
+     * Disclose source
+     * Network use is distribution
+     * Same license
+     *
+     * AUTHOR(S):
+     * Mohmmad Mahdi Baghbani Pourvahid
+     *
+     * MODIFIED:
+     * 31 March 2019
+     *
+     * REFERENCE:
+     * https://en.wikipedia.org/wiki/Bisection_method
      *
      * ARGUMENTS:
      * expressions  the function expression, it must be a string array like "x^2+1"
@@ -26,7 +102,6 @@ double bisection(const char *expression, double a, double b, double ete, double 
      * maxiter      maximum iteration threshold
      * verbose      show process {0: no, 1: yes}
      * state        is answer found or not, will set value of state to 0 if no answers been found
-     *
      *
      */
 
@@ -83,7 +158,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
 
         return b;
     } else if (fa * fb < 0) {
-        // if y1 and y2 have different signs, so we can use bisection method
+        // if y1 and y2 have different signs, so we can use ASL_bisection_root method
         // because when we bracket a function in two end of an interval (a, b)
         // if and only if f(a)f(b) < 0, function should have at least 1 root in that interval,
         // assume f(a) > 0, then f(b) must be smaller than zero to hold the equation f(a)f(b) < 0
@@ -143,7 +218,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
             } // end if(verbose)
 
             // interval reduction
-            // in this part of bisection's algorithm we are trying to reduce
+            // in this part of ASL_bisection_root's algorithm we are trying to reduce
             // interval for next iteration, we need to locate the root's
             // position between [a, x, b], by a simple test f(a)f(x) ?< 0
             // and then re-bracket the domain
@@ -216,7 +291,7 @@ double bisection(const char *expression, double a, double b, double ete, double 
         } // end of if
         return x;
 
-    } else { // if y1 and y2 have same signs, then we can't use bisection method
+    } else { // if y1 and y2 have same signs, then we can't use ASL_bisection_root method
         if (verbose) {
             printf("Incorrect bracketing of function domain!\n"
                    "keep in mind that the inequality f(a) * f(b) < 0 must be correct\n"
@@ -226,4 +301,4 @@ double bisection(const char *expression, double a, double b, double ete, double 
         *state = HAS_NO_ROOT;
         return -1;
     } // end of if ... else
-} // end of bisection function
+} // end of ASL_bisection_root function

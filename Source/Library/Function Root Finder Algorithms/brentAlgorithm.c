@@ -1,3 +1,36 @@
+/* Source/Library/Function Root Finder Algorithms/brentAlgorithm.c
+ *
+ * ASL - Azadeh Scientific Library in C
+ *
+ * Copyright (C) 2019 Mohammad Mahdi Bgahbani Pourvahid
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ * claim that you wrote the original software. If you use this software
+ * in a product, an acknowledgement in the product documentation would be
+ * appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ * misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ */
+
 #include "brentAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/util.h"
@@ -7,7 +40,68 @@
 #include <stdlib.h>
 #include <math.h>
 
-double brent(const char *expression, double a, double b, double tol, unsigned int maxiter, int verbose, int *state) {
+double ASL_brent_root(const char *expression, double a, double b, double tol, unsigned int maxiter, int verbose,
+                      int *state) {
+    /*
+     * In numerical analysis, Brent's method is a root-finding algorithm combining the bisection method,
+     * the secant method and inverse quadratic interpolation. It has the reliability of bisection but it can be
+     * as quick as some of the less-reliable methods. The algorithm tries to use the potentially fast-converging
+     * secant method or inverse quadratic interpolation if possible, but it falls back to the more robust
+     * bisection method if necessary. Brent's method is due to Richard Brent and builds on an earlier algorithm
+     * by Theodorus Dekker. Consequently, the method is also known as the Brent–Dekker method. 
+     *
+     * PURPOSE:
+     * ASL_brent_root seeks a root of a function F(X) in an interval [A, B].
+     *
+     * DISCUSSION:
+     * This function assumes that F(A)*F(B) < 0.
+     *
+     * LICENSING:
+     * This code is distributed under the GNU Affero General Public License v3.0 (AGPL).
+     *
+     * Permissions of this strongest copyleft license are conditioned on making available complete source code
+     * of licensed works and modifications, which include larger works using a licensed work, under the same license.
+     * Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+     * When a modified version is used to provide a service over a network, the complete source code of
+     * the modified version must be made available.
+     *
+     * AGPL Permissions:
+     * Commercial use
+     * Modification
+     * Distribution
+     * Patent use
+     * Private use
+     *
+     * AGPL Limitations:
+     * Liability
+     * Warranty
+     *
+     * AGPL Conditions:
+     * License and copyright notice
+     * State changes
+     * Disclose source
+     * Network use is distribution
+     * Same license
+     *
+     * AUTHOR(S):
+     * Mohmmad Mahdi Baghbani Pourvahid
+     *
+     * MODIFIED:
+     * 31 March 2019
+     *
+     * REFERENCE:
+     * https://en.wikipedia.org/wiki/Brent's_method
+     *
+     * ARGUMENTS:
+     * expressions  the function expression, it must be a string array like "x^2+1"
+     * a            starting point of interval [a, b]
+     * b            ending point of interval [a, b]
+     * tol          tolerance error
+     * maxiter      maximum iteration threshold
+     * verbose      show process {0: no, 1: yes}
+     * state        is answer found or not, will set value of state to 0 if no answers been found
+     *
+     */
 
     // fix interval reverse
     if (a > b) {
@@ -100,8 +194,8 @@ double brent(const char *expression, double a, double b, double tol, unsigned in
                 // use inverse quadratic interpolation
                 // I can explain it here but ... em ... why not searching it at wikipedia?
                 s = (a * fb * fc / ((fa - fb) * (fa - fc))) +
-                    (b * fa * fc / ((fb - fa) * (fb - fc))) +
-                    (c * fa * fb / ((fc - fa) * (fc - fb)));
+                        (b * fa * fc / ((fb - fa) * (fb - fc))) +
+                        (c * fa * fb / ((fc - fa) * (fc - fb)));
             } else {
                 if (verbose) {
                     printf("In this iteration [%d]: using secant method.\n", iter);
@@ -116,10 +210,10 @@ double brent(const char *expression, double a, double b, double tol, unsigned in
             // it's just a condition testing
             // that is required by brent method
             if (((s < (3 * a + b) * 0.25) || (s > b)) ||
-                (flag && fabs(s - b) >= fabs(b - c) * 0.5) ||
-                (!flag && fabs(s - b) >= fabs(c - d) * 0.5) ||
-                (flag && fabs(b - c) < tol) ||
-                (!flag && fabs(c - d) < tol)) {
+                    (flag && fabs(s - b) >= fabs(b - c) * 0.5) ||
+                    (!flag && fabs(s - b) >= fabs(c - d) * 0.5) ||
+                    (flag && fabs(b - c) < tol) ||
+                    (!flag && fabs(c - d) < tol)) {
 
                 if (verbose) {
                     printf("then using bisection method.\n");
@@ -208,4 +302,4 @@ double brent(const char *expression, double a, double b, double tol, unsigned in
         *state = HAS_NO_ROOT;
         return -1;
     } // end of if ... else
-} // end of brent function
+} // end of ASL_brent_root function
