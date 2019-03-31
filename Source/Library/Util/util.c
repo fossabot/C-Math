@@ -4,42 +4,42 @@
 
 // common swap functions
 void swapSizeT(size_t *a, size_t *b) {
-    *a = *a + *b;
-    *b = *a - *b;
-    *a = *a - *b;
+    size_t temp = *a;
+    *a = *b;
+    *b = temp;
 } // end of swapSizeT function
 
 void swapSInt(short int *a, short int *b) {
-    *a = *a + *b;
-    *b = *a - *b;
-    *a = *a - *b;
+    short int temp = *a;
+    *a = *b;
+    *b = temp;
 } // end of swapSInt function
 
 void swapInt(int *a, int *b) {
-    *a = *a + *b;
-    *b = *a - *b;
-    *a = *a - *b;
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 } // end of swapInt function
 
 void swapLInt(long int *a, long int *b) {
-    *a = *a + *b;
-    *b = *a - *b;
-    *a = *a - *b;
+    long int temp = *a;
+    *a = *b;
+    *b = temp;
 } // end of swapLint function
 
 void swapFloat(float *a, float *b) {
-    *a = *a + *b;
-    *b = *a - *b;
-    *a = *a - *b;
+    float temp = *a;
+    *a = *b;
+    *b = temp;
 } // end of swapFloat function
 
 void swapDouble(double *a, double *b) {
-    *a = *a + *b;
-    *b = *a - *b;
-    *a = *a - *b;
+    double temp = *a;
+    *a = *b;
+    *b = temp;
 } // end of swapDouble function
 
-// exit function for c-math
+// exit function
 void Exit(int exitCode) {
     /*
      * This function's jop is to prevent instant terminal exit

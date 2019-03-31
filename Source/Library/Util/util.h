@@ -3,11 +3,6 @@
 
 #include <stdlib.h>
 
-// this macro will swap anything, regardless of it's type
-// care must be taken while using this macro
-#define EZ_SWAP(a, b) {(a) = (a) + (b); (b) = (a) - (b); (a) = (a) - (b);};
-
-
 // common swap functions
 void swapSizeT(size_t *a, size_t *b);
 
