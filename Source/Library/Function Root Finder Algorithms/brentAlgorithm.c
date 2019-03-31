@@ -11,7 +11,7 @@ double brent(const char *expression, double a, double b, double tol, unsigned in
 
     // fix interval reverse
     if (a > b) {
-        EZ_SWAP(a, b);
+        swapDouble(&a, &b);
     } // end of if
 
     // check interval
@@ -47,15 +47,17 @@ double brent(const char *expression, double a, double b, double tol, unsigned in
     double fb = function_1_arg(expression, b);
 
     // check interval edges
-    if (fa == 0) {
+    // if any of them are smaller than tolerance
+    // then it's root of the function
+    if (fabs(fa) <= tol) {
         if (verbose) {
             printf("Root has been found at the start of interval [a, b].\n");
         } // end if(verbose)
 
         return a;
-    } else if (fb == b) {
+    } else if (fabs(fb) <= tol) {
         if (verbose) {
-            printf("Root has been found at the start of interval [a, b].\n");
+            printf("Root has been found at the end of interval [a, b].\n");
         } // end if(verbose)
 
         return b;
@@ -70,8 +72,8 @@ double brent(const char *expression, double a, double b, double tol, unsigned in
         // if magnitude of f(a) is less than magnitude of f(b)
         // swap a with b and fa with fb
         if (fabs(fa) < fabs(fb)) {
-            EZ_SWAP(a, b);
-            EZ_SWAP(fa, fb);
+            swapDouble(&a, &b);
+            swapDouble(&fa, &fb);
         } // end of if
 
         // initializing variables
@@ -125,7 +127,7 @@ double brent(const char *expression, double a, double b, double tol, unsigned in
 
                 // bisection method
                 // wik ... ok ok you already knew what i'm going to say
-                s = (a + b) * 0.5;
+                s = (a + b) / 2;
 
                 // set flag
                 flag = 1;
@@ -192,7 +194,7 @@ double brent(const char *expression, double a, double b, double tol, unsigned in
         // error has been set but reaches to maxiter, means algorithms didn't converge to a root
         if (tol != 0) {
             // set state to 0 (false)
-            *state = 0;
+            *state = HAS_NO_ROOT;
         } // end of if
         return s;
 
