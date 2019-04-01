@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-int fibonacci(unsigned int n) {
+long long int fibonacci(int n) {
     /*
      * In mathematics, the Fibonacci numbers, commonly denoted Fn form a sequence, called the Fibonacci sequence,
      * such that each number is the sum of the two preceding ones, starting from 0 and 1.
@@ -22,6 +22,5 @@ int fibonacci(unsigned int n) {
      *
      */
 
-
-    return (int) round((pow(ASL_PHI, n) - (pow(-1 / ASL_PHI, n))) / ASL_SQRT5);
+    return (long long int) round((pow(ASL_PHI, n) - (pow(-1 / ASL_PHI, n))) / ASL_SQRT5);
 }
