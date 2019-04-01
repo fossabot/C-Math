@@ -1,6 +1,6 @@
 #include "../../Library/Function Root Finder Algorithms/brentAlgorithm.h"
 #include "../../Library/Util/util.h"
-#include "../../Library/Util/_configurations.h"
+#include "../../Library/Util/configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,7 +16,7 @@ int main() {
     char a[INPUT_SIZE], b[INPUT_SIZE], tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], verbose_c[INPUT_SIZE],
             tryAgain_c[INPUT_SIZE];
     char *ptr;
-    int maxiter = 0, verbose = 0, tryAgain = 0, flag = HAS_A_ROOT;
+    int maxiter = 0, verbose = 0, tryAgain = 0, flag = ASL_HAS_A_ROOT;
     double a0, b0, tol;
 
     printf("\t\t\t\tRoot Finder\n"
@@ -202,11 +202,12 @@ int main() {
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method solved the function %sfor x = %g in the interval [%g, %g].\n\n", expression, x, a0,
+        printf("\nThis method solved the function %s"
+               "for x = %g in the interval [%g, %g].\n\n", expression, x, a0,
                b0);
     } else { // if no answer
-        printf("\nThis method couldn't find the root of the function %sin the given interval"
-               "the last calculated value for root is: x = %g .\n\n", expression, x);
+        printf("\nThis method couldn't find the root of the function %s"
+               "in the given interval the last calculated value for root is: x = %g .\n\n", expression, x);
     } // end of if flag
 
     // do you want to start again??

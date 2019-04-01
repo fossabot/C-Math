@@ -1,6 +1,6 @@
 #include "../../Library/Integration Algorithms/trapezoidRuleAlgorithm.h"
 #include "../../Library/Util/util.h"
-#include "../../Library/Util/_configurations.h"
+#include "../../Library/Util/configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -175,8 +175,8 @@ int main() {
     double area = trapezoidRule(expression, a0, b0, (unsigned int) n, verbose);
 
     // show result
-    printf("\nEstimated area under the function %sin the interval [%g, %g] is equal to: %g .\n\n", expression,
-           a0, b0, area);
+    printf("\nEstimated area under the function %s"
+           "in the interval [%g, %g] is equal to: %g .\n\n", expression, a0, b0, area);
 
     // do you want to start again??
     printf("\nDo you want to start again? {0: no, 1: yes}\n");

@@ -1,6 +1,6 @@
 #include "../../Library/Function Root Finder Algorithms/falsePositionAlgorithm.h"
 #include "../../Library/Util/util.h"
-#include "../../Library/Util/_configurations.h"
+#include "../../Library/Util/configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -279,11 +279,12 @@ int main() {
 
     // if there was an answer
     if (flag) {
-        printf("\nThis method solved the function %sfor x = %g in the interval [%g, %g].\n\n", expression, x, a0,
+        printf("\nThis method solved the function %s"
+               "for x = %g in the interval [%g, %g].\n\n", expression, x, a0,
                b0);
     } else { // if no answer
-        printf("\nThis method couldn't find the root of the function %sin the given interval"
-               "the last calculated value for root is: x = %g .\n\n", expression, x);
+        printf("\nThis method couldn't find the root of the function %s"
+               "in the given interval the last calculated value for root is: x = %g .\n\n", expression, x);
     } // end of if flag
 
     // do you want to start again??

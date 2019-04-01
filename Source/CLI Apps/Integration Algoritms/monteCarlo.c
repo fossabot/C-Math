@@ -1,6 +1,6 @@
 #include "../../Library/Integration Algorithms/monteCarloIntegrationAlgorithm.h"
 #include "../../Library/Util/util.h"
-#include "../../Library/Util/_configurations.h"
+#include "../../Library/Util/configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -223,8 +223,8 @@ int main() {
     double area = monteCarloIntegration(expression, a0, b0, (unsigned int) n, (unsigned int) options, verbose);
 
     // show result
-    printf("\nEstimated area under the function %sin the interval [%lf, %lf] is equal to: %lf.\n\n", expression,
-           a0, b0, area);
+    printf("\nEstimated area under the function %s"
+           "in the interval [%lf, %lf] is equal to: %lf.\n\n", expression, a0, b0, area);
 
     // do you want to start again??
     printf("\nDo you want to start again? {0: no, 1: yes}\n");
