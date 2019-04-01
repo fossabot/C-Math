@@ -36,6 +36,8 @@
 
 // To ensure that the names declared in this portion of code have C linkage,
 // and thus C++ name mangling is not performed while using this code with C++.
+#undef __BEGIN_DECLS
+#undef __END_DECLS
 #ifdef __cplusplus
 # define __BEGIN_DECLS extern "C" {
 # define __END_DECLS }
