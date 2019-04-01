@@ -2,7 +2,7 @@
 #include "../Differentiation Algorithms/derivNumericalAlgorithm.h"
 #include "../Util/randomGenerator.h"
 #include "../Util/functions.h"
-#include "../Util/_configurations.h"
+#include "../Util/configurations/asl_configurations.h"
 #include "../Util/util.h"
 
 #include <stdio.h>
@@ -61,7 +61,7 @@ double gradientDescent(const char *expression, double x0, double ete, double ere
     while (iter <= maxiter) {
         // calculate new x0 by subtracting the derivative of function at x0 multiplied by gamma from x0
         past_x = x0;
-        x0 -= modeCoefficient * firstDerivative_1_arg(expression, x0, DX, CENTRAL_DIFFERENCE) * gamma;
+        x0 -= modeCoefficient * firstDerivative_1_arg(expression, x0, ASL_EPSILON, ASL_CENTRAL_DIFFERENCE) * gamma;
         fx = function_1_arg(expression, x0);
 
         // calculate errors
@@ -211,7 +211,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
         fresult = function_1_arg(expression, result);
 
         // Termination based on domain range
-        if (coefficient < DX) {
+        if (coefficient < ASL_EPSILON) {
             break;
         }
 
@@ -225,7 +225,7 @@ double gradientDescentInterval(const char *expression, double a, double b, doubl
             // calculate new x by subtracting the derivative of function at x multiplied by gamma from x
             static_x = x;
             past_x = x;
-            x -= modeCoefficient * firstDerivative_1_arg(expression, x, DX, CENTRAL_DIFFERENCE) * gamma;
+            x -= modeCoefficient * firstDerivative_1_arg(expression, x, ASL_EPSILON, ASL_CENTRAL_DIFFERENCE) * gamma;
             fx = function_1_arg(expression, x);
 
             // if fx is lower than f(result), then x is where the minimum occurs

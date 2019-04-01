@@ -1,6 +1,6 @@
 #include "goldenSectionOptAlgorithm.h"
 #include "../Util/functions.h"
-#include "../Util/_configurations.h"
+#include "../Util/configurations/asl_configurations.h"
 #include "../Util/util.h"
 
 #include <stdio.h>
@@ -71,7 +71,7 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
     double xOptimal = 0;
 
     // calculate values
-    range = PHI * (b - a);
+    range = ASL_PHI * (b - a);
     x1 = b - range;
     x2 = a + range;
 
@@ -89,7 +89,7 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
     while (iter <= maxiter) {
 
         if (xOptimal != 0 && iter != 1) {
-            error = (1 - PHI) * fabs((b - a) / xOptimal);
+            error = (1 - ASL_PHI) * fabs((b - a) / xOptimal);
         } // end of zero-division guard
 
         if (error < tol) {
@@ -118,7 +118,7 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
                     x1 = x2;
                     fx1 = fx2;
                     // re-evaluate
-                    range = PHI * (b - a);
+                    range = ASL_PHI * (b - a);
                     x2 = a + range;
                     fx2 = function_1_arg(expression, x2);
                     fa = function_1_arg(expression, a);
@@ -130,7 +130,7 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
                     x2 = x1;
                     fx2 = fx1;
                     // re-evaluate
-                    range = PHI * (b - a);
+                    range = ASL_PHI * (b - a);
                     x1 = b - range;
                     fx1 = function_1_arg(expression, x1);
                     fb = function_1_arg(expression, b);
@@ -166,7 +166,7 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
                     x1 = x2;
                     fx1 = fx2;
                     // re-evaluate
-                    range = PHI * (b - a);
+                    range = ASL_PHI * (b - a);
                     x2 = a + range;
                     fx2 = function_1_arg(expression, x2);
                     fa = function_1_arg(expression, a);
@@ -178,7 +178,7 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
                     x2 = x1;
                     fx2 = fx1;
                     // re-evaluate
-                    range = PHI * (b - a);
+                    range = ASL_PHI * (b - a);
                     x1 = b - range;
                     fx1 = function_1_arg(expression, x1);
                     fb = function_1_arg(expression, b);
@@ -208,7 +208,7 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
                 x2 = x1;
                 fx2 = fx1;
                 // re-evaluate
-                range = PHI * (b - a);
+                range = ASL_PHI * (b - a);
                 x1 = b - range;
                 fx1 = function_1_arg(expression, x1);
             } else {
@@ -219,7 +219,7 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
                 x1 = x2;
                 fx1 = fx2;
                 // re-evaluate
-                range = PHI * (b - a);
+                range = ASL_PHI * (b - a);
                 x2 = a + range;
                 fx2 = function_1_arg(expression, x2);
 
@@ -237,7 +237,7 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
                 x1 = x2;
                 fx1 = fx2;
                 // re-evaluate
-                range = PHI * (b - a);
+                range = ASL_PHI * (b - a);
                 x2 = a + range;
                 fx2 = function_1_arg(expression, x2);
             } else {
@@ -248,7 +248,7 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
                 x2 = x1;
                 fx2 = fx1;
                 // re-evaluate
-                range = PHI * (b - a);
+                range = ASL_PHI * (b - a);
                 x1 = b - range;
                 fx1 = function_1_arg(expression, x1);
 

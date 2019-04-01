@@ -1,3 +1,36 @@
+/* Source/Library/Differentiation Algorithms/derivNumericalAlgorithm.c
+ *
+ * ASL - Azadeh Scientific Library in C
+ *
+ * Copyright (C) 2019 Mohammad Mahdi Bgahbani Pourvahid
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ * claim that you wrote the original software. If you use this software
+ * in a product, an acknowledgement in the product documentation would be
+ * appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ * misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ */
+
 #include "derivNumericalAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/util.h"
@@ -14,24 +47,24 @@ double firstDerivative_1_arg(const char *expression, double x, double delta, int
      * expressions  the function expression, it must be a string array like "x^2+1"
      * x            the point where derivative must be evaluated
      * delta        the dx for getting numerical derivative
-     * options      which algorithm to use {0: BACKWARD_DIFFERENCE, 1: FORWARD_DIFFERENCE, 2: CENTRAL_DIFFERENCE}
+     * options      which algorithm to use {0: ASL_BACKWARD_DIFFERENCE, 1: ASL_FORWARD_DIFFERENCE, 2: ASL_CENTRAL_DIFFERENCE}
      *
      */
 
     // check options
-    if (options != BACKWARD_DIFFERENCE && options != FORWARD_DIFFERENCE && options != CENTRAL_DIFFERENCE) {
+    if (options != ASL_BACKWARD_DIFFERENCE && options != ASL_FORWARD_DIFFERENCE && options != ASL_CENTRAL_DIFFERENCE) {
         printf("\nError: options argument is not valid.\n");
         Exit(EXIT_FAILURE);
     } // end of if
 
     switch (options) {
-        case BACKWARD_DIFFERENCE:
+        case ASL_BACKWARD_DIFFERENCE:
             // backward difference
             return (function_1_arg(expression, x) - function_1_arg(expression, x - delta)) / delta;
-        case FORWARD_DIFFERENCE:
+        case ASL_FORWARD_DIFFERENCE:
             // forward difference
             return (function_1_arg(expression, x + delta) - function_1_arg(expression, x)) / delta;
-        case CENTRAL_DIFFERENCE:
+        case ASL_CENTRAL_DIFFERENCE:
             // central difference
             return (function_1_arg(expression, x + delta) - function_1_arg(expression, x - delta)) / (2 * delta);
     } // end of switch
@@ -53,13 +86,12 @@ double centralFirstDerivative_1_arg(const char *expression, double x, double del
      *
      * NOTE: it's good to use delta in range [1e-8, 1e-16] for this function
      * [double floating point accuracy IEEE 754-1985]
-     * DX is defined DX = 1e-8 in _configurations.h
      *
      */
 
     // check accuracy
-    if (accuracy != SECOND_ORDER_ACCURACY && accuracy != FOURTH_ORDER_ACCURACY && accuracy != SIXTH_ORDER_ACCURACY
-        && accuracy != EIGHTH_ORDER_ACCURACY) {
+    if (accuracy != ASL_SECOND_ORDER_ACCURACY && accuracy != ASL_FOURTH_ORDER_ACCURACY &&
+        accuracy != ASL_SIXTH_ORDER_ACCURACY && accuracy != ASL_EIGHTH_ORDER_ACCURACY) {
 
         printf("\nError: accuracy argument is not valid.\n");
         Exit(EXIT_FAILURE);
@@ -71,17 +103,17 @@ double centralFirstDerivative_1_arg(const char *expression, double x, double del
 
     // central finite difference table
     switch (accuracy) {
-        case SECOND_ORDER_ACCURACY:
+        case ASL_SECOND_ORDER_ACCURACY:
             b1 = 1.0 / 2;
             b2 = -b1;
             break;
-        case FOURTH_ORDER_ACCURACY:
+        case ASL_FOURTH_ORDER_ACCURACY:
             b1 = 2.0 / 3;
             b2 = -b1;
             c1 = -1.0 / 12;
             c2 = -c1;
             break;
-        case SIXTH_ORDER_ACCURACY:
+        case ASL_SIXTH_ORDER_ACCURACY:
             b1 = 3.0 / 4;
             b2 = -b1;
             c1 = -3.0 / 20;
@@ -89,7 +121,7 @@ double centralFirstDerivative_1_arg(const char *expression, double x, double del
             d1 = 1.0 / 60;
             d2 = -d1;
             break;
-        case EIGHTH_ORDER_ACCURACY:
+        case ASL_EIGHTH_ORDER_ACCURACY:
             b1 = 4.0 / 5;
             b2 = -b1;
             c1 = -1.0 / 5;
@@ -114,12 +146,11 @@ double centralSecondDerivative_1_arg(const char *expression, double x, double de
      *
      * NOTE: it's good to use delta in range [1e-8, 1e-16] for this function
      * [double floating point accuracy IEEE 754-1985]
-     * DX is defined DX = 1e-8 in _configurations.h
      */
 
     // check accuracy
-    if (accuracy != SECOND_ORDER_ACCURACY && accuracy != FOURTH_ORDER_ACCURACY && accuracy != SIXTH_ORDER_ACCURACY
-        && accuracy != EIGHTH_ORDER_ACCURACY) {
+    if (accuracy != ASL_SECOND_ORDER_ACCURACY && accuracy != ASL_FOURTH_ORDER_ACCURACY &&
+        accuracy != ASL_SIXTH_ORDER_ACCURACY && accuracy != ASL_EIGHTH_ORDER_ACCURACY) {
 
         printf("\nError: accuracy argument is not valid.\n");
         Exit(EXIT_FAILURE);
@@ -131,22 +162,22 @@ double centralSecondDerivative_1_arg(const char *expression, double x, double de
 
     // central finite difference table
     switch (accuracy) {
-        case SECOND_ORDER_ACCURACY:
+        case ASL_SECOND_ORDER_ACCURACY:
             a = -2;
             b = 1;
             break;
-        case FOURTH_ORDER_ACCURACY:
+        case ASL_FOURTH_ORDER_ACCURACY:
             a = -5.0 / 2;
             b = 4.0 / 3;
             c = -1.0 / 12;
             break;
-        case SIXTH_ORDER_ACCURACY:
+        case ASL_SIXTH_ORDER_ACCURACY:
             a = -49.0 / 18;
             b = 3.0 / 2;
             c = -3.0 / 20;
             d = 1.0 / 90;
             break;
-        case EIGHTH_ORDER_ACCURACY:
+        case ASL_EIGHTH_ORDER_ACCURACY:
             a = -205.0 / 72;
             b = 8.0 / 5;
             c = -1.0 / 5;
@@ -167,11 +198,11 @@ double centralThirdDerivative_1_arg(const char *expression, double x, double del
     /*
      * NOTE: it's good to use delta in range [1e-3, 1e-5] for this function
      * [double floating point accuracy IEEE 754-1985]
-     * DX_SECOND is defined DX = 1e-4 in _configurations.h
      */
 
     // check accuracy
-    if (accuracy != SECOND_ORDER_ACCURACY && accuracy != FOURTH_ORDER_ACCURACY && accuracy != SIXTH_ORDER_ACCURACY) {
+    if (accuracy != ASL_SECOND_ORDER_ACCURACY && accuracy != ASL_FOURTH_ORDER_ACCURACY &&
+        accuracy != ASL_SIXTH_ORDER_ACCURACY) {
         printf("\nError: accuracy argument is not valid.\n");
         Exit(EXIT_FAILURE);
     } // end of if
@@ -182,13 +213,13 @@ double centralThirdDerivative_1_arg(const char *expression, double x, double del
 
     // central finite difference table
     switch (accuracy) {
-        case SECOND_ORDER_ACCURACY:
+        case ASL_SECOND_ORDER_ACCURACY:
             b1 = -1.0;
             b2 = -b1;
             c1 = 1.0 / 2;
             c2 = -c1;
             break;
-        case FOURTH_ORDER_ACCURACY:
+        case ASL_FOURTH_ORDER_ACCURACY:
             b1 = -13.0 / 8;
             b2 = -b1;
             c1 = 1.0;
@@ -196,7 +227,7 @@ double centralThirdDerivative_1_arg(const char *expression, double x, double del
             d1 = -1.0 / 8;
             d2 = -d1;
             break;
-        case SIXTH_ORDER_ACCURACY:
+        case ASL_SIXTH_ORDER_ACCURACY:
             b1 = -61.0 / 30;
             b2 = -b1;
             c1 = 169.0 / 120;
@@ -221,11 +252,11 @@ double centralFourthDerivative_1_arg(const char *expression, double x, double de
      *
      * NOTE: it's good to use delta in range [1e-3, 1e-4] for this function
      * [double floating point accuracy IEEE 754-1985]
-     * DX is defined DX = 1e-4 in _configurations.h
      */
 
     // check accuracy
-    if (accuracy != SECOND_ORDER_ACCURACY && accuracy != FOURTH_ORDER_ACCURACY && accuracy != SIXTH_ORDER_ACCURACY) {
+    if (accuracy != ASL_SECOND_ORDER_ACCURACY && accuracy != ASL_FOURTH_ORDER_ACCURACY &&
+        accuracy != ASL_SIXTH_ORDER_ACCURACY) {
         printf("\nError: accuracy argument is not valid.\n");
         Exit(EXIT_FAILURE);
     } // end of if
@@ -236,18 +267,18 @@ double centralFourthDerivative_1_arg(const char *expression, double x, double de
 
     // central finite difference table
     switch (accuracy) {
-        case SECOND_ORDER_ACCURACY:
+        case ASL_SECOND_ORDER_ACCURACY:
             a = 6;
             b = -4;
             c = 1.0;
             break;
-        case FOURTH_ORDER_ACCURACY:
+        case ASL_FOURTH_ORDER_ACCURACY:
             a = 28.0 / 3;
             b = -13.0 / 2;
             c = 2;
             d = -1.0 / 6;
             break;
-        case SIXTH_ORDER_ACCURACY:
+        case ASL_SIXTH_ORDER_ACCURACY:
             a = 91.0 / 8;
             b = -122.0 / 15;
             c = 169.0 / 60;
@@ -270,11 +301,11 @@ double centralFifthDerivative_1_arg(const char *expression, double x, double del
      *
      * NOTE: it's good to use delta in range [1e-1, 1e-3] for this function
      * [double floating point accuracy IEEE 754-1985]
-     * DX_THIRD is defined DX = 1e-2 in _configurations.h
      */
 
     // check accuracy
-    if (accuracy != SECOND_ORDER_ACCURACY && accuracy != FOURTH_ORDER_ACCURACY && accuracy != SIXTH_ORDER_ACCURACY) {
+    if (accuracy != ASL_SECOND_ORDER_ACCURACY && accuracy != ASL_FOURTH_ORDER_ACCURACY &&
+        accuracy != ASL_SIXTH_ORDER_ACCURACY) {
         printf("\nError: accuracy argument is not valid.\n");
         Exit(EXIT_FAILURE);
     } // end of if
@@ -285,7 +316,7 @@ double centralFifthDerivative_1_arg(const char *expression, double x, double del
 
     // central finite difference table
     switch (accuracy) {
-        case SECOND_ORDER_ACCURACY:
+        case ASL_SECOND_ORDER_ACCURACY:
             b1 = 5.0 / 2;
             b2 = -b1;
             c1 = -2;
@@ -293,7 +324,7 @@ double centralFifthDerivative_1_arg(const char *expression, double x, double del
             d1 = 1.0 / 2;
             d2 = -d1;
             break;
-        case FOURTH_ORDER_ACCURACY:
+        case ASL_FOURTH_ORDER_ACCURACY:
             b1 = 29.0 / 6;
             b2 = -b1;
             c1 = -13.0 / 3;
@@ -303,7 +334,7 @@ double centralFifthDerivative_1_arg(const char *expression, double x, double del
             e1 = -1.0 / 6;
             e2 = -e1;
             break;
-        case SIXTH_ORDER_ACCURACY:
+        case ASL_SIXTH_ORDER_ACCURACY:
             b1 = -323.0 / 48;
             b2 = -b1;
             c1 = -13.0 / 2;
@@ -331,11 +362,11 @@ double centralSixthDerivative_1_arg(const char *expression, double x, double del
      *
      * NOTE: it's good to use delta in range [1e-1, 1e-2] for this function
      * [double floating point accuracy IEEE 754-1985]
-     * DX_THIRD is defined DX = 1e-2 in _configurations.h
      */
 
     // check accuracy
-    if (accuracy != SECOND_ORDER_ACCURACY && accuracy != FOURTH_ORDER_ACCURACY && accuracy != SIXTH_ORDER_ACCURACY) {
+    if (accuracy != ASL_SECOND_ORDER_ACCURACY && accuracy != ASL_FOURTH_ORDER_ACCURACY &&
+        accuracy != ASL_SIXTH_ORDER_ACCURACY) {
         printf("\nError: accuracy argument is not valid.\n");
         Exit(EXIT_FAILURE);
     } // end of if
@@ -346,20 +377,20 @@ double centralSixthDerivative_1_arg(const char *expression, double x, double del
 
     // central finite difference table
     switch (accuracy) {
-        case SECOND_ORDER_ACCURACY:
+        case ASL_SECOND_ORDER_ACCURACY:
             a = -20;
             b = 15;
             c = -6;
             d = 1;
             break;
-        case FOURTH_ORDER_ACCURACY:
+        case ASL_FOURTH_ORDER_ACCURACY:
             a = -75.0 / 2;
             b = 29;
             c = -13;
             d = 3;
             e = -1.0 / 4;
             break;
-        case SIXTH_ORDER_ACCURACY:
+        case ASL_SIXTH_ORDER_ACCURACY:
             a = -1023.0 / 20;
             b = 323.0 / 8;
             c = -39.0 / 2;

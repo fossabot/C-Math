@@ -2,7 +2,7 @@
 #include "../Differentiation Algorithms/derivNumericalAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/util.h"
-#include "../Util/_configurations.h"
+#include "../Util/configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,18 +63,18 @@ double newtonRaphsonOptimization(const char *expression, double x0, double ete, 
     double x = x0;
     double xNew, dfxNew, d2fx;
     double ete_err, ere_err;
-    double dfx = centralFirstDerivative_1_arg(expression, x, DX, EIGHTH_ORDER_ACCURACY);
+    double dfx = centralFirstDerivative_1_arg(expression, x, ASL_EPSILON, ASL_EIGHTH_ORDER_ACCURACY);
     unsigned int iter = 1;
 
     while (iter <= maxiter) {
         // calculate derivative of function in the given point
-        d2fx = centralSecondDerivative_1_arg(expression, x, DX, EIGHTH_ORDER_ACCURACY);
+        d2fx = centralSecondDerivative_1_arg(expression, x, ASL_EPSILON, ASL_EIGHTH_ORDER_ACCURACY);
 
         // if derivative isn't equal to zero
         if (d2fx) {
             // calculate new x by subtracting the derivative from x
             xNew = x - dfx / d2fx;
-            dfxNew = centralFirstDerivative_1_arg(expression, xNew, DX, EIGHTH_ORDER_ACCURACY);
+            dfxNew = centralFirstDerivative_1_arg(expression, xNew, ASL_EPSILON, ASL_EIGHTH_ORDER_ACCURACY);
 
             if (verbose) {
                 printf("\nIteration number [#%d]: f'(x%d) = %g, f''(x%d) = %g, delta(x%d) = f'(x%d) / f''(x%d) = %g\n"
