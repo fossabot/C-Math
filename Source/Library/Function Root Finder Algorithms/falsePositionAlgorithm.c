@@ -129,9 +129,9 @@ asl_falsePosition_root(const char *expression, double a, double b, double ete, d
         Exit(EXIT_FAILURE);
     } // end of maxiter check
 
-    // check verbose and options value
-    if ((verbose != 0 && verbose != 1) || (options != 0 && options != 1 && options != 2)) {
-        printf("\nError: either option or verbose argument is not valid.\n");
+    // check verbose
+    if (verbose != ASL_SILENCE && verbose != ASL_VERBOSE) {
+        printf("\nError: verbose argument is not valid.\n");
         Exit(EXIT_FAILURE);
     } // end of if
 
@@ -147,15 +147,15 @@ asl_falsePosition_root(const char *expression, double a, double b, double ete, d
     // if any of them are smaller than tolerance
     // then it's root of the function
     if (fabs(fa) <= tol) {
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("Root has been found at the start of interval [a, b].\n");
-        } // end if(verbose)
+        } // end if(verbose == ASL_VERBOSE)
 
         return a;
     } else if (fabs(fb) <= tol) {
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("Root has been found at the end of interval [a, b].\n");
-        } // end if(verbose)
+        } // end if(verbose == ASL_VERBOSE)
 
         return b;
     } else if ((fa > 0.0 && fb < 0.0) || (fa < 0.0 && fb > 0.0)) {
@@ -176,32 +176,32 @@ asl_falsePosition_root(const char *expression, double a, double b, double ete, d
             // Termination Criterion
             // if calculated error is less than estimated true error threshold
             if (ete != 0 && ete_err < ete) {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("\nIn this iteration[#%d]: |x%d - x%d| < estimated true error [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", iter - 1, iter - 1, iter - 2, ete_err,
                            ete);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 return x;
             } // end of estimated true error check
 
             // if calculated error is less than estimated relative error threshold
             if (ere != 0 && ere_err < ere) {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("\nIn this iteration[#%d]: |(x%d - x%d / x%d)| < estimated relative error [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", iter - 1, iter - 1, iter - 2, iter - 1,
                            ere_err, ere);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 return x;
             } // end of estimated relative error check
 
             // if y3 is less than tolerance error threshold
             if (tol != 0 && tol_err < tol) {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("\nIn this iteration[#%d]: |f(x%d)| < tolerance [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", iter - 1, iter - 1, tol_err, tol);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 return x;
             } // end of tolerance check
@@ -228,9 +228,9 @@ asl_falsePosition_root(const char *expression, double a, double b, double ete, d
             // tolerance error
             tol_err = fabs(fx);
 
-            if (verbose) {
+            if (verbose == ASL_VERBOSE) {
                 printf("\nIteration number [#%d]: x = %g, f(x) = %g .\n", iter, x, fx);
-            } // end if(verbose)
+            } // end if(verbose == ASL_VERBOSE)
 
             // interval reduction
             // in this part of false position's algorithm we are trying to reduce
@@ -254,9 +254,9 @@ asl_falsePosition_root(const char *expression, double a, double b, double ete, d
                     fb = options == 1 ? fb / 2 : (m > 1 ? fb * m : fb / 2);
                 }
 
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("In this iteration, a replaced by x, new range is [%g, %g].\n", a, b);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
             } else if ((fb > 0.0 && fx > 0.0) || (fb < 0.0 && fx < 0.0)) {
                 // if y3 and y2 have same signs, then substitute b by x and y2 by y3
@@ -273,14 +273,14 @@ asl_falsePosition_root(const char *expression, double a, double b, double ete, d
                     fa = options == 1 ? fa / 2 : (m > 1 ? fa * m : fa / 2);
                 }
 
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("In this iteration, b replaced by x, new range is [%g, %g].\n", a, b);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
             } else {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("In this iteration, f(x) = 0, so x is the root of function.\n\n");
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 return x;
             } // end of if .. else if chained decisions
@@ -288,7 +288,7 @@ asl_falsePosition_root(const char *expression, double a, double b, double ete, d
             iter++;
         } // end of while loop
 
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             if (ete == 0 && ere == 0 && tol == 0) {
                 // if user wanted to calculate root on maximum iteration limit
                 // without specifying any error, then the answer is what user wants
@@ -300,7 +300,7 @@ asl_falsePosition_root(const char *expression, double a, double b, double ete, d
             } // end of if ... else
 
             printf("the last calculated root is x = %g .\n", x);
-        } // end if(verbose)
+        } // end if(verbose == ASL_VERBOSE)
 
         // error has been set but reaches to maxiter, means algorithms didn't converge to a root
         if (!(ete == 0 && ere == 0 && tol == 0)) {
@@ -310,11 +310,11 @@ asl_falsePosition_root(const char *expression, double a, double b, double ete, d
         return x;
 
     } else { // if y1 and y2 have same signs, then we can't use false position method
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("Incorrect bracketing of function domain!\n"
                    "keep in mind that the inequality f(a) * f(b) < 0 must be correct\n"
                    "in order to use false position method.\n");
-        }// end if(verbose)
+        }// end if(verbose == ASL_VERBOSE)
 
         *state = ASL_HAS_NO_ROOT;
         return -1;

@@ -127,7 +127,7 @@ double asl_brent_root(const char *expression, double a, double b, double tol, un
     } // end of maxiter check
 
     // check verbose
-    if (verbose != 0 && verbose != 1) {
+    if (verbose != ASL_SILENCE && verbose != ASL_VERBOSE) {
         printf("\nError: verbose argument is not valid.\n");
         Exit(EXIT_FAILURE);
     } // end of if
@@ -144,15 +144,15 @@ double asl_brent_root(const char *expression, double a, double b, double tol, un
     // if any of them are smaller than tolerance
     // then it's root of the function
     if (fabs(fa) <= tol) {
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("Root has been found at the start of interval [a, b].\n");
-        } // end if(verbose)
+        } // end if(verbose == ASL_VERBOSE)
 
         return a;
     } else if (fabs(fb) <= tol) {
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("Root has been found at the end of interval [a, b].\n");
-        } // end if(verbose)
+        } // end if(verbose == ASL_VERBOSE)
 
         return b;
     } else if ((fa > 0.0 && fb < 0.0) || (fa < 0.0 && fb > 0.0)) {
@@ -178,18 +178,18 @@ double asl_brent_root(const char *expression, double a, double b, double tol, un
 
             // Termination Criterion
             if (tol != 0 && error < tol) {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("\nIn this iteration [#%d]: |b - a| < tolerance -> [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", iter - 1, error, tol);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 return s;
             } // end of tolerance check
 
             if (fa != fc && fb != fc) {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("In this iteration [%d]: using inverse quadratic interpolation.\n", iter);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 // use inverse quadratic interpolation
                 // I can explain it here but ... em ... why not searching it at wikipedia?
@@ -197,9 +197,9 @@ double asl_brent_root(const char *expression, double a, double b, double tol, un
                         (b * fa * fc / ((fb - fa) * (fb - fc))) +
                         (c * fa * fb / ((fc - fa) * (fc - fb)));
             } else {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("In this iteration [%d]: using secant method.\n", iter);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 // secant method
                 // try wikipedia for more explanations
@@ -215,9 +215,9 @@ double asl_brent_root(const char *expression, double a, double b, double tol, un
                     (flag && fabs(b - c) < tol) ||
                     (!flag && fabs(c - d) < tol)) {
 
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("then using bisection method.\n");
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 // bisection method
                 // wik ... ok ok you already knew what i'm going to say
@@ -244,16 +244,16 @@ double asl_brent_root(const char *expression, double a, double b, double tol, un
             // position between [a, s, b], by a simple test f(a)f(s) ?< 0
             // and then re-bracket the domain
             if ((fa > 0.0 && fs < 0.0) || (fa < 0.0 && fs > 0.0)) {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("Searching interval has been reduced, 'b' has been replaced by 's'.\n");
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 b = s;
                 fb = fs;
             } else {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("Searching interval has been reduced, 'a' has been replaced by 's'.\n");
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 a = s;
                 fa = fs;
@@ -262,16 +262,16 @@ double asl_brent_root(const char *expression, double a, double b, double tol, un
             // calculate error
             error = fabs(b - a);
 
-            if (verbose) {
+            if (verbose == ASL_VERBOSE) {
                 printf("\nNext iteration set is:\n"
                        "[(a, b), c, d, s, flag, error] = [(%g, %g), %g, %g, %g, %d, %g].\n\n",
                        a, b, c, d, s, flag, error);
-            } // end if(verbose)
+            } // end if(verbose == ASL_VERBOSE)
 
             iter++;
         } // end of while loop
 
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             // if user wanted to calculate root on maximum iteration limit
             // without specifying a tolerance error then the answer is what user wants
             if (tol == 0) {
@@ -283,7 +283,7 @@ double asl_brent_root(const char *expression, double a, double b, double tol, un
             } // end of if ... else
 
             printf("the last calculated root is x = %g .\n", s);
-        } // end if(verbose)
+        } // end if(verbose == ASL_VERBOSE)
 
         // error has been set but reaches to maxiter, means algorithms didn't converge to a root
         if (tol != 0) {
@@ -293,11 +293,11 @@ double asl_brent_root(const char *expression, double a, double b, double tol, un
         return s;
 
     } else { // if y1 and y2 have same signs, then we can't use bisection method
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("Incorrect bracketing of function domain!\n"
                    "keep in mind that the inequality f(a) * f(b) < 0 must be correct\n"
                    "in order to use Brent's method.\n");
-        }// end if(verbose)
+        }// end if(verbose == ASL_VERBOSE)
 
         *state = ASL_HAS_NO_ROOT;
         return -1;

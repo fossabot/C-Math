@@ -124,7 +124,7 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
     } // end of maxiter check
 
     // check verbose
-    if (verbose != 0 && verbose != 1) {
+    if (verbose != ASL_SILENCE && verbose != ASL_VERBOSE) {
         printf("\nError: verbose argument is not valid.\n");
         Exit(EXIT_FAILURE);
     } // end of if
@@ -134,9 +134,9 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
 
     // first guess check
     if (fabs(fx) <= tol) {
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("Root has been found at the initial point x.\n");
-        } // end if(verbose)
+        } // end if(verbose == ASL_VERBOSE)
 
         return x;
     } // end of if
@@ -152,32 +152,32 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
         // Termination Criterion
         // if calculated error is less than estimated true error threshold
         if (ete != 0 && ete_err < ete) {
-            if (verbose) {
+            if (verbose == ASL_VERBOSE) {
                 printf("\nIn this iteration[#%d]: |x%d - x%d| < estimated true error [%g < %g],\n"
                        "so x is close enough to the root of function.\n\n", iter - 1, iter - 1, iter - 2, ete_err,
                        ete);
-            } // end if(verbose)
+            } // end if(verbose == ASL_VERBOSE)
 
             return x;
         } // end of estimated true error check
 
         // if calculated error is less than estimated relative error threshold
         if (ere != 0 && ere_err < ere) {
-            if (verbose) {
+            if (verbose == ASL_VERBOSE) {
                 printf("\nIn this iteration[#%d]: |(x%d - x%d / x%d)| < estimated relative error [%g < %g],\n"
                        "so x is close enough to the root of function.\n\n", iter - 1, iter - 1, iter - 2, iter - 1,
                        ere_err, ere);
-            } // end if(verbose)
+            } // end if(verbose == ASL_VERBOSE)
 
             return x;
         } // end of estimated relative error check
 
         // if y3 is less than tolerance error threshold
         if (tol != 0 && tol_err < tol) {
-            if (verbose) {
+            if (verbose == ASL_VERBOSE) {
                 printf("\nIn this iteration[#%d]: |f(x%d)| < tolerance [%g < %g],\n"
                        "so x is close enough to the root of function.\n\n", iter - 1, iter - 1, tol_err, tol);
-            } // end if(verbose)
+            } // end if(verbose == ASL_VERBOSE)
 
             return x;
         } // end of tolerance check
@@ -195,11 +195,11 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
             // calculate new y at new root estimate x
             fx_new = function_1_arg(expression, x_new);
 
-            if (verbose) {
+            if (verbose == ASL_VERBOSE) {
                 printf("Iteration number [#%d]: f(x%d) = %g, f'(x%d) = %g, delta(x%d) = f(x%d) / f'(x%d) = %g\n"
                        "x%d = x%d - delta(x%d) = %g , f(x%d) = %g.\n\n", iter, iter - 1, fx, iter - 1, dfx, iter - 1,
                        iter - 1, iter - 1, fx / dfx, iter, iter - 1, iter - 1, x_new, iter, fx_new);
-            } // end of if verbose
+            } // end of if verbose == ASL_VERBOSE
 
             // calculate errors
             ete_err = fabs(fx / dfx);
@@ -219,7 +219,7 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
 
         } else { // if derivative is equal to zero
 
-            if (verbose) {
+            if (verbose == ASL_VERBOSE) {
                 if (dfx_counter == 2) {
                     printf("f'(x) = 0, trying another differentiation algorithm\n");
                 } else if (dfx_counter > 8) {
@@ -228,7 +228,7 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
                     printf("using central derivation algorithm with %d order accuracy, still failed.\n",
                            dfx_counter - 2);
                 } // end of if
-            } // end if(verbose)
+            } // end if(verbose == ASL_VERBOSE)
 
             // try to get more precise derivative [up to eight order accuracy]
             if (dfx_counter <= 8) {
@@ -240,18 +240,18 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
                 // go back and check value
                 goto DFX_LABEL;
             } else {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("Newton-Raphson method can't solve f(x) = 0 if f'(x0) = 0 !\n"
                            "check your function and if you think it has derivative\n"
                            "then try to choose a better starting point x0 .\n");
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
                 // go out of while loop
                 break;
             } // end of if else
         } // end of if(dfx)
     } // end of while loop
 
-    if (verbose) {
+    if (verbose == ASL_VERBOSE) {
         if (ete == 0 && ere == 0 && tol == 0 && iter > maxiter) {
             printf("\nWith maximum iteration of %d :\n", maxiter);
         } else {
@@ -259,7 +259,7 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
         } // end of if ... else
 
         printf("the last calculated root is x = %g .\n", x);
-    } // end if(verbose)
+    } // end if(verbose == ASL_VERBOSE)
 
     // error has been set but reaches to maxiter, means algorithms didn't converge to a root
     if (!(ete == 0 && ere == 0 && tol == 0) || (ete == 0 && ere == 0 && tol && iter > maxiter)) {

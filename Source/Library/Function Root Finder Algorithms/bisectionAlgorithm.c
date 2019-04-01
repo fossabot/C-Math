@@ -129,7 +129,7 @@ double asl_bisection_root(const char *expression, double a, double b, double ete
     } // end of maxiter check
 
     // check verbose
-    if (verbose != 0 && verbose != 1) {
+    if (verbose != ASL_SILENCE && verbose != ASL_VERBOSE) {
         printf("\nError: verbose argument is not valid.\n");
         Exit(EXIT_FAILURE);
     } // end of if
@@ -146,15 +146,15 @@ double asl_bisection_root(const char *expression, double a, double b, double ete
     // if any of them are smaller than tolerance
     // then it's root of the function
     if (fabs(fa) <= tol) {
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("Root has been found at the start of interval [a, b].\n");
-        } // end if(verbose)
+        } // end if(verbose == ASL_VERBOSE)
 
         return a;
     } else if (fabs(fb) <= tol) {
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("Root has been found at the end of interval [a, b].\n");
-        } // end if(verbose)
+        } // end if(verbose == ASL_VERBOSE)
 
         return b;
     } else if ((fa > 0.0 && fb < 0.0) || (fa < 0.0 && fb > 0.0)) {
@@ -175,32 +175,32 @@ double asl_bisection_root(const char *expression, double a, double b, double ete
             // Termination Criterion
             // if calculated error is less than estimated true error threshold
             if (ete != 0 && ete_err < ete) {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("\nIn this iteration[#%d]: |x%d - x%d| < estimated true error [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", iter - 1, iter - 1, iter - 2, ete_err,
                            ete);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 return x;
             } // end of estimated true error check
 
             // if calculated error is less than estimated relative error threshold
             if (ere != 0 && ere_err < ere) {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("\nIn this iteration[#%d]: |(x%d - x%d / x%d)| < estimated relative error [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", iter - 1, iter - 1, iter - 2, iter - 1,
                            ere_err, ere);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 return x;
             } // end of estimated relative error check
 
             // if y3 is less than tolerance error threshold
             if (tol != 0 && tol_err < tol) {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("\nIn this iteration[#%d]: |f(x)| < tolerance [%g < %g],\n"
                            "so x is close enough to the root of function.\n\n", iter - 1, tol_err, tol);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 return x;
             } // end of tolerance check
@@ -226,9 +226,9 @@ double asl_bisection_root(const char *expression, double a, double b, double ete
             // tolerance error
             tol_err = fabs(fx);
 
-            if (verbose) {
+            if (verbose == ASL_VERBOSE) {
                 printf("\nIteration number [#%d]: x = %g, f(x) = %g .\n", iter, x, fx);
-            } // end if(verbose)
+            } // end if(verbose == ASL_VERBOSE)
 
             // interval reduction
             // in this part of asl_bisection_root's algorithm we are trying to reduce
@@ -245,9 +245,9 @@ double asl_bisection_root(const char *expression, double a, double b, double ete
                 a = x;
                 fa = fx;
 
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("In this iteration, a replaced by x, new range is [%g, %g].\n", a, b);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
             } else if ((fb > 0.0 && fx > 0.0) || (fb < 0.0 && fx < 0.0)) {
                 // if y3 and y2 have same signs, then substitute b by x and y2 by y3
@@ -256,14 +256,14 @@ double asl_bisection_root(const char *expression, double a, double b, double ete
                 b = x;
                 fb = fx;
 
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("In this iteration, b replaced by x, new range is [%g, %g].\n", a, b);
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
             } else {
-                if (verbose) {
+                if (verbose == ASL_VERBOSE) {
                     printf("In this iteration, f(x) = 0, so x is the root of function.\n\n");
-                } // end if(verbose)
+                } // end if(verbose == ASL_VERBOSE)
 
                 return x;
             } // end of if .. else if chained decisions
@@ -271,7 +271,7 @@ double asl_bisection_root(const char *expression, double a, double b, double ete
             iter++;
         } // end of while loop
 
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             // if user wanted to calculate root on maximum iteration limit
             // without specifying any error, then the answer is what user wants
             if (ete == 0 && ere == 0 && tol == 0) {
@@ -283,7 +283,7 @@ double asl_bisection_root(const char *expression, double a, double b, double ete
             } // end of if ... else
 
             printf("the last calculated root is x = %g .\n", x);
-        } // end if(verbose)
+        } // end if(verbose == ASL_VERBOSE)
 
         // error has been set but reaches to maxiter, means algorithms didn't converge to a root
         if (!(ete == 0 && ere == 0 && tol == 0)) {
@@ -294,11 +294,11 @@ double asl_bisection_root(const char *expression, double a, double b, double ete
 
     } else { // if y1 and y2 have same signs, then we can't use asl_bisection_root method
         // because endpoints do not straddle y = 0 .
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("Incorrect bracketing of function domain!\n"
                    "keep in mind that the inequality f(a) * f(b) < 0 must be correct\n"
                    "in order to use Bisection method.\n");
-        }// end if(verbose)
+        }// end if(verbose == ASL_VERBOSE)
 
         *state = ASL_HAS_NO_ROOT;
         return -1;
