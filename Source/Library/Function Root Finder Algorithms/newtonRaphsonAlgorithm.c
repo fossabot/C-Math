@@ -35,7 +35,7 @@
 #include "../Differentiation Algorithms/derivNumericalAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/util.h"
-#include "../Util/_configurations.h"
+#include "../Util/configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -94,7 +94,7 @@ double ASL_newtonRaphson_root(const char *expression, double x, double ete, doub
      * Mohmmad Mahdi Baghbani Pourvahid
      *
      * MODIFIED:
-     * 31 March 2019
+     * 1 April 2019
      *
      * REFERENCE:
      * https://en.wikipedia.org/wiki/Newton%27s_method
@@ -139,7 +139,7 @@ double ASL_newtonRaphson_root(const char *expression, double x, double ete, doub
         } // end if(verbose)
 
         return x;
-    }
+    } // end of if
 
     // initializing variables
     unsigned int iter = 1, dfx_counter = 2;
@@ -183,7 +183,7 @@ double ASL_newtonRaphson_root(const char *expression, double x, double ete, doub
         } // end of tolerance check
 
         // calculate derivative of function in the given point
-        dfx = firstDerivative_1_arg(expression, x, DX, CENTRAL_DIFFERENCE);
+        dfx = firstDerivative_1_arg(expression, x, ASL_EPSILON, ASL_CENTRAL_DIFFERENCE);
 
         DFX_LABEL: // LABEL for go to
         // if derivative isn't equal to zero
@@ -225,7 +225,8 @@ double ASL_newtonRaphson_root(const char *expression, double x, double ete, doub
                 } else if (dfx_counter > 8) {
                     printf("f'(x) = 0, this algorithm cannot find a root.\n");
                 } else {
-                    printf("using central derivation algorithm with %d order accuracy, still failed.", dfx_counter - 2);
+                    printf("using central derivation algorithm with %d order accuracy, still failed.\n",
+                           dfx_counter - 2);
                 } // end of if
             } // end if(verbose)
 
@@ -233,7 +234,7 @@ double ASL_newtonRaphson_root(const char *expression, double x, double ete, doub
             if (dfx_counter <= 8) {
 
                 // calculate new f'(x)
-                dfx = centralFirstDerivative_1_arg(expression, x, DX, dfx_counter);
+                dfx = centralFirstDerivative_1_arg(expression, x, ASL_EPSILON, dfx_counter);
                 dfx_counter += 2;
 
                 // go back and check value
@@ -263,7 +264,7 @@ double ASL_newtonRaphson_root(const char *expression, double x, double ete, doub
     // error has been set but reaches to maxiter, means algorithms didn't converge to a root
     if (!(ete == 0 && ere == 0 && tol == 0) || (ete == 0 && ere == 0 && tol && iter > maxiter)) {
         // set state to 0 (false)
-        *state = HAS_NO_ROOT;
+        *state = ASL_HAS_NO_ROOT;
     } // end of if
 
     return x;

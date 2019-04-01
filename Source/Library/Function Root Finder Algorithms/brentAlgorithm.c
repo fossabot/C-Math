@@ -34,7 +34,7 @@
 #include "brentAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/util.h"
-#include "../Util/_configurations.h"
+#include "../Util/configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -87,7 +87,7 @@ double ASL_brent_root(const char *expression, double a, double b, double tol, un
      * Mohmmad Mahdi Baghbani Pourvahid
      *
      * MODIFIED:
-     * 31 March 2019
+     * 1 April 2019
      *
      * REFERENCE:
      * https://en.wikipedia.org/wiki/Brent's_method
@@ -134,7 +134,7 @@ double ASL_brent_root(const char *expression, double a, double b, double tol, un
 
     // set state to has a root at start of program
     // it would be changed if root couldn't be found
-    *state = HAS_A_ROOT;
+    *state = ASL_HAS_A_ROOT;
 
     // calculates y1 = f(a) and y2 =f(b)
     double fa = function_1_arg(expression, a);
@@ -155,7 +155,7 @@ double ASL_brent_root(const char *expression, double a, double b, double tol, un
         } // end if(verbose)
 
         return b;
-    } else if (fa * fb < 0) {
+    } else if ((fa > 0.0 && fb < 0.0) || (fa < 0.0 && fb > 0.0)) {
         // if y1 and y2 have different signs, so we can use brent method
         // because when we bracket a function in two end of an interval (a, b)
         // if and only if f(a)f(b) < 0, function should have at least 1 root in that interval,
@@ -243,7 +243,7 @@ double ASL_brent_root(const char *expression, double a, double b, double tol, un
             // interval for next iteration, we need to locate the root's
             // position between [a, s, b], by a simple test f(a)f(s) ?< 0
             // and then re-bracket the domain
-            if (fa * fs < 0) {
+            if ((fa > 0.0 && fs < 0.0) || (fa < 0.0 && fs > 0.0)) {
                 if (verbose) {
                     printf("Searching interval has been reduced, 'b' has been replaced by 's'.\n");
                 } // end if(verbose)
@@ -288,7 +288,7 @@ double ASL_brent_root(const char *expression, double a, double b, double tol, un
         // error has been set but reaches to maxiter, means algorithms didn't converge to a root
         if (tol != 0) {
             // set state to 0 (false)
-            *state = HAS_NO_ROOT;
+            *state = ASL_HAS_NO_ROOT;
         } // end of if
         return s;
 
@@ -299,7 +299,7 @@ double ASL_brent_root(const char *expression, double a, double b, double tol, un
                    "in order to use Brent's method.\n");
         }// end if(verbose)
 
-        *state = HAS_NO_ROOT;
+        *state = ASL_HAS_NO_ROOT;
         return -1;
     } // end of if ... else
 } // end of ASL_brent_root function

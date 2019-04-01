@@ -34,7 +34,7 @@
 #include "secantAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/util.h"
-#include "../Util/_configurations.h"
+#include "../Util/configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -85,7 +85,7 @@ double ASL_secant_root(const char *expression, double a, double b, double ete, d
      * Mohmmad Mahdi Baghbani Pourvahid
      *
      * MODIFIED:
-     * 31 March 2019
+     * 1 April 2019
      *
      * REFERENCE:
      * https://en.wikipedia.org/wiki/Newton%27s_method
@@ -134,7 +134,7 @@ double ASL_secant_root(const char *expression, double a, double b, double ete, d
 
     // set state to has a root at start of program
     // it would be changed if root couldn't be found
-    *state = HAS_A_ROOT;
+    *state = ASL_HAS_A_ROOT;
 
     // initializing variables
     unsigned int iter = 1;
@@ -197,7 +197,7 @@ double ASL_secant_root(const char *expression, double a, double b, double ete, d
         } // end of tolerance check
 
         // calculate new estimate of root
-        x = b - fb * (b - a) / (fb - fa);
+        x = b - (fb * (b - a) / (fb - fa));
 
         // evaluate the function at point x, y3 = f(x)
         fx = function_1_arg(expression, x);
@@ -209,8 +209,9 @@ double ASL_secant_root(const char *expression, double a, double b, double ete, d
             printf("\nIteration number [#%d]: x%d = %g, f(x%d) = %g .\n", iter, iter, x, iter, fx);
         } // end of if verbose
 
-        //calculate errors
+        //calculate real error
         ete_err = fabs(x - b);
+
         //calculate relative error
         if (b != 0) {
             ere_err = fabs(ete_err / b);
@@ -243,7 +244,7 @@ double ASL_secant_root(const char *expression, double a, double b, double ete, d
     // error has been set but reaches to maxiter, means algorithms didn't converge to a root
     if (!(ete == 0 && ere == 0 && tol == 0)) {
         // set state to 0 (false)
-        *state = HAS_NO_ROOT;
+        *state = ASL_HAS_NO_ROOT;
     } // end of if
     return x;
 } // end of ASL_secant_root function

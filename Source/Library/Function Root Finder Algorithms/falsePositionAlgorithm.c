@@ -34,7 +34,7 @@
 #include "falsePositionAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/util.h"
-#include "../Util/_configurations.h"
+#include "../Util/configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -87,7 +87,7 @@ ASL_falsePosition_root(const char *expression, double a, double b, double ete, d
      * Mohmmad Mahdi Baghbani Pourvahid
      *
      * MODIFIED:
-     * 31 March 2019
+     * 1 April 2019
      *
      * REFERENCE:
      * https://en.wikipedia.org/wiki/False_position_method
@@ -137,7 +137,7 @@ ASL_falsePosition_root(const char *expression, double a, double b, double ete, d
 
     // set state to has a root at start of program
     // it would be changed if root couldn't be found
-    *state = HAS_A_ROOT;
+    *state = ASL_HAS_A_ROOT;
 
     // calculates y1 = f(a) and y2 =f(b)
     double fa = function_1_arg(expression, a);
@@ -158,7 +158,7 @@ ASL_falsePosition_root(const char *expression, double a, double b, double ete, d
         } // end if(verbose)
 
         return b;
-    } else if (fa * fb < 0) {
+    } else if ((fa > 0.0 && fb < 0.0) || (fa < 0.0 && fb > 0.0)) {
         // if y1 and y2 have different signs, so we can use false position method
         // because when we bracket a function in two end of an interval (a, b)
         // if and only if f(a)f(b) < 0, function should have at least 1 root in that interval,
@@ -169,7 +169,7 @@ ASL_falsePosition_root(const char *expression, double a, double b, double ete, d
         // initializing variables
         unsigned int iter = 1;
         double fx, m;
-        double x = 0, ete_err = ete, ere_err = ere, tol_err = tol;
+        double x = 0, x_past = 0, ete_err = ete, ere_err = ere, tol_err = tol;
 
         while (iter <= maxiter) {
 
@@ -212,6 +212,19 @@ ASL_falsePosition_root(const char *expression, double a, double b, double ete, d
             // evaluate the function at point x, y3 =f(x)
             fx = function_1_arg(expression, x);
 
+            //calculate true error
+            ete_err = (iter == 1) ? ete : fabs(x - x_past);
+
+            // assign x to x_past for next loop
+            x_past = x;
+
+            //calculate relative error
+            if (x != 0 && iter != 1) {
+                ere_err = fabs(ete_err / x);
+            } else {
+                ere_err = ere;
+            } // end of zero-division guard
+
             // tolerance error
             tol_err = fabs(fx);
 
@@ -228,10 +241,7 @@ ASL_falsePosition_root(const char *expression, double a, double b, double ete, d
             // if y3 and y1 have same signs, then substitute a by x and y1 by y3
             // this  means the root of function is between x and b, because f(x)f(a) > 0
             // so we are confident that no root can be between a and x
-            if (fx * fa > 0) {
-
-                //calculate true error
-                ete_err = fabs(a - x);
+            if ((fa > 0.0 && fx > 0.0) || (fa < 0.0 && fx < 0.0)) {
 
                 // substitute
                 a = x;
@@ -248,10 +258,8 @@ ASL_falsePosition_root(const char *expression, double a, double b, double ete, d
                     printf("In this iteration, a replaced by x, new range is [%g, %g].\n", a, b);
                 } // end if(verbose)
 
-            } else if (fx * fb > 0) { // if y3 and y2 have same signs, then substitute b by x and y2 by y3
-
-                //calculate true error
-                ete_err = fabs(b - x);
+            } else if ((fb > 0.0 && fx > 0.0) || (fb < 0.0 && fx < 0.0)) {
+                // if y3 and y2 have same signs, then substitute b by x and y2 by y3
 
                 // substitute
                 b = x;
@@ -277,13 +285,6 @@ ASL_falsePosition_root(const char *expression, double a, double b, double ete, d
                 return x;
             } // end of if .. else if chained decisions
 
-            //calculate relative error
-            if (x != 0) {
-                ere_err = fabs(ete_err / x);
-            } else {
-                ere_err = ere;
-            } // end of zero-division guard
-
             iter++;
         } // end of while loop
 
@@ -304,7 +305,7 @@ ASL_falsePosition_root(const char *expression, double a, double b, double ete, d
         // error has been set but reaches to maxiter, means algorithms didn't converge to a root
         if (!(ete == 0 && ere == 0 && tol == 0)) {
             // set state to 0 (false)
-            *state = HAS_NO_ROOT;
+            *state = ASL_HAS_NO_ROOT;
         } // end of if
         return x;
 
@@ -315,7 +316,7 @@ ASL_falsePosition_root(const char *expression, double a, double b, double ete, d
                    "in order to use false position method.\n");
         }// end if(verbose)
 
-        *state = HAS_NO_ROOT;
+        *state = ASL_HAS_NO_ROOT;
         return -1;
     } // end of if ... else
 } // end of ASL_falsePosition_root function
