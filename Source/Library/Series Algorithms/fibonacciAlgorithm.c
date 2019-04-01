@@ -1,11 +1,9 @@
 #include "fibonacciAlgorithm.h"
-#include "../Util/_configurations.h"
+#include "../Util/configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
-#define SQRT5 2.23606797749979
 
 int fibonacci(unsigned int n) {
     /*
@@ -25,5 +23,5 @@ int fibonacci(unsigned int n) {
      */
 
 
-    return (int) round((pow(PHI, n) - (pow(-1/PHI, n))) / SQRT5);
+    return (int) round((pow(ASL_PHI, n) - (pow(-1 / ASL_PHI, n))) / ASL_SQRT5);
 }
