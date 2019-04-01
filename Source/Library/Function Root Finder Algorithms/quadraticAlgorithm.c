@@ -167,7 +167,7 @@ double *asl_quadratic_real_root(double a, double b, double c, int verbose, int *
 
         if (b == 0) {
             if (verbose == ASL_VERBOSE) {
-                printf("b = 0, function has two identical 'real' roots.\n");
+                printf("b = 0, function has a multiple 'real' roots.\n");
             } // end if(verbose == ASL_VERBOSE)
 
             double r = sqrt(-c / a);
@@ -176,7 +176,7 @@ double *asl_quadratic_real_root(double a, double b, double c, int verbose, int *
 
         } else {
             if (verbose == ASL_VERBOSE) {
-                printf("b != 0, function has two different 'real' roots.\n");
+                printf("b != 0, function has two distinct 'real' roots.\n");
             } // end if(verbose == ASL_VERBOSE)
 
             double sgnb = (b > 0 ? 1 : -1);
@@ -214,7 +214,7 @@ double *asl_quadratic_real_root(double a, double b, double c, int verbose, int *
         return result;
     } else {
         if (verbose == ASL_VERBOSE) {
-            printf("delta < 0, function doesn't have 'real' roots.\n");
+            printf("delta < 0, function doesn't have any 'real' roots.\n");
         } // end if(verbose == ASL_VERBOSE)
 
         *state = ASL_HAS_NO_ROOT;
