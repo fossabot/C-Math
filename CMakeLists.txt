@@ -94,6 +94,10 @@ add_library(falsePositionAlgorithm
 target_link_libraries(falsePositionAlgorithm
         PRIVATE functions util)
 
+add_library(quadraticAlgorithm
+        "Source/Library/Function Root Finder Algorithms/quadraticAlgorithm.c"
+        "Source/Library/Function Root Finder Algorithms/quadraticAlgorithm.h")
+
 add_library(secantAlgorithm
         "Source/Library/Function Root Finder Algorithms/secantAlgorithm.c"
         "Source/Library/Function Root Finder Algorithms/secantAlgorithm.h")
@@ -205,6 +209,9 @@ add_executable(falsePosition
 
 target_link_libraries(falsePosition
         PRIVATE falsePositionAlgorithm util)
+
+add_executable(quadratic
+        "Source/CLI Apps/Function Root Finder Algorithms/quadratic.c")
 
 add_executable(secant
         "Source/CLI Apps/Function Root Finder Algorithms/secant.c")

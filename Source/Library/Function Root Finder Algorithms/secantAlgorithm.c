@@ -26,15 +26,17 @@
  * claim that you wrote the original software. If you use this software
  * in a product, an acknowledgement in the product documentation would be
  * appreciated but is not required.
+ *
  * 2. Altered source versions must be plainly marked as such, and must not be
  * misrepresented as being the original software.
+ *
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
 #include "secantAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/util.h"
-#include "../Util/configurations/asl_configurations.h"
+#include "../Util/Configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -88,7 +90,7 @@ double asl_secant_root(const char *expression, double a, double b, double ete, d
      * 1 April 2019
      *
      * REFERENCE:
-     * https://en.wikipedia.org/wiki/Newton%27s_method
+     * https://en.wikipedia.org/wiki/Secant_method
      *
      * ARGUMENTS:
      * expressions  the function expression, it must be a string array like "x^2+1"
@@ -127,7 +129,7 @@ double asl_secant_root(const char *expression, double a, double b, double ete, d
     } // end of maxiter check
 
     // check verbose
-    if (verbose != 0 && verbose != 1) {
+    if (verbose != ASL_SILENCE && verbose != ASL_VERBOSE) {
         printf("\nError: verbose argument is not valid.\n");
         Exit(EXIT_FAILURE);
     } // end of if
@@ -149,15 +151,15 @@ double asl_secant_root(const char *expression, double a, double b, double ete, d
     // if any of them are smaller than tolerance
     // then it's root of the function
     if (fabs(fa) <= tol) {
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("Root has been found at the start of interval [a, b].\n");
-        } // end if(verbose)
+        } // end if(verbose == ASL_VERBOSE)
 
         return a;
     } else if (fabs(fb) <= tol) {
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("Root has been found at the end of interval [a, b].\n");
-        } // end if(verbose)
+        } // end if(verbose == ASL_VERBOSE)
 
         return b;
     } // end of if
@@ -167,31 +169,31 @@ double asl_secant_root(const char *expression, double a, double b, double ete, d
         // Termination Criterion
         // if calculated error is less than estimated true error threshold
         if (ete != 0 && ete_err < ete) {
-            if (verbose) {
+            if (verbose == ASL_VERBOSE) {
                 printf("\nIn this iteration[#%d]: |x%d - x%d| < estimated true error [%g < %g],\n"
                        "so x is close enough to the root of function.\n\n", iter - 1, iter - 1, iter - 2, ete_err, ete);
-            } // end if(verbose)
+            } // end if(verbose == ASL_VERBOSE)
 
             return x;
         } // end of estimated true error check
 
         // if calculated error is less than estimated relative error threshold
         if (ere != 0 && ere_err < ere) {
-            if (verbose) {
+            if (verbose == ASL_VERBOSE) {
                 printf("\nIn this iteration[#%d]: |(x%d - x%d / x%d)| < estimated relative error [%g < %g],\n"
                        "so x is close enough to the root of function.\n\n", iter - 1, iter - 1, iter - 2, iter - 1,
                        ere_err, ere);
-            } // end if(verbose)
+            } // end if(verbose == ASL_VERBOSE)
 
             return x;
         } // end of estimated relative error check
 
         // if y3 is less than tolerance error threshold
         if (tol != 0 && tol_err < tol) {
-            if (verbose) {
+            if (verbose == ASL_VERBOSE) {
                 printf("\nIn this iteration[#%d]: |f(x%d)| < tolerance [%g < %g],\n"
                        "so x is close enough to the root of function.\n\n", iter - 1, iter - 1, tol_err, tol);
-            } // end if(verbose)
+            } // end if(verbose == ASL_VERBOSE)
 
             return x;
         } // end of tolerance check
@@ -205,9 +207,9 @@ double asl_secant_root(const char *expression, double a, double b, double ete, d
         // tolerance error
         tol_err = fabs(fx);
 
-        if (verbose) {
+        if (verbose == ASL_VERBOSE) {
             printf("\nIteration number [#%d]: x%d = %g, f(x%d) = %g .\n", iter, iter, x, iter, fx);
-        } // end of if verbose
+        } // end of if verbose == ASL_VERBOSE
 
         //calculate real error
         ete_err = fabs(x - b);
@@ -227,7 +229,7 @@ double asl_secant_root(const char *expression, double a, double b, double ete, d
         iter++;
     } // end of while loop
 
-    if (verbose) {
+    if (verbose == ASL_VERBOSE) {
         // if user wanted to calculate root on maximum iteration limit
         // without specifying any error, then the answer is what user wants
         if (ete == 0 && ere == 0 && tol == 0) {
@@ -239,7 +241,7 @@ double asl_secant_root(const char *expression, double a, double b, double ete, d
         } // end of if ... else
 
         printf("the last calculated root is x = %g .\n", x);
-    } // end if(verbose)
+    } // end if(verbose == ASL_VERBOSE)
 
     // error has been set but reaches to maxiter, means algorithms didn't converge to a root
     if (!(ete == 0 && ere == 0 && tol == 0)) {

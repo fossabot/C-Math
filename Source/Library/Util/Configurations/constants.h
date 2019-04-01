@@ -1,4 +1,4 @@
-/* Source/Library/Util/configurations/constants.h
+/* Source/Library/Util/Configurations/constants.h
  *
  * ASL - Azadeh Scientific Library in C
  *

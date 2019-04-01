@@ -1,4 +1,4 @@
-/* Source/Library/Util/configurations/asl_configurations.h
+/* Source/Library/Util/Configurations/flags.h
  *
  * ASL - Azadeh Scientific Library in C
  *
@@ -31,10 +31,19 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#ifndef C_MATH_CONFIGURATIONS_H
-#define C_MATH_CONFIGURATIONS_H
+#ifndef __ASL_FLAGS_H__
+#define __ASL_FLAGS_H__
 
-#include "constants.h"
-#include "flags.h"
+#define INPUT_SIZE 32
 
-#endif //C_MATH_CONFIGURATIONS_H
+#define ASL_VERBOSE 1
+#define ASL_SILENCE 0
+
+#define ASL_SUCCESS 1
+#define ASL_FAILURE 0
+
+#define ASL_HAS_NO_ROOT 0
+#define ASL_HAS_A_ROOT 1
+#define ASL_HAS_TWO_ROOTS 2
+
+#endif //__ASL_FLAGS_H__

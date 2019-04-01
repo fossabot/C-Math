@@ -35,7 +35,7 @@
 #include "../Differentiation Algorithms/derivNumericalAlgorithm.h"
 #include "../Util/functions.h"
 #include "../Util/util.h"
-#include "../Util/configurations/asl_configurations.h"
+#include "../Util/Configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>

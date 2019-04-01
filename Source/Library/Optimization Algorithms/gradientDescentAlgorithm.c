@@ -2,7 +2,7 @@
 #include "../Differentiation Algorithms/derivNumericalAlgorithm.h"
 #include "../Util/randomGenerator.h"
 #include "../Util/functions.h"
-#include "../Util/configurations/asl_configurations.h"
+#include "../Util/Configurations/asl_configurations.h"
 #include "../Util/util.h"
 
 #include <stdio.h>

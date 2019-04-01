@@ -1,5 +1,5 @@
 #include "fibonacciAlgorithm.h"
-#include "../Util/configurations/asl_configurations.h"
+#include "../Util/Configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>

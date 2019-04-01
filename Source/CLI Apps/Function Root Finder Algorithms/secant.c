@@ -1,6 +1,6 @@
 #include "../../Library/Function Root Finder Algorithms/secantAlgorithm.h"
 #include "../../Library/Util/util.h"
-#include "../../Library/Util/configurations/asl_configurations.h"
+#include "../../Library/Util/Configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>
