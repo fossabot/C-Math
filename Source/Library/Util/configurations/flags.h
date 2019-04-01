@@ -42,7 +42,8 @@
 #define ASL_SUCCESS 1
 #define ASL_FAILURE 0
 
-#define ASL_HAS_A_ROOT 1
 #define ASL_HAS_NO_ROOT 0
+#define ASL_HAS_A_ROOT 1
+#define ASL_HAS_TWO_ROOTS 2
 
 #endif //__ASL_FLAGS_H__
