@@ -48,7 +48,7 @@
 
 __BEGIN_DECLS
 
-double ASL_secant_root(const char *expression, double x1, double x2, double ete, double ere, double tol,
+double asl_secant_root(const char *expression, double x1, double x2, double ete, double ere, double tol,
                        unsigned int maxiter, int verbose, int *state);
 /*
 * In numerical analysis, the secant method is a root-finding algorithm that uses a succession of roots
@@ -57,7 +57,7 @@ double ASL_secant_root(const char *expression, double x1, double x2, double ete,
 * of Newton's method and predates it by over 3000 years
 *
 * PURPOSE:
-* ASL_secant_root seeks a root of a function F(X) in an interval [A, B].
+* asl_secant_root seeks a root of a function F(X) in an interval [A, B].
 *
 * DISCUSSION:
 * nothing.

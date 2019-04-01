@@ -274,7 +274,7 @@ int main() {
     } // end of if verbose
 
     // calculate
-    double x = ASL_falsePosition_root(expression, a0, b0, ete, ere, tol, (unsigned int) maxiter, algorithmType, verbose,
+    double x = asl_falsePosition_root(expression, a0, b0, ete, ere, tol, (unsigned int) maxiter, algorithmType, verbose,
                                       &flag);
 
     // if there was an answer

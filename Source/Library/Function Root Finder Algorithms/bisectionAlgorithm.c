@@ -40,7 +40,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-double ASL_bisection_root(const char *expression, double a, double b, double ete, double ere, double tol,
+double asl_bisection_root(const char *expression, double a, double b, double ete, double ere, double tol,
                           unsigned int maxiter,
                           int verbose, int *state) {
     /*
@@ -51,7 +51,7 @@ double ASL_bisection_root(const char *expression, double a, double b, double ete
      * halving method, the binary search method, or the dichotomy method.
      *
      * PURPOSE:
-     * ASL_bisection_root seeks a root of a function F(X) in an interval [A, B].
+     * asl_bisection_root seeks a root of a function F(X) in an interval [A, B].
      *
      * DISCUSSION:
      * This function assumes that F(A)*F(B) < 0.
@@ -158,7 +158,7 @@ double ASL_bisection_root(const char *expression, double a, double b, double ete
 
         return b;
     } else if ((fa > 0.0 && fb < 0.0) || (fa < 0.0 && fb > 0.0)) {
-        // if y1 and y2 have different signs, so we can use ASL_bisection_root method
+        // if y1 and y2 have different signs, so we can use asl_bisection_root method
         // because when we bracket a function in two end of an interval (a, b)
         // if and only if f(a)f(b) < 0, function should have at least 1 root in that interval,
         // assume f(a) > 0, then f(b) must be smaller than zero to hold the equation f(a)f(b) < 0
@@ -231,7 +231,7 @@ double ASL_bisection_root(const char *expression, double a, double b, double ete
             } // end if(verbose)
 
             // interval reduction
-            // in this part of ASL_bisection_root's algorithm we are trying to reduce
+            // in this part of asl_bisection_root's algorithm we are trying to reduce
             // interval for next iteration, we need to locate the root's
             // position between [a, x, b], by a simple test f(a)f(x) ?< 0
             // and then re-bracket the domain
@@ -292,7 +292,7 @@ double ASL_bisection_root(const char *expression, double a, double b, double ete
         } // end of if
         return x;
 
-    } else { // if y1 and y2 have same signs, then we can't use ASL_bisection_root method
+    } else { // if y1 and y2 have same signs, then we can't use asl_bisection_root method
         // because endpoints do not straddle y = 0 .
         if (verbose) {
             printf("Incorrect bracketing of function domain!\n"
@@ -303,4 +303,4 @@ double ASL_bisection_root(const char *expression, double a, double b, double ete
         *state = ASL_HAS_NO_ROOT;
         return -1;
     } // end of if ... else
-} // end of ASL_bisection_root function
+} // end of asl_bisection_root function

@@ -248,7 +248,7 @@ int main() {
     } // end of if verbose
 
     // calculation
-    double x = ASL_bisection_root(expression, a0, b0, ete, ere, tol, (unsigned int) maxiter, verbose, &flag);
+    double x = asl_bisection_root(expression, a0, b0, ete, ere, tol, (unsigned int) maxiter, verbose, &flag);
 
     // if there was an answer
     if (flag) {

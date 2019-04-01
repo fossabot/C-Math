@@ -41,7 +41,7 @@
 #include <math.h>
 
 double
-ASL_falsePosition_root(const char *expression, double a, double b, double ete, double ere, double tol,
+asl_falsePosition_root(const char *expression, double a, double b, double ete, double ere, double tol,
                        unsigned int maxiter, int options, int verbose, int *state) {
     /*
      * In mathematics, the false position method or regula falsi is a very old method for solving
@@ -51,7 +51,7 @@ ASL_falsePosition_root(const char *expression, double a, double b, double ete, d
 	 * to as "guess and check". Versions of the method predate the advent of algebra and the use of equations.
      *
      * PURPOSE:
-     * ASL_falsePosition_root seeks a root of a function F(X) in an interval [A, B].
+     * asl_falsePosition_root seeks a root of a function F(X) in an interval [A, B].
      *
      * DISCUSSION:
      * This function assumes that F(A)*F(B) < 0.
@@ -319,4 +319,4 @@ ASL_falsePosition_root(const char *expression, double a, double b, double ete, d
         *state = ASL_HAS_NO_ROOT;
         return -1;
     } // end of if ... else
-} // end of ASL_falsePosition_root function
+} // end of asl_falsePosition_root function

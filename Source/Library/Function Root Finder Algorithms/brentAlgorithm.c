@@ -40,7 +40,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-double ASL_brent_root(const char *expression, double a, double b, double tol, unsigned int maxiter, int verbose,
+double asl_brent_root(const char *expression, double a, double b, double tol, unsigned int maxiter, int verbose,
                       int *state) {
     /*
      * In numerical analysis, Brent's method is a root-finding algorithm combining the bisection method,
@@ -51,7 +51,7 @@ double ASL_brent_root(const char *expression, double a, double b, double tol, un
      * by Theodorus Dekker. Consequently, the method is also known as the Brent–Dekker method. 
      *
      * PURPOSE:
-     * ASL_brent_root seeks a root of a function F(X) in an interval [A, B].
+     * asl_brent_root seeks a root of a function F(X) in an interval [A, B].
      *
      * DISCUSSION:
      * This function assumes that F(A)*F(B) < 0.
@@ -302,4 +302,4 @@ double ASL_brent_root(const char *expression, double a, double b, double tol, un
         *state = ASL_HAS_NO_ROOT;
         return -1;
     } // end of if ... else
-} // end of ASL_brent_root function
+} // end of asl_brent_root function

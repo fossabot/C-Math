@@ -40,7 +40,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-double ASL_secant_root(const char *expression, double a, double b, double ete, double ere, double tol,
+double asl_secant_root(const char *expression, double a, double b, double ete, double ere, double tol,
                        unsigned int maxiter, int verbose, int *state) {
     /*
      * In numerical analysis, the secant method is a root-finding algorithm that uses a succession of roots
@@ -49,7 +49,7 @@ double ASL_secant_root(const char *expression, double a, double b, double ete, d
      * of Newton's method and predates it by over 3000 years
      *
      * PURPOSE:
-     * ASL_secant_root seeks a root of a function F(X) in an interval [A, B].
+     * asl_secant_root seeks a root of a function F(X) in an interval [A, B].
      *
      * DISCUSSION:
      * nothing.
@@ -247,4 +247,4 @@ double ASL_secant_root(const char *expression, double a, double b, double ete, d
         *state = ASL_HAS_NO_ROOT;
     } // end of if
     return x;
-} // end of ASL_secant_root function
+} // end of asl_secant_root function

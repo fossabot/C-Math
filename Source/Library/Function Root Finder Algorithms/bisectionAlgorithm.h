@@ -48,7 +48,7 @@
 
 __BEGIN_DECLS
 
-double ASL_bisection_root(const char *expression, double a, double b, double ete, double ere, double tol,
+double asl_bisection_root(const char *expression, double a, double b, double ete, double ere, double tol,
                           unsigned int maxiter,
                           int verbose, int *state);
 /*
@@ -59,7 +59,7 @@ double ASL_bisection_root(const char *expression, double a, double b, double ete
      * halving method, the binary search method, or the dichotomy method.
      *
      * PURPOSE:
-     * ASL_bisection_root seeks a root of a function F(X) in an interval [A, B].
+     * asl_bisection_root seeks a root of a function F(X) in an interval [A, B].
      *
      * DISCUSSION:
      * This function assumes that F(A)*F(B) < 0.

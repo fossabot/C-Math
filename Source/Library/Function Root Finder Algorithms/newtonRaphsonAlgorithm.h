@@ -48,7 +48,7 @@
 
 __BEGIN_DECLS
 
-double ASL_newtonRaphson_root(const char *expression, double x0, double ete, double ere, double tol,
+double asl_newtonRaphson_root(const char *expression, double x0, double ete, double ere, double tol,
                               unsigned int maxiter, int verbose, int *state);
 /*
  * In numerical analysis, Newton's method (also known as the Newton–Raphson method), named after Isaac Newton and
@@ -65,7 +65,7 @@ double ASL_newtonRaphson_root(const char *expression, double x0, double ete, dou
  * The process is repeated until a sufficiently accurate value is reached.
  *
  * PURPOSE:
- * ASL_newtonRaphson_root seeks a root of a function F(X).
+ * asl_newtonRaphson_root seeks a root of a function F(X).
  *
  * DISCUSSION:
  * This function assumes that F(X) is continuously differentiable over it's domain.

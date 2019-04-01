@@ -199,7 +199,7 @@ int main() {
     } // end of if verbose
 
     // calculation
-    double x = ASL_newtonRaphson_root(expression, x0, ete, ere, tol, (unsigned int) maxiter, verbose, &flag);
+    double x = asl_newtonRaphson_root(expression, x0, ete, ere, tol, (unsigned int) maxiter, verbose, &flag);
 
     // if there was an answer
     if (flag) {
