@@ -89,7 +89,7 @@ double asl_secant_root(const char *expression, double a, double b, double ete, d
      * MODIFIED:
      * 1 April 2019
      *
-     * REFERENCE:
+     * REFERENCE(S):
      * https://en.wikipedia.org/wiki/Secant_method
      *
      * ARGUMENTS:

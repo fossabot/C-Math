@@ -95,16 +95,16 @@ double *asl_quadratic_real_root(double a, double b, double c, int verbose, int *
      * Mohmmad Mahdi Baghbani Pourvahid
      *
      * MODIFIED:
-     * 1 April 2019
+     * 3 April 2019
      *
      * REFERENCE:
      * https://en.wikipedia.org/wiki/Quadratic_formula
      *
      * ARGUMENTS:
      * expressions  the function expression, it must be a string array like "x^2+1"
-     * a            starting point
-     * b            estimated true error
-     * c            estimated relative error
+     * a            x^2 coefficient
+     * b            x^1 coefficient
+     * c            x^0 coefficient
      * verbose      show process {0: no, 1: yes}
      * state        is answer found or not, it will indicate how many roots have been found
      *              by values: ASL_HAS_NO_ROOT, ASL_HAS_A_ROOT, ASL_HAS_TWO_ROOTS

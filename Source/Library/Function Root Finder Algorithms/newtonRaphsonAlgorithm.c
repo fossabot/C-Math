@@ -96,7 +96,7 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
      * MODIFIED:
      * 1 April 2019
      *
-     * REFERENCE:
+     * REFERENCE(S):
      * https://en.wikipedia.org/wiki/Newton%27s_method
      *
      * ARGUMENTS:

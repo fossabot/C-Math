@@ -89,7 +89,7 @@ double asl_bisection_root(const char *expression, double a, double b, double ete
      * MODIFIED:
      * 1 April 2019
      *
-     * REFERENCE:
+     * REFERENCE(S):
      * https://en.wikipedia.org/wiki/Bisection_method
      *
      * ARGUMENTS:
