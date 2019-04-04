@@ -1,4 +1,4 @@
-/* Source/Library/Util/Configurations/flags.h
+/* Source/Library/Function Root Finder Algorithms/cubicAlgorithm.h
  *
  * ASL - Azadeh Scientific Library in C
  *
@@ -26,29 +26,33 @@
  * claim that you wrote the original software. If you use this software
  * in a product, an acknowledgement in the product documentation would be
  * appreciated but is not required.
- * 
+ *
  * 2. Altered source versions must be plainly marked as such, and must not be
  * misrepresented as being the original software.
- * 
+ *
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#ifndef __ASL_FLAGS_H__
-#define __ASL_FLAGS_H__
 
-#define INPUT_SIZE 32
+#ifndef __ASL_CUBICALGORITHM_H__
+#define __ASL_CUBICALGORITHM_H__
 
-#define ASL_VERBOSE 1
-#define ASL_SILENCE 0
+// To ensure that the names declared in this portion of code have C linkage,
+// and thus C++ name mangling is not performed while using this code with C++.
+#undef __BEGIN_DECLS
+#undef __END_DECLS
+#ifdef __cplusplus
+# define __BEGIN_DECLS extern "C" {
+# define __END_DECLS }
+#else
+# define __BEGIN_DECLS /* empty */
+# define __END_DECLS /* empty */
+#endif
 
-#define ASL_SUCCESS 1
-#define ASL_FAILURE 0
+__BEGIN_DECLS
 
-#define ASL_HAS_NO_ROOT 0
-#define ASL_HAS_A_ROOT 1
-#define ASL_HAS_TWO_ROOTS 2
-#define ASL_HAS_TWO_IDENTICAL_ROOTS 3
-#define ASL_HAS_THREE_ROOTS 4
-#define ASL_HAS_DOUBLE_SIMPLE_ROOTS 5
+double *asl_cubic_real_root(double a, double b, double c, double d, int verbose, int *state);
 
-#endif //__ASL_FLAGS_H__
+__END_DECLS
+
+#endif //__ASL_CUBICALGORITHM_H__

@@ -97,7 +97,7 @@ double *asl_quadratic_real_root(double a, double b, double c, int verbose, int *
      * MODIFIED:
      * 3 April 2019
      *
-     * REFERENCE:
+     * REFERENCE(S):
      * https://en.wikipedia.org/wiki/Quadratic_formula
      *
      * ARGUMENTS:
@@ -121,6 +121,7 @@ double *asl_quadratic_real_root(double a, double b, double c, int verbose, int *
         Exit(EXIT_FAILURE);
     } // end of if
 
+    // initializing variables
     double x1, x2;
     static double result[2] = {0};
 
@@ -204,7 +205,7 @@ double *asl_quadratic_real_root(double a, double b, double c, int verbose, int *
             printf("delta = 0, function has two identical 'real' roots.\n");
         } // end if(verbose == ASL_VERBOSE)
 
-        *state = ASL_HAS_A_ROOT;
+        *state = ASL_HAS_TWO_IDENTICAL_ROOTS;
 
         x1 = -0.5 * b / a;
 

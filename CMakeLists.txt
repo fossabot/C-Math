@@ -80,6 +80,10 @@ add_library(brentAlgorithm
 target_link_libraries(brentAlgorithm
         PRIVATE functions util)
 
+add_library(cubicAlgorithm
+        "Source/Library/Function Root Finder Algorithms/cubicAlgorithm.c"
+        "Source/Library/Function Root Finder Algorithms/cubicAlgorithm.h")
+
 add_library(newtonRaphsonAlgorithm
         "Source/Library/Function Root Finder Algorithms/newtonRaphsonAlgorithm.c"
         "Source/Library/Function Root Finder Algorithms/newtonRaphsonAlgorithm.h")
@@ -97,6 +101,9 @@ target_link_libraries(falsePositionAlgorithm
 add_library(quadraticAlgorithm
         "Source/Library/Function Root Finder Algorithms/quadraticAlgorithm.c"
         "Source/Library/Function Root Finder Algorithms/quadraticAlgorithm.h")
+
+target_link_libraries(quadraticAlgorithm
+        PRIVATE util)
 
 add_library(secantAlgorithm
         "Source/Library/Function Root Finder Algorithms/secantAlgorithm.c"
@@ -198,6 +205,12 @@ add_executable(brent
 target_link_libraries(brent
         PRIVATE brentAlgorithm util)
 
+add_executable(cubic
+        "Source/CLI Apps/Function Root Finder Algorithms/cubic.c")
+
+target_link_libraries(cubic
+        PRIVATE cubicAlgorithm util)
+
 add_executable(newtonRaphson
         "Source/CLI Apps/Function Root Finder Algorithms/newtonRaphson.c")
 
@@ -212,6 +225,9 @@ target_link_libraries(falsePosition
 
 add_executable(quadratic
         "Source/CLI Apps/Function Root Finder Algorithms/quadratic.c")
+
+target_link_libraries(quadratic
+        PRIVATE quadraticAlgorithm util)
 
 add_executable(secant
         "Source/CLI Apps/Function Root Finder Algorithms/secant.c")
