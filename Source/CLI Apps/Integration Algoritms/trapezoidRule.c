@@ -12,8 +12,8 @@ int main() {
 
     // initializing variables
     char *fgetsReturn;
-    char expression[INPUT_SIZE];
-    char a[INPUT_SIZE], b[INPUT_SIZE], n_c[INPUT_SIZE], verbose_c[INPUT_SIZE], tryAgain_c[INPUT_SIZE];
+    char expression[ASL_INPUT_SIZE];
+    char a[ASL_INPUT_SIZE], b[ASL_INPUT_SIZE], n_c[ASL_INPUT_SIZE], verbose_c[ASL_INPUT_SIZE], tryAgain_c[ASL_INPUT_SIZE];
     char *ptr;
     int n = 0, verbose = 0, tryAgain = 0;
     double a0, b0;

@@ -36,7 +36,7 @@
 #ifndef __ASL_FLAGS_H__
 #define __ASL_FLAGS_H__
 
-#define INPUT_SIZE 32
+#define ASL_INPUT_SIZE 32
 
 #define ASL_VERBOSE 1
 #define ASL_SILENCE 0

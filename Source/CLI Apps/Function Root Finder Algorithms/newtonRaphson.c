@@ -47,9 +47,9 @@ int main() {
 
     // initializing variables
     char *fgetsReturn;
-    char expression[INPUT_SIZE];
-    char x0_c[INPUT_SIZE], ete_c[INPUT_SIZE], ere_c[INPUT_SIZE],
-            tol_c[INPUT_SIZE], maxiter_c[INPUT_SIZE], verbose_c[INPUT_SIZE], tryAgain_c[INPUT_SIZE];
+    char expression[ASL_INPUT_SIZE];
+    char x0_c[ASL_INPUT_SIZE], ete_c[ASL_INPUT_SIZE], ere_c[ASL_INPUT_SIZE],
+            tol_c[ASL_INPUT_SIZE], maxiter_c[ASL_INPUT_SIZE], verbose_c[ASL_INPUT_SIZE], tryAgain_c[ASL_INPUT_SIZE];
     char *ptr;
     int maxiter = 0, verbose = 0, tryAgain = 0, flag = 1;
     double x0, ete, ere, tol;

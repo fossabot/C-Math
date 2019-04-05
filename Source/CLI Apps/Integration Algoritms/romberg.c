@@ -12,9 +12,9 @@ int main() {
 
     // initializing variables
     char *fgetsReturn;
-    char expression[INPUT_SIZE];
-    char a[INPUT_SIZE], b[INPUT_SIZE], k_c[INPUT_SIZE], tol_c[INPUT_SIZE], verbose_c[INPUT_SIZE],
-            tryAgain_c[INPUT_SIZE];
+    char expression[ASL_INPUT_SIZE];
+    char a[ASL_INPUT_SIZE], b[ASL_INPUT_SIZE], k_c[ASL_INPUT_SIZE], tol_c[ASL_INPUT_SIZE], verbose_c[ASL_INPUT_SIZE],
+            tryAgain_c[ASL_INPUT_SIZE];
     char *ptr;
     int verbose = 0, k = 0, tryAgain = 0;
     double a0, b0, tol;
