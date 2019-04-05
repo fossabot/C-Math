@@ -25,18 +25,16 @@ double romberg(const char *expression, double a, double b, unsigned int k, doubl
      *
      */
 
-    // fix interval reverse
-    if (a > b) {
-        double temp = a;
-        a = b;
-        b = temp;
-    } // end of if
-
     // check interval
     if (a == b) {
         printf("\nError: improper interval!\n");
         Exit(EXIT_FAILURE);
     } //end of interval check
+
+    // fix interval reverse
+    if (a > b) {
+        swapDouble(&a, &b);
+    } // end of if
 
     // check k to be more than zero
     if (k < 0) {

@@ -105,16 +105,16 @@ double asl_brent_root(const char *expression, double a, double b, double tol, un
      *
      */
 
-    // fix interval reverse
-    if (a > b) {
-        swapDouble(&a, &b);
-    } // end of if
-
     // check interval
     if (a == b) {
         printf("\nError: improper interval!\n");
         Exit(EXIT_FAILURE);
     } //end of interval check
+
+    // fix interval reverse
+    if (a > b) {
+        swapDouble(&a, &b);
+    } // end of if
 
     // check error threshold
     if (tol < 0) {

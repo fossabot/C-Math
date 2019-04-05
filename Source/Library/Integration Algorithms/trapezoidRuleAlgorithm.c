@@ -20,18 +20,16 @@ double trapezoidRule(const char *expression, double a, double b, unsigned int n,
      */
 
 
-    // fix interval reverse
-    if (a > b) {
-        double temp = a;
-        a = b;
-        b = temp;
-    } // end of if
-
     // check interval
     if (a == b) {
         printf("\nError: improper interval!\n");
         Exit(EXIT_FAILURE);
     } //end of interval check
+
+    // fix interval reverse
+    if (a > b) {
+        swapDouble(&a, &b);
+    } // end of if
 
     // check n to be more than zero
     // this is implemented to prevent divide by zero error

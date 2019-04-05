@@ -21,18 +21,16 @@ double simpsonRule(const char *expression, double a, double b, unsigned int n, i
      *
      */
 
-    // fix interval reverse
-    if (a > b) {
-        double temp = a;
-        a = b;
-        b = temp;
-    } // end of if
-
     // check interval
     if (a == b) {
         printf("\nError: improper interval!\n");
         Exit(EXIT_FAILURE);
     } //end of interval check
+
+    // fix interval reverse
+    if (a > b) {
+        swapDouble(&a, &b);
+    } // end of if
 
     // check verbose and options value
     if ((verbose != 0 && verbose != 1) || (options != 0 && options != 1)) {

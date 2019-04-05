@@ -24,11 +24,15 @@ double *simpleMaxMinFinder(const char *expression, double a, double b, unsigned 
      *
      */
 
+    // check interval
+    if (a == b) {
+        printf("\nError: improper interval!\n");
+        Exit(EXIT_FAILURE);
+    } //end of interval check
+
     // fix interval reverse
-    if (a > b){
-        double temp = a;
-        a = b;
-        b = temp;
+    if (a > b) {
+        swapDouble(&a, &b);
     } // end of if
 
     // check n to be more than zero

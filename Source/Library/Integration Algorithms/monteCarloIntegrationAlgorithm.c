@@ -26,18 +26,16 @@ double monteCarloIntegration(const char *expression, double a, double b, unsigne
      *
      */
 
-    // fix interval reverse
-    if (a > b){
-        double temp = a;
-        a = b;
-        b = temp;
-    } // end of if
-
     // check interval
     if (a == b) {
         printf("\nError: improper interval!\n");
         Exit(EXIT_FAILURE);
     } //end of interval check
+
+    // fix interval reverse
+    if (a > b) {
+        swapDouble(&a, &b);
+    } // end of if
 
     // check n to be more than zero
     // this is implemented to prevent divide by zero error
@@ -86,18 +84,16 @@ double monteCarloPointIntegration(const char *expression, double a, double b, un
      *
      */
 
-    // fix interval reverse
-    if (a > b){
-        double temp = a;
-        a = b;
-        b = temp;
-    } // end of if
-
     // check interval
     if (a == b) {
         printf("\nError: improper interval!\n");
         Exit(EXIT_FAILURE);
     } //end of interval check
+
+    // fix interval reverse
+    if (a > b) {
+        swapDouble(&a, &b);
+    } // end of if
 
     // check n to be more than zero
     // this is implemented to prevent divide by zero error

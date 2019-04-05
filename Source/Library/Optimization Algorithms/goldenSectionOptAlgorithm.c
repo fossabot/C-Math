@@ -28,18 +28,16 @@ double goldenSectionOptimization(const char *expression, double a, double b, dou
      *
      */
 
-    // fix interval reverse
-    if (a > b) {
-        double temp = a;
-        a = b;
-        b = temp;
-    } // end of if
-
     // check interval
     if (a == b) {
         printf("\nError: improper interval!\n");
         Exit(EXIT_FAILURE);
     } //end of interval check
+
+    // fix interval reverse
+    if (a > b) {
+        swapDouble(&a, &b);
+    } // end of if
 
     // check error thresholds
     if (tol < 0) {

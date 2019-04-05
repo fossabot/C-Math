@@ -105,16 +105,16 @@ double asl_secant_root(const char *expression, double a, double b, double ete, d
      *
      */
 
-    // fix interval reverse
-    if (a > b) {
-        swapDouble(&a, &b);
-    } // end of if
-
     // check interval
     if (a == b) {
         printf("\nError: improper interval!\n");
         Exit(EXIT_FAILURE);
     } //end of interval check
+
+    // fix interval reverse
+    if (a > b) {
+        swapDouble(&a, &b);
+    } // end of if
 
     // check error thresholds
     if (ere < 0 || ete < 0 || tol < 0){
