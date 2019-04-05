@@ -48,8 +48,8 @@ int main() {
     // initializing variables
     char *fgetsReturn;
     char expression[ASL_INPUT_SIZE];
-    char a[ASL_INPUT_SIZE], b[ASL_INPUT_SIZE], tol_c[ASL_INPUT_SIZE], maxiter_c[ASL_INPUT_SIZE], verbose_c[ASL_INPUT_SIZE],
-            tryAgain_c[ASL_INPUT_SIZE];
+    char a[ASL_INPUT_SIZE], b[ASL_INPUT_SIZE], tol_c[ASL_INPUT_SIZE], maxiter_c[ASL_INPUT_SIZE],
+            verbose_c[ASL_INPUT_SIZE], tryAgain_c[ASL_INPUT_SIZE];
     char *ptr;
     int maxiter = 0, verbose = 0, tryAgain = 0, flag = ASL_HAS_A_ROOT;
     double a0, b0, tol;
