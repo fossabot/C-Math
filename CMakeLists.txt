@@ -84,6 +84,9 @@ add_library(cubicAlgorithm
         "Source/Library/Function Root Finder Algorithms/cubicAlgorithm.c"
         "Source/Library/Function Root Finder Algorithms/cubicAlgorithm.h")
 
+target_link_libraries(cubicAlgorithm
+        PRIVATE quadraticAlgorithm util)
+
 add_library(newtonRaphsonAlgorithm
         "Source/Library/Function Root Finder Algorithms/newtonRaphsonAlgorithm.c"
         "Source/Library/Function Root Finder Algorithms/newtonRaphsonAlgorithm.h")
