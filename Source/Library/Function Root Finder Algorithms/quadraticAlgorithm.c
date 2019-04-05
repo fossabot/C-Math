@@ -132,7 +132,7 @@ double *asl_quadratic_real_root(double a, double b, double c, int verbose, int *
     // Handle linear case
     if (a == 0) {
         if (verbose == ASL_VERBOSE) {
-            printf("Function is linear, it might have one possible root.\n");
+            printf("\nFunction is linear, it might have one possible root.\n");
         } // end if(verbose == ASL_VERBOSE)
 
         if (b == 0) {
@@ -166,7 +166,7 @@ double *asl_quadratic_real_root(double a, double b, double c, int verbose, int *
     double delta = b * b - 4 * a * c;
 
     if (verbose == ASL_VERBOSE) {
-        printf("Calculating delta for this function -> delta = b^2 - 4ac = %g\n", delta);
+        printf("\nCalculating delta for this function -> delta = b^2 - 4ac = %g\n", delta);
     } // end if(verbose == ASL_VERBOSE)
 
     if (delta > 0) {
