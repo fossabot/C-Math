@@ -2,7 +2,7 @@
  *
  * ASL - Azadeh Scientific Library in C
  *
- * Copyright (C) 2019 Mohammad Mahdi Bgahbani Pourvahid
+ * Copyright (C) 2019 Mohammad Mahdi Baghbani Pourvahid
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -100,7 +100,7 @@ double asl_newtonRaphson_root(const char *expression, double x0, double ete, dou
  * Same license
  *
  * AUTHOR(S):
- * Mohmmad Mahdi Baghbani Pourvahid
+ * Mohammad Mahdi Baghbani Pourvahid
  *
  * MODIFIED:
  * 31 March 2019
@@ -119,7 +119,6 @@ double asl_newtonRaphson_root(const char *expression, double x0, double ete, dou
  * state        is answer found or not, will set value of state to 0 if no answers been found
  *
  */
-
 
 __END_DECLS
 

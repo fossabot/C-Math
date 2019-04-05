@@ -2,7 +2,7 @@
  *
  * ASL - Azadeh Scientific Library in C
  *
- * Copyright (C) 2019 Mohammad Mahdi Bgahbani Pourvahid
+ * Copyright (C) 2019 Mohammad Mahdi Baghbani Pourvahid
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -38,8 +38,10 @@
 
 #include "bisectionAlgorithm.h"
 #include "brentAlgorithm.h"
+#include "cubicAlgorithm.h"
 #include "falsePositionAlgorithm.h"
 #include "newtonRaphsonAlgorithm.h"
+#include "quadraticAlgorithm.h"
 #include "secantAlgorithm.h"
 
 #endif //__ASL_ASL_ROOT_FINDER_H__

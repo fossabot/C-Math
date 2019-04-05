@@ -2,7 +2,12 @@
  *
  * ASL - Azadeh Scientific Library in C
  *
- * Copyright (C) 2019 Mohammad Mahdi Bgahbani Pourvahid
+ * Copyright (C) 2019 Mohammad Mahdi Baghbani Pourvahid
+ *
+ * this module originally came from gsl/poly/solve_quadratic.c and has been modified by me.
+ * copyright notice for original source:
+ *
+ * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -92,10 +97,10 @@ double *asl_quadratic_real_root(double a, double b, double c, int verbose, int *
      * Same license
      *
      * AUTHOR(S):
-     * Mohmmad Mahdi Baghbani Pourvahid
+     * Mohammad Mahdi Baghbani Pourvahid
      *
      * MODIFIED:
-     * 3 April 2019
+     * 5 April 2019
      *
      * REFERENCE(S):
      * https://en.wikipedia.org/wiki/Quadratic_formula
@@ -107,7 +112,6 @@ double *asl_quadratic_real_root(double a, double b, double c, int verbose, int *
      * c            x^0 coefficient
      * verbose      show process {0: no, 1: yes}
      * state        is answer found or not, it will indicate how many roots have been found
-     *              by values: ASL_HAS_NO_ROOT, ASL_HAS_A_ROOT, ASL_HAS_TWO_ROOTS
      *
      * RETURN:
      * pointer to an array of two elements, containing roots

@@ -2,7 +2,7 @@
  *
  * ASL - Azadeh Scientific Library in C
  *
- * Copyright (C) 2019 Mohammad Mahdi Bgahbani Pourvahid
+ * Copyright (C) 2019 Mohammad Mahdi Baghbani Pourvahid
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -101,7 +101,7 @@ double *asl_quadratic_real_root(double a, double b, double c, int verbose, int *
  * Same license
  *
  * AUTHOR(S):
- * Mohmmad Mahdi Baghbani Pourvahid
+ * Mohammad Mahdi Baghbani Pourvahid
  *
  * MODIFIED:
  * 3 April 2019

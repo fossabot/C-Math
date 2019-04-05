@@ -2,7 +2,7 @@
  *
  * ASL - Azadeh Scientific Library in C
  *
- * Copyright (C) 2019 Mohammad Mahdi Bgahbani Pourvahid
+ * Copyright (C) 2019 Mohammad Mahdi Baghbani Pourvahid
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -45,6 +45,19 @@
 #define ASL_SIXTH_ORDER_ACCURACY 6
 #define ASL_EIGHTH_ORDER_ACCURACY 8
 
+// To ensure that the names declared in this portion of code have C linkage,
+// and thus C++ name mangling is not performed while using this code with C++.
+#undef __BEGIN_DECLS
+#undef __END_DECLS
+#ifdef __cplusplus
+# define __BEGIN_DECLS extern "C" {
+# define __END_DECLS }
+#else
+# define __BEGIN_DECLS /* empty */
+# define __END_DECLS /* empty */
+#endif
+
+__BEGIN_DECLS
 
 double firstDerivative_1_arg(const char *expression, double x, double delta, int options);
 
@@ -112,5 +125,7 @@ double centralSixthDerivative_1_arg(const char *expression, double x, double del
  * NOTE: it's good to use delta in range [1e-1, 1e-2] for this function
  * [double floating point accuracy IEEE 754-1985]
  */
+
+__END_DECLS
 
 #endif //__ASL_DERIVNUMERICALALGORITHM_H__

@@ -2,7 +2,12 @@
  *
  * ASL - Azadeh Scientific Library in C
  *
- * Copyright (C) 2019 Mohammad Mahdi Bgahbani Pourvahid
+ * Copyright (C) 2019 Mohammad Mahdi Baghbani Pourvahid
+ *
+ * this module originally came from gsl/poly/solve_cubic.c and has been modified by me.
+ * copyright notice for original source:
+ *
+ * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007, 2009 Brian Gough
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -95,10 +100,10 @@ double *asl_cubic_real_root(double a, double b, double c, double d, int verbose,
      * Same license
      *
      * AUTHOR(S):
-     * Mohmmad Mahdi Baghbani Pourvahid
+     * Mohammad Mahdi Baghbani Pourvahid
      *
      * MODIFIED:
-     * 3 April 2019
+     * 5 April 2019
      *
      * REFERENCE(S):
      * https://en.wikipedia.org/wiki/Cubic_function
@@ -112,7 +117,6 @@ double *asl_cubic_real_root(double a, double b, double c, double d, int verbose,
      * d            x^0 coefficient
      * verbose      show process {0: no, 1: yes}
      * state        is answer found or not, it will indicate how many roots have been found
-     *              by values: ASL_HAS_NO_ROOT, ASL_HAS_A_ROOT, ASL_HAS_TWO_ROOTS, ASL_HAS_THREE_ROOTS
      *
      * RETURN:
      * pointer to an array of three elements, containing roots
@@ -264,8 +268,8 @@ double *asl_cubic_real_root(double a, double b, double c, double d, int verbose,
         double norm = -2 * sqrt(Q);
 
         x1 = norm * cos(theta / 3) - b / 3;
-        x2 = norm * cos((theta + 2.0 * M_PI) / 3) - b / 3;
-        x3 = norm * cos((theta - 2.0 * M_PI) / 3) - b / 3;
+        x2 = norm * cos((theta + 2.0 * ASL_PI) / 3) - b / 3;
+        x3 = norm * cos((theta - 2.0 * ASL_PI) / 3) - b / 3;
 
         // Sort x1, x2, x3 into increasing order
 

@@ -2,7 +2,7 @@
  *
  * ASL - Azadeh Scientific Library in C
  *
- * Copyright (C) 2019 Mohammad Mahdi Bgahbani Pourvahid
+ * Copyright (C) 2019 Mohammad Mahdi Baghbani Pourvahid
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -84,7 +84,7 @@ double asl_secant_root(const char *expression, double a, double b, double ete, d
      * Same license
      *
      * AUTHOR(S):
-     * Mohmmad Mahdi Baghbani Pourvahid
+     * Mohammad Mahdi Baghbani Pourvahid
      *
      * MODIFIED:
      * 1 April 2019

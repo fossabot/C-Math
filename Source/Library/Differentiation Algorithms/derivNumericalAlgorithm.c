@@ -2,7 +2,7 @@
  *
  * ASL - Azadeh Scientific Library in C
  *
- * Copyright (C) 2019 Mohammad Mahdi Bgahbani Pourvahid
+ * Copyright (C) 2019 Mohammad Mahdi Baghbani Pourvahid
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -139,7 +139,7 @@ double centralFirstDerivative_1_arg(const char *expression, double x, double del
             c2 * function_1_arg(expression, x - 2 * delta) + b2 * function_1_arg(expression, x - 1 * delta) +
             b1 * function_1_arg(expression, x + 1 * delta) + c1 * function_1_arg(expression, x + 2 * delta) +
             d1 * function_1_arg(expression, x + 3 * delta) + e1 * function_1_arg(expression, x + 4 * delta)) /
-           pow(delta, 1);
+           delta;
 } // end of centralFirstDerivative_1_arg function
 
 double centralSecondDerivative_1_arg(const char *expression, double x, double delta, int accuracy) {
