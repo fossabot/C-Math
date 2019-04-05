@@ -156,20 +156,20 @@ double *asl_cubic_real_root(double a, double b, double c, double d, int verbose,
         d /= a;
     } // end of if else
 
-    // q = Δ0, r = Δ1
+    // q = delta0, r = delta1
     double q = (b * b - 3 * c);
     double r = (2 * b * b * b - 9 * b * c + 27 * d);
 
     if (verbose == ASL_VERBOSE) {
-        printf("First, we calculate Δ0 and Δ1: Δ0 = %g, Δ1 = %g .\n"
-               "we define Δ with this equality: Δ1^2 − 4*Δ0^2 = −27* Δ  .\n", q, r);
+        printf("\nFirst, we calculate delta0 and delta1: delta0 = %g, delta1 = %g .\n"
+               "we define delta with this equality: delta1^2 - 4*delta0^2 = -27*delta.\n", q, r);
     } // end if(verbose == ASL_VERBOSE)
 
     double Q = q / 9;
     double R = r / 54;
 
     if (verbose == ASL_VERBOSE) {
-        printf("Then, we define the intermediate variables: Q = Δ0/9 = %g, R = Δ1/54 = %g .\n"
+        printf("Then, we define the intermediate variables: Q = delta0/9 = %g, R = delta1/54 = %g .\n"
                "The general cubic equation then becomes: x^3 - 3Qx + 2R = 0 .\n", Q, R);
     } // end if(verbose == ASL_VERBOSE)
 
@@ -183,7 +183,7 @@ double *asl_cubic_real_root(double a, double b, double c, double d, int verbose,
 
     if (q == 0 && r == 0) {
         if (verbose == ASL_VERBOSE) {
-            printf("Δ = 0 and Δ0 = 0, then the equation has a single 'real' root (which is a triple root).\n");
+            printf("delta = 0 and delta0 = 0, then the equation has a single 'real' root (which is a triple root).\n");
         } // end if(verbose == ASL_VERBOSE)
 
         *state = ASL_HAS_TRIPLE_ROOTS;
@@ -206,7 +206,7 @@ double *asl_cubic_real_root(double a, double b, double c, double d, int verbose,
          */
 
         if (verbose == ASL_VERBOSE) {
-            printf("Δ = 0 and Δ0 ≠ 0, then there are both a double 'real' root, and a simple 'real' root.\n");
+            printf("delta = 0 and delta0 != 0, then there are both a double 'real' root, and a simple 'real' root.\n");
         } // end if(verbose == ASL_VERBOSE)
 
         double sqrtQ = sqrt(Q);
@@ -259,7 +259,7 @@ double *asl_cubic_real_root(double a, double b, double c, double d, int verbose,
          */
 
         if (verbose == ASL_VERBOSE) {
-            printf("Δ > 0, then there are three distinct 'real' roots.\n");
+            printf("delta > 0, then there are three distinct 'real' roots.\n");
         } // end if(verbose == ASL_VERBOSE)
 
         double sgnR = (R >= 0 ? 1 : -1);
@@ -321,7 +321,7 @@ double *asl_cubic_real_root(double a, double b, double c, double d, int verbose,
          */
 
         if (verbose == ASL_VERBOSE) {
-            printf("Δ < 0, then there are one 'real' root and two complex roots.\n"
+            printf("delta < 0, then there are one 'real' root and two complex roots.\n"
                    "however this function only computes real root, and not the complex ones.\n");
         } // end if(verbose == ASL_VERBOSE)
 
