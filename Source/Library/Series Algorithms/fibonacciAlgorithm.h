@@ -1,0 +1,6 @@
+#ifndef C_MATH_FIBONACCIALGORITHM_H
+#define C_MATH_FIBONACCIALGORITHM_H
+
+long long int fibonacci(int n);
+
+#endif //C_MATH_FIBONACCIALGORITHM_H

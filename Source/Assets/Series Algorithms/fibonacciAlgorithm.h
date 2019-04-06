@@ -1,6 +1,0 @@
-#ifndef C_MATH_FIBONACCIALGORITHM_H
-#define C_MATH_FIBONACCIALGORITHM_H
-
-int fibonacci(unsigned int n);
-
-#endif //C_MATH_FIBONACCIALGORITHM_H
