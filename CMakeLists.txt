@@ -44,13 +44,6 @@ add_library(randomGenerator
 target_link_libraries(functions
         PRIVATE parser util)
 
-# OS specified options
-if (UNIX AND NOT APPLE)
-    # this linls math library for parser library to avoid "undefined refrence" error on *nix systems
-    target_link_libraries(parser
-            m)
-endif ()
-
 #-----------------------------------------------------------------------------------------------------------------------
 #                                              Functions Libraries
 #***********************************************************************************************************************
@@ -307,3 +300,16 @@ target_link_libraries(maxMinFinder
 
 #-----------------------------------------------------------------------------------------------------------------------
 #                                                 Series
+
+#-----------------------------------------------------------------------------------------------------------------------
+#                                           OS specific options
+
+if (UNIX AND NOT APPLE)
+    # this linls math library for parser library to avoid "undefined refrence" error on *nix systems
+    target_link_libraries(parser
+            PRIVATE m)
+
+    target_link_libraries(quadraticAlgorithm
+            PRIVATE m)
+
+endif ()

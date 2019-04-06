@@ -132,7 +132,7 @@ double asl_steffenson_root(const char *expression, double x, double ete, double 
     } // end of if
 
     // initializing variables
-    unsigned int iter = 1, ;
+    unsigned int iter = 1;
     double x2, x3, x_past;
     double ete_err = ete, ere_err = ere, tol_err = tol;
 
