@@ -204,9 +204,6 @@ double asl_secant_root(const char *expression, double a, double b, double ete, d
         // evaluate the function at point x, y3 = f(x)
         fx = function_1_arg(expression, x);
 
-        // tolerance error
-        tol_err = fabs(fx);
-
         if (verbose == ASL_VERBOSE) {
             printf("\nIteration number [#%d]: x%d = %g, f(x%d) = %g .\n", iter, iter, x, iter, fx);
         } // end of if verbose == ASL_VERBOSE
@@ -220,6 +217,9 @@ double asl_secant_root(const char *expression, double a, double b, double ete, d
         } else {
             ere_err = ere;
         } // end of zero-division guard
+
+        // tolerance error
+        tol_err = fabs(fx);
 
         // update variables for next iteration
         a = b;

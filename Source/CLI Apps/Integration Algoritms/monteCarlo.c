@@ -1,6 +1,6 @@
 #include "../../Library/Integration Algorithms/monteCarloIntegrationAlgorithm.h"
 #include "../../Library/Util/util.h"
-#include "../../Library/Util/configurations/asl_Configurations.h"
+#include "../../Library/Util/Configurations/asl_configurations.h"
 
 #include <stdio.h>
 #include <stdlib.h>

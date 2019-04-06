@@ -103,7 +103,7 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
      *
      * ARGUMENTS:
      * expressions  the function expression, it must be a string array like "x^2+1"
-     * x0           starting point
+     * x            starting point
      * ete          estimated true error
      * ere          estimated relative error
      * tol          tolerance error
@@ -264,7 +264,7 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
     } // end if(verbose == ASL_VERBOSE)
 
     // error has been set but reaches to maxiter, means algorithms didn't converge to a root
-    if (!(ete == 0 && ere == 0 && tol == 0) || (ete == 0 && ere == 0 && tol && iter > maxiter)) {
+    if (!(ete == 0 && ere == 0 && tol == 0) || (ete == 0 && ere == 0 && tol == 0 && iter > maxiter)) {
         // set state to 0 (false)
         *state = ASL_HAS_NO_ROOT;
     } // end of if
