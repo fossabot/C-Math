@@ -42,9 +42,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-double
-asl_falsePosition_root(const char *expression, double a, double b, double ete, double ere, double tol,
-                       unsigned int maxiter, int options, int verbose, int *state) {
+double asl_falsePosition_root(const char *expression, double a, double b, double ete, double ere, double tol,
+                              unsigned int maxiter, int options, int verbose, int *state) {
     /*
      * In mathematics, the false position method or regula falsi is a very old method for solving
 	 * an equation in one unknown, that, in modified form, is still in use. In simple terms, 

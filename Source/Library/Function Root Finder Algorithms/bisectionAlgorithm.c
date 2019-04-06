@@ -43,8 +43,7 @@
 #include <math.h>
 
 double asl_bisection_root(const char *expression, double a, double b, double ete, double ere, double tol,
-                          unsigned int maxiter,
-                          int verbose, int *state) {
+                          unsigned int maxiter, int verbose, int *state) {
     /*
      * The Bisection method in mathematics is a root-finding method that repeatedly bisects an interval and then selects
      * a sub-interval in which a root must lie for further processing. It is a very simple and robust method, but it is
