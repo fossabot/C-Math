@@ -34,6 +34,8 @@
  */
 
 #include "../Util/functions.h"
+#include "../Differentiation Algorithms/derivNumericalAlgorithm.h"
+#include "../Util/functions.h"
 #include "../Util/util.h"
 #include "../Util/Configurations/asl_configurations.h"
 
@@ -84,7 +86,7 @@ double asl_steffenson_root(const char *expression, double x, double ete, double 
      * Mohammad Mahdi Baghbani Pourvahid
      *
      * MODIFIED:
-     * 6 April 2019
+     * 9 April 2019
      *
      * REFERENCE(S):
      * https://en.wikipedia.org/wiki/Steffensen%27s_method
@@ -132,9 +134,9 @@ double asl_steffenson_root(const char *expression, double x, double ete, double 
     } // end of if
 
     // initializing variables
-    unsigned int iter = 1;
-    double x2, x3, x_past;
-    double ete_err = ete, ere_err = ere, tol_err = tol;
+    unsigned int iter = 1, dfx_counter = 2;
+    double x_new, fx_new, dfx, u, v;
+    double ete_err = ete, ere_err = ere, tol_err = tol, x_past = 0;
 
     while (iter <= maxiter) {
 
@@ -171,31 +173,100 @@ double asl_steffenson_root(const char *expression, double x, double ete, double 
             return x;
         } // end of tolerance check
 
-        // steffensen method
-        x_past = x;
-        x2 = fx;
-        x3 = function_1_arg(expression, x2);
-        x = x - pow((x2 - x), 2) / (x3 - 2 * x2 + x);
+        // calculate derivative of function in the given point
+        dfx = firstDerivative_1_arg(expression, x, ASL_EPSILON, ASL_CENTRAL_DIFFERENCE);
 
-        // calculate errors
-        ete_err = fabs(x - x_past);
+        DFX_LABEL: // LABEL for go to
+        // if derivative isn't equal to zero
+        if (dfx) {
 
-        if (x != 0) {
-            ere_err = fabs(ete_err / x);
-        } else {
-            ere_err = ere;
-        } // end of zero-division guard
+            // calculate new x by subtracting the derivative from x
+            x_new = x - fx / dfx;
 
-        // new fx
-        fx = function_1_arg(expression, x);
+            // calculate new y at new root estimate x
+            fx_new = function_1_arg(expression, x_new);
 
-        tol_err = fabs(fx);
+            if (verbose == ASL_VERBOSE) {
+                printf("\nIteration number [#%d]: f(x%d) = %g, f'(x%d) = %g, delta(x%d) = f(x%d) / f'(x%d) = %g\n"
+                       "x%d = x%d - delta(x%d) = %g , f(x%d) = %g.\n", iter, iter - 1, fx, iter - 1, dfx, iter - 1,
+                       iter - 1, iter - 1, fx / dfx, iter, iter - 1, iter - 1, x_new, iter, fx_new);
+            } // end of if verbose == ASL_VERBOSE
 
-        if (verbose == ASL_VERBOSE) {
-            printf("\nIn this iteration[#%d]: (x, fx) = (%g, %g) .\n", iter, x, fx);
-        } // end if(verbose == ASL_VERBOSE)
+            /*
+             * This is Newton's method with an Aitken "delta-squared"
+             * acceleration of the iterates. This can improve the convergence on
+             * multiple roots where the ordinary Newton algorithm is slow.
+             * x[i+1] = x[i] - f(x[i]) / f'(x[i])
+             *
+             * x_accelerated[i] = x[i] - (x[i+1] - x[i])**2 / (x[i+2] - 2*x[i+1] + x[i])
+             * We can only use the accelerated estimate after three iterations,
+             * and use the unaccelerated value until then.
+             */
 
-        iter++;
+            if (iter > 3) {
+                u = (x - x_past);
+                v = (x_new - 2 * x + x_past);
+
+                // avoid division by zero
+                if (v != 0) {
+                    /* accelerated value */
+                    x_new = x_past - u * u / v;
+                    fx_new = function_1_arg(expression, x_new);
+                    if (verbose == ASL_VERBOSE) {
+                        printf("Using Aitken \"delta-squared\" acceleration. (x, fx) = (%g, %g) .\n", x_new, fx_new);
+                    } // end of if verbose == ASL_VERBOSE
+                } // end of if else
+            } // end of if
+
+            // calculate errors
+            ete_err = fabs(x_new - x);
+
+            if (x != 0) {
+                ere_err = fabs(ete_err / x);
+            } else {
+                ere_err = ere;
+            } // end of zero-division guard
+
+            tol_err = fabs(fx_new);
+
+            // substitute variables for next iteration
+            x_past = x;
+            x = x_new;
+            fx = fx_new;
+            iter++;
+
+        } else { // if derivative is equal to zero
+
+            if (verbose == ASL_VERBOSE) {
+                if (dfx_counter == 2) {
+                    printf("f'(x) = 0, trying another differentiation algorithm.\n");
+                } else if (dfx_counter > 8) {
+                    printf("f'(x) = 0, this algorithm cannot find a root.\n");
+                } else {
+                    printf("using central derivation algorithm with %d order accuracy, still failed.\n",
+                           dfx_counter - 2);
+                } // end of if
+            } // end if(verbose == ASL_VERBOSE)
+
+            // try to get more precise derivative [up to eight order accuracy]
+            if (dfx_counter <= 8) {
+
+                // calculate new f'(x)
+                dfx = centralFirstDerivative_1_arg(expression, x, ASL_EPSILON, dfx_counter);
+                dfx_counter += 2;
+
+                // go back and check value
+                goto DFX_LABEL;
+            } else {
+                if (verbose == ASL_VERBOSE) {
+                    printf("Steffensen method can't solve f(x) = 0 if f'(x0) = 0 !\n"
+                           "check your function and if you think it has derivative\n"
+                           "then try to choose a better starting point x0 .\n");
+                } // end if(verbose == ASL_VERBOSE)
+                // go out of while loop
+                break;
+            } // end of if else
+        } // end of if(dfx)
     } // end of while loop
 
     if (verbose == ASL_VERBOSE) {

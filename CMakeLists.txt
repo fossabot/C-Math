@@ -113,7 +113,7 @@ add_library(steffensenAlgorithm
         "Source/Library/Function Root Finder Algorithms/steffensenAlgorithm.h")
 
 target_link_libraries(steffensenAlgorithm
-        PRIVATE functions util)
+        PRIVATE functions derivNumericalAlgorithm util)
 
 #***********************************************************************************************************************
 #                                            Integration Algorithms
