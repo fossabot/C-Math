@@ -96,7 +96,7 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
      * Mohammad Mahdi Baghbani Pourvahid
      *
      * MODIFIED:
-     * 1 April 2019
+     * 9 April 2019
      *
      * REFERENCE(S):
      * https://en.wikipedia.org/wiki/Newton%27s_method
@@ -198,8 +198,8 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
             fx_new = function_1_arg(expression, x_new);
 
             if (verbose == ASL_VERBOSE) {
-                printf("Iteration number [#%d]: f(x%d) = %g, f'(x%d) = %g, delta(x%d) = f(x%d) / f'(x%d) = %g\n"
-                       "x%d = x%d - delta(x%d) = %g , f(x%d) = %g.\n\n", iter, iter - 1, fx, iter - 1, dfx, iter - 1,
+                printf("\nIteration number [#%d]: f(x%d) = %g, f'(x%d) = %g, delta(x%d) = f(x%d) / f'(x%d) = %g\n"
+                       "x%d = x%d - delta(x%d) = %g , f(x%d) = %g.\n", iter, iter - 1, fx, iter - 1, dfx, iter - 1,
                        iter - 1, iter - 1, fx / dfx, iter, iter - 1, iter - 1, x_new, iter, fx_new);
             } // end of if verbose == ASL_VERBOSE
 
@@ -223,7 +223,7 @@ double asl_newtonRaphson_root(const char *expression, double x, double ete, doub
 
             if (verbose == ASL_VERBOSE) {
                 if (dfx_counter == 2) {
-                    printf("f'(x) = 0, trying another differentiation algorithm\n");
+                    printf("f'(x) = 0, trying another differentiation algorithm.\n");
                 } else if (dfx_counter > 8) {
                     printf("f'(x) = 0, this algorithm cannot find a root.\n");
                 } else {
