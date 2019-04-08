@@ -108,11 +108,11 @@ add_library(secantAlgorithm
 target_link_libraries(secantAlgorithm
         PRIVATE functions util)
 
-add_library(steffensonAlgorithm
+add_library(steffensenAlgorithm
         "Source/Library/Function Root Finder Algorithms/steffensenAlgorithm.c"
         "Source/Library/Function Root Finder Algorithms/steffensenAlgorithm.h")
 
-target_link_libraries(steffensonAlgorithm
+target_link_libraries(steffensenAlgorithm
         PRIVATE functions util)
 
 #***********************************************************************************************************************
@@ -237,6 +237,12 @@ add_executable(secant
 
 target_link_libraries(secant
         PRIVATE secantAlgorithm util)
+
+add_executable(steffensen
+        "Source/CLI Apps/Function Root Finder Algorithms/steffensen.c")
+
+target_link_libraries(steffensen
+        PRIVATE steffensenAlgorithm util)
 
 #-----------------------------------------------------------------------------------------------------------------------
 #                                            Integration Algorithms
